@@ -287,6 +287,7 @@ tbody td { padding: 7px 12px; vertical-align: middle; }
 <!-- HEADER -->
 <div id="header">
   <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#4e5a72;text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:3px;white-space:nowrap;transition:color .15s,border-color .15s;" onmouseover="this.style.color='#c8992a';this.style.borderColor='rgba(200,153,42,0.35)'" onmouseout="this.style.color='#4e5a72';this.style.borderColor='rgba(255,255,255,0.08)'">← Suite</a>
+  <a href="https://github.com/canton-foundation/cips" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#4e5a72;text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:3px;white-space:nowrap;transition:color .15s,border-color .15s;" onmouseover="this.style.color='#c8992a';this.style.borderColor='rgba(200,153,42,0.35)'" onmouseout="this.style.color='#4e5a72';this.style.borderColor='rgba(255,255,255,0.08)'"><svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor" style="flex-shrink:0"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>CIP Repository</a>
   <div>
     <h1>Canton <span>CIP</span> Intelligence</h1>
     <div class="h-sub">Canton Improvement Proposals · 94 of 105 in repository · Feb 2026</div>
@@ -659,7 +660,7 @@ function renderBrowser() {
     const isExp = expandedId === c.id;
     return `
     <tr class="${isExp?'expanded':''}" onclick="toggleRow('${c.id}')">
-      <td><span class="cip-id">${c.id}</span></td>
+      <td><a href="https://github.com/canton-foundation/cips/blob/main/${c.id.toLowerCase()}/${c.id.toLowerCase()}.md" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="text-decoration:none"><span class="cip-id" style="cursor:pointer;border-bottom:1px dotted rgba(200,153,42,0.4);transition:border-color .15s;" onmouseover="this.style.borderBottomColor='rgba(200,153,42,0.9)'" onmouseout="this.style.borderBottomColor='rgba(200,153,42,0.4)'">${c.id} ↗</span></a></td>
       <td><span class="cip-title">${c.title.replace(' (Withdrawn)','').replace(' (Rejected)','')}</span></td>
       <td><span class="track-pill ${trackColor(c.track)}">${c.track}</span></td>
       <td><span class="cip-author">${c.author}</span></td>
@@ -671,6 +672,7 @@ function renderBrowser() {
       <div class="expand-inner">
         <div class="ei-block"><h4>Summary</h4><p>${c.desc}</p></div>
         <div class="ei-block"><h4>Commitments</h4><ul>${c.commitments.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+        <div class="ei-block" style="display:flex;align-items:flex-end"><a href="https://github.com/canton-foundation/cips/blob/main/${c.id.toLowerCase()}/${c.id.toLowerCase()}.md" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#c8992a;text-decoration:none;padding:4px 10px;border:1px solid rgba(200,153,42,0.35);border-radius:3px;" onmouseover="this.style.background='rgba(200,153,42,0.08)'" onmouseout="this.style.background='transparent'">View on GitHub ↗</a></div>
       </div>
     </td></tr>`;
   }).join('');
