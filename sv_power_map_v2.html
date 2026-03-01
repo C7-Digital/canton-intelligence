@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canton Network — Super Validator Power Map</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#06080f;--surface:#0c1121;--surface2:#121a2e;--surface3:#1a2540;
+  --border:rgba(255,255,255,0.07);--text:#e8eaf0;--muted:#6b7594;
+  --gold:#c9a84c;--blue:#4c7fc9;--active:#4ec994;--escrow:#4c7fc9;
+}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif}
+#app{display:flex;flex-direction:column;height:100vh}
+#header{flex-shrink:0;padding:13px 24px 11px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:rgba(6,8,15,.96);backdrop-filter:blur(12px);z-index:20}
+#body{flex:1;display:flex;overflow:hidden}
+#sidebar{width:290px;flex-shrink:0;border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
+#main{flex:1;position:relative;overflow:hidden}
+
+/* HEADER */
+.logo h1{font-family:'DM Serif Display',serif;font-size:17px;color:var(--text)}
+.logo p{font-size:9.5px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+.hstats{display:flex;gap:20px}
+.hstat{text-align:right}
+.hstat-n{font-family:'DM Serif Display',serif;font-size:19px;color:var(--gold);line-height:1}
+.hstat-l{font-size:8.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-family:'DM Mono',monospace}
+
+/* SIDEBAR */
+#filter-tabs{display:flex;border-bottom:1px solid var(--border);flex-shrink:0}
+.ftab{flex:1;padding:8px 0;text-align:center;font-size:9.5px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:.15s}
+.ftab:hover{color:var(--text)}
+.ftab.active{color:var(--gold);border-bottom-color:var(--gold)}
+#sv-list{flex:1;overflow-y:auto;padding:6px}
+#sv-list::-webkit-scrollbar{width:3px}
+#sv-list::-webkit-scrollbar-thumb{background:var(--border)}
+.sv-item{padding:7px 10px;border-radius:4px;cursor:pointer;margin-bottom:2px;transition:.12s;border:1px solid transparent;position:relative}
+.sv-item:hover{background:var(--surface);border-color:var(--border)}
+.sv-item.selected{background:var(--surface2);border-color:var(--gold)}
+.sv-item-name{font-size:12px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:60px}
+.sv-item-meta{font-size:9.5px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:1px}
+.sv-item-badges{position:absolute;right:8px;top:7px;display:flex;gap:3px;align-items:center}
+.sv-item-w{font-family:'DM Serif Display',serif;font-size:13px;line-height:1}
+.sv-mini-bar{width:32px;height:3px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:2px;overflow:hidden}
+.sv-mini-fill{height:3px;background:var(--active);border-radius:2px}
+
+/* DETAIL PANEL */
+#detail{position:absolute;top:0;right:0;width:330px;height:100%;background:var(--surface);border-left:1px solid var(--border);padding:18px;overflow-y:auto;z-index:10;transform:translateX(100%);transition:transform .25s ease}
+#detail.open{transform:translateX(0)}
+#detail-close{position:absolute;top:11px;right:12px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:4px}
+#detail-close:hover{color:var(--text)}
+.d-badge{display:inline-block;padding:2px 7px;border-radius:3px;font-size:9px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
+.d-name{font-family:'DM Serif Display',serif;font-size:21px;color:var(--text);line-height:1.2;margin-bottom:4px}
+.d-sector{font-size:11px;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:5px}
+.d-sector-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+/* Weight breakdown */
+.d-weight-block{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:12px;margin-bottom:14px}
+.d-total-row{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:10px}
+.d-total-label{font-size:9px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.d-total-val{font-family:'DM Serif Display',serif;font-size:34px;color:var(--gold);line-height:1}
+.d-pct{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace}
+.d-bar-track{background:rgba(255,255,255,.06);border-radius:4px;height:8px;overflow:hidden;margin-bottom:8px;position:relative}
+.d-bar-total{height:8px;border-radius:4px;position:absolute;left:0;top:0;opacity:.2}
+.d-bar-active{height:8px;border-radius:4px;position:absolute;left:0;top:0;background:var(--active)}
+.d-split-row{display:flex;gap:10px}
+.d-split-item{flex:1}
+.d-split-label{font-size:9px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:2px}
+.d-split-val{font-size:14px;font-family:'DM Serif Display',serif}
+.d-split-cip{font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:4px}
+
+.d-field{margin-bottom:9px}
+.d-field-label{font-size:9px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.09em;margin-bottom:2px}
+.d-field-val{font-size:11.5px;color:var(--text);line-height:1.45}
+.d-field-val a{color:var(--blue);text-decoration:none}
+.d-field-val a:hover{color:var(--gold)}
+.d-node-badge{display:inline-block;padding:1px 6px;border-radius:3px;font-size:9px;font-family:'DM Mono',monospace;background:rgba(255,255,255,.07);color:var(--muted);margin-right:4px;margin-bottom:3px}
+.d-commitments{margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.d-commit-item{font-size:11px;color:#8892aa;padding:4px 0 4px 10px;border-left:2px solid;margin-bottom:3px;line-height:1.4}
+.d-section-title{font-size:9px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.09em;margin-bottom:7px;margin-top:12px}
+
+/* SVG */
+#chart{width:100%;height:100%}
+.node{cursor:pointer}
+.node text{pointer-events:none;dominant-baseline:central;text-anchor:middle}
+.node .n-name{fill:white;font-family:'DM Sans',sans-serif;font-weight:500}
+.node .n-weight{fill:rgba(255,255,255,.5);font-family:'DM Mono',monospace}
+
+/* LEGEND */
+#legend{position:absolute;bottom:14px;left:14px;pointer-events:none;display:flex;flex-direction:column;gap:10px}
+.leg-card{background:rgba(12,17,33,.88);border:1px solid var(--border);border-radius:6px;padding:11px 13px;backdrop-filter:blur(8px)}
+.leg-title{font-size:8.5px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.leg-title-icon{font-size:10px}
+.leg-rows{display:flex;flex-direction:column;gap:3px}
+.leg-row{display:flex;align-items:center;gap:6px;font-size:9px;color:var(--muted);font-family:'DM Mono',monospace}
+.leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+/* HOW TO READ */
+#reading-guide{position:absolute;top:54px;right:14px;width:200px;pointer-events:none;
+  background:rgba(12,17,33,.88);border:1px solid var(--border);border-radius:6px;
+  padding:12px 13px;backdrop-filter:blur(8px)}
+.rg-title{font-size:8.5px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px}
+.rg-row{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.rg-row:last-child{margin-bottom:0}
+.rg-svg{flex-shrink:0}
+.rg-text{}
+.rg-label{font-size:10px;font-weight:500;color:var(--text);line-height:1.3}
+.rg-sub{font-size:8.5px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:1px;line-height:1.3}
+.rg-divider{border-top:1px solid var(--border);margin:8px 0}
+
+/* STATUS LEGEND */
+.sleg-row{display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.sleg-row:last-child{margin-bottom:0}
+.sleg-badge{font-size:8px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em;padding:1px 6px;border-radius:3px;flex-shrink:0}
+.sleg-desc{font-size:9px;color:var(--muted);line-height:1.3}
+
+/* VIEW TABS */
+#view-tabs{position:absolute;top:13px;left:14px;display:flex;gap:5px;z-index:5}
+.vtab{padding:4px 11px;font-size:9.5px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.07em;border:1px solid var(--border);border-radius:3px;cursor:pointer;color:var(--muted);transition:.12s;background:rgba(6,8,15,.7);backdrop-filter:blur(8px)}
+.vtab:hover{color:var(--text);border-color:var(--muted)}
+.vtab.active{color:var(--gold);border-color:var(--gold);background:rgba(201,168,76,.08)}
+
+/* TABLE */
+#table-view{display:none;width:100%;height:100%;overflow:auto;padding:18px}
+#table-view table{width:100%;border-collapse:collapse;font-size:11.5px}
+#table-view th{padding:7px 11px;text-align:left;font-size:8.5px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);cursor:pointer}
+#table-view th:hover{color:var(--text)}
+#table-view th.sort-asc::after{content:' ↑'}
+#table-view th.sort-desc::after{content:' ↓'}
+#table-view td{padding:6px 11px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text)}
+#table-view tr:hover td{background:var(--surface)}
+.t-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.t-total{font-family:'DM Serif Display',serif;font-size:14px;color:var(--gold)}
+.t-active{color:var(--active);font-family:'DM Mono',monospace;font-size:11px}
+.t-escrow{color:var(--blue);font-family:'DM Mono',monospace;font-size:11px}
+.t-cip{font-family:'DM Mono',monospace;font-size:9.5px;color:var(--blue)}
+.t-status{font-size:8.5px;font-family:'DM Mono',monospace;padding:1px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:.05em}
+.s-final{background:rgba(78,201,148,.15);color:#4ec994}
+.s-approved{background:rgba(76,127,201,.15);color:#63b3ed}
+.s-founding{background:rgba(201,168,76,.15);color:var(--gold)}
+.s-rejected{background:rgba(255,80,80,.1);color:#fc8181}
+.t-node{font-size:9px;color:var(--muted);font-family:'DM Mono',monospace}
+.diff-up{color:#fc8181;font-size:9px}
+.diff-dn{color:#68d391;font-size:9px}
+.diff-eq{color:var(--muted);font-size:9px}
+</style>
+</head>
+<body>
+<div id="app">
+<div id="header">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#4e5a72;text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:3px;white-space:nowrap;transition:color .15s,border-color .15s;" onmouseover="this.style.color='#c8992a';this.style.borderColor='rgba(200,153,42,0.35)'" onmouseout="this.style.color='#4e5a72';this.style.borderColor='rgba(255,255,255,0.08)'">← Suite</a>
+  <div class="logo">
+    <h1>Canton Network — Super Validator Power Map</h1>
+    <p>Live on-chain weights (approved-sv-id-values.yaml) &bull; CIP governance source &bull; Feb 2026</p>
+  </div>
+  <div class="hstats">
+    <div class="hstat"><div class="hstat-n" id="stat-svs">0</div><div class="hstat-l">SV Entities</div></div>
+    <div class="hstat"><div class="hstat-n" id="stat-total">0</div><div class="hstat-l">Total Live Weight</div></div>
+    <div class="hstat"><div class="hstat-n" id="stat-active">0%</div><div class="hstat-l">Active vs Escrowed</div></div>
+    <div class="hstat"><div class="hstat-n" id="stat-top5">0%</div><div class="hstat-l">Top-5 Concentration</div></div>
+  </div>
+</div>
+<div id="body">
+  <div id="sidebar">
+    <div id="filter-tabs">
+      <div class="ftab active" data-filter="all">All</div>
+      <div class="ftab" data-filter="Final">Final</div>
+      <div class="ftab" data-filter="Approved">Approved</div>
+      <div class="ftab" data-filter="Founding">Founding</div>
+    </div>
+    <div id="sv-list"></div>
+  </div>
+  <div id="main">
+    <div id="view-tabs">
+      <div class="vtab active" data-view="bubble">Bubble</div>
+      <div class="vtab" data-view="table">Table</div>
+    </div>
+    <svg id="chart"></svg>
+    <div id="table-view"></div>
+    <div id="legend"></div>
+    <div id="reading-guide"></div>
+    <div id="detail"><button id="detail-close" onclick="closeDetail()">✕</button><div id="detail-content"></div></div>
+  </div>
+</div>
+</div>
+<script>
+// ═══════════════════════════════════════════════════════════════
+// SECTORS
+// ═══════════════════════════════════════════════════════════════
+const SECTORS = {
+  "TradFi / Market Infrastructure": "#e53e3e",
+  "Digital Asset Custody":          "#4c7fc9",
+  "Stablecoin / Payments":          "#38a169",
+  "Data & Analytics / Oracle":      "#d69e2e",
+  "Compliance & Security":          "#f6e05e",
+  "Blockchain Infrastructure":      "#805ad5",
+  "Investment / Ecosystem":         "#2c7a7b",
+  "Interoperability":               "#ed8936",
+};
+const sc = s => SECTORS[s] || '#6b7594';
+
+// ═══════════════════════════════════════════════════════════════
+// DATA  — liveWeight = active+escrow from YAML  |  activeWeight = actively minting
+//         cipMax = what the CIP authorised      |  node = which SV node hosts it
+// ═══════════════════════════════════════════════════════════════
+const SVS = [
+// ── TradFi / Market Infrastructure ──────────────────────────────────────────
+{name:"Digital Asset",       liveWeight:31.85, activeWeight:31.85, cipMax:31.85,   status:"Founding", sector:"TradFi / Market Infrastructure", cip:"Founding (2 nodes)",    author:"—",                                     approved:"Jul 2024",  node:"Digital-Asset-1 + Digital-Asset-2", url:"https://www.digitalasset.com",  description:"Creator of Daml and Canton Network. Operates two SV nodes (Digital-Asset-1 & Digital-Asset-2) each with 15.925 weight — the largest single-entity governance bloc on the network.", commitments:["Operate 2 SV nodes (15.925 each)","Maintain Daml/Splice open-source codebase","Lead protocol governance & GSF"]},
+{name:"Broadridge",          liveWeight:10.00, activeWeight:10.00, cipMax:10,   status:"Final",    sector:"TradFi / Market Infrastructure", cip:"CIP-0009",              author:"Eric Saraniecki",                       approved:"Pre-launch 2024", node:"GSF (extraBeneficiary)", url:"https://www.broadridge.com", description:"Global fintech leader whose Distributed Ledger Repo (DLR) platform processes $280B+ per day / $8T+ per month in tokenised US Treasury repo transactions on Canton.", commitments:["Weight 10 via GSF node","Run DLR repo platform on Canton","Support network governance"]},
+{name:"Tradeweb",            liveWeight:10.00, activeWeight:10.00, cipMax:10,   status:"Final",    sector:"TradFi / Market Infrastructure", cip:"CIP-0018",              author:"Eric Saraniecki",                       approved:"Pre-launch 2024", node:"Tradeweb-Markets-1", url:"https://www.tradeweb.com", description:"Global electronic marketplace for bonds, derivatives, ETFs — $2T+ daily volume. Led the first on-chain weekend repo transaction on Canton (Aug 2025) alongside Bank of America, Circle, and Citadel Securities.", commitments:["Operate own SV node (10.0)","Integrate fixed income trading workflows on Canton"]},
+{name:"C7 Tech",             liveWeight:10.58, activeWeight:10.58, cipMax:10,   status:"Final",    sector:"TradFi / Market Infrastructure", cip:"CIP-0019",              author:"Chris Zuehlke",                         approved:"Pre-launch 2024", node:"C7-Technology-Services-Limited", url:"", description:"Founded by 7RIDGE. Operates as C7 Technology Services Limited on-chain (formerly the '7RIDGE' CIP placeholder). Weight of 10.575 slightly exceeds the CIP-0019 max of 10.", commitments:["Operate own SV node (10.575)","Bring institutional capital to Canton"]},
+{name:"Talos",               liveWeight:6.41,  activeWeight:5.41,  cipMax:6.5,  status:"Approved", sector:"TradFi / Market Infrastructure", cip:"CIP-0085",              author:"Anton Katz",                            approved:"~Oct 2025",  node:"GSF (active+escrow)", url:"https://talos.com", description:"Institutional digital asset trading infrastructure provider. Live weight 5.4083 (active via CoinMetrics-validator-1 party) + 1.0 in escrow = 6.4083. CIP max was 6.5.", commitments:["5.4083 active weight earned","1.0 in escrow","Integrate Canton Coin into Talos trading infra","Bring institutional trading workflows on-chain"]},
+{name:"DTCC",                liveWeight:10.00, activeWeight:0,     cipMax:10,   status:"Approved", sector:"TradFi / Market Infrastructure", cip:"CIP-0083",              author:"Eric Saraniecki",                       approved:"~Dec 2025",  node:"GSF (escrow)", url:"https://www.dtcc.com", description:"World's largest securities settlement organisation, processing $2.5 quadrillion annually. Entire weight 10.0 in escrow via DTCC-ghost-1 on GhostSV-validator-1.", commitments:["Weight 10 fully in escrow","Support digital securities settlement on Canton","Explore tokenised post-trade infrastructure"]},
+{name:"Nasdaq",              liveWeight:10.00, activeWeight:0,     cipMax:10,   status:"Approved", sector:"TradFi / Market Infrastructure", cip:"CIP-0097",              author:"Eric Saraniecki",                       approved:"~Jan 2026",  node:"GSF (escrow)", url:"https://www.nasdaq.com", description:"Global exchange and market infrastructure company. Entire weight 10.0 in escrow. Milestone-based SV participation aligned to Nasdaq's digital asset infrastructure and regulated tokenisation work.", commitments:["Weight 10 fully in escrow","Milestone verification via Tokenomics & Accountability Committees"]},
+// ── Digital Asset Custody ───────────────────────────────────────────────────
+{name:"Copper",              liveWeight:1.00,  activeWeight:1.00,  cipMax:1,    status:"Final",    sector:"Digital Asset Custody",          cip:"CIP-0015",              author:"Eric Saraniecki",                       approved:"Pre-launch 2024", node:"GSF (extraBeneficiary)", url:"https://copper.co", description:"London-based MPC digital asset custody and prime brokerage. Weight 1.0 active via GSF node.", commitments:["Weight 1.0 active via GSF","Provide MPC custody for Canton Coin"]},
+{name:"Copper Clearloop",    liveWeight:1.00,  activeWeight:1.00,  cipMax:1,    status:"Final",    sector:"Digital Asset Custody",          cip:"CIP-0039",              author:"Eric Saraniecki",                       approved:"~Jan 2025",  node:"GSF (shared copper-mainnet-validator)", url:"", description:"Copper's ClearLoop off-exchange settlement network. Uses same validator party ID as Copper (copper-mainnet-validator) — both weight 1 active via GSF.", commitments:["Weight 1.0 active","Integrate ClearLoop settlement with Canton"]},
+{name:"Dfns",                liveWeight:1.00,  activeWeight:1.00,  cipMax:1,    status:"Final",    sector:"Digital Asset Custody",          cip:"CIP-0016",              author:"Eric Saraniecki",                       approved:"Pre-launch 2024", node:"GSF (extraBeneficiary)", url:"https://www.dfns.co", description:"Paris-based MPC wallet-as-a-service provider. Weight 1.0 active via GSF node.", commitments:["Weight 1.0 active via GSF","Integrate Canton wallet-as-a-service"]},
+{name:"MPCH",                liveWeight:1.25,  activeWeight:1.25,  cipMax:1,    status:"Final",    sector:"Digital Asset Custody",          cip:"CIP-0017",              author:"Eric Saraniecki",                       approved:"Pre-launch 2024", node:"MPC-Holding-Inc (own node)", url:"", description:"MPC custody specialist operating its own SV node (MPC-Holding-Inc) at 14.0 total weight. MPCH itself earns 1.25 (1.0 + 0.25) from two user accounts. Also hosts Lukka, HexTrust, Blockdaemon, and Tharimmune escrows.", commitments:["Own SV node operator (14.0 total)","1.25 weight earned (1.0 + 0.25)","Hosts escrow for HexTrust, Blockdaemon, Tharimmune"]},
+{name:"Taurus",              liveWeight:5.00,  activeWeight:3.00,  cipMax:5,    status:"Approved", sector:"Digital Asset Custody",          cip:"CIP-0077",              author:"Victor Busson",                         approved:"~Oct 2025",  node:"GSF (active+escrow)", url:"https://www.taurus.ch", description:"Swiss FINMA-licensed digital asset infrastructure provider. 3.0 active (Taurus-Wallet-1) + 2.0 escrow = 5.0 total. Matches CIP max exactly.", commitments:["3.0 active weight earned","2.0 in escrow","Integrate Canton Token Standard into Taurus-PROTECT","Onboard ≥3 institutional clients"]},
+{name:"Fireblocks",          liveWeight:4.08,  activeWeight:2.08,  cipMax:5,    status:"Approved", sector:"Digital Asset Custody",          cip:"CIP-0072",              author:"Eric Saraniecki",                       approved:"~Oct 2025",  node:"GSF (active+escrow)", url:"https://www.fireblocks.com", description:"Global institutional MPC custody market leader. 2.08 active (fb-linkprd-1) + 2.0 escrow = 4.08 total. Notably below CIP max of 5.0.", commitments:["2.08 active weight earned","2.0 in escrow","CIP max: 5.0 (0.92 not yet deployed)","Support Canton Token Standard in Fireblocks Workspace"]},
+{name:"BitGo",               liveWeight:5.00,  activeWeight:0,     cipMax:5,    status:"Approved", sector:"Digital Asset Custody",          cip:"CIP-0074",              author:"Eric Saraniecki",                       approved:"2025-08-27", node:"GSF (escrow)", url:"https://www.bitgo.com", description:"Largest independent digital asset custodian and qualified trust company. Entire weight 5.0 in escrow (BitGo-ghost-1). No milestones completed yet.", commitments:["5.0 fully in escrow","Integrate CIP-0056 token standard","Onboard institutional clients within 180 days"]},
+{name:"Zodia Custody",       liveWeight:5.00,  activeWeight:0,     cipMax:5,    status:"Approved", sector:"Digital Asset Custody",          cip:"CIP-0075",              author:"Eric Saraniecki",                       approved:"~Sep 2025",  node:"GSF (escrow)", url:"", description:"Standard Chartered-backed institutional crypto custodian. Entire weight 5.0 in escrow (Zodia-ghost-1).", commitments:["5.0 fully in escrow","Provide qualified custody for Canton Coin","Bring institutional clients"]},
+{name:"Ledger",              liveWeight:5.00,  activeWeight:2.00,  cipMax:5,    status:"Final",    sector:"Digital Asset Custody",          cip:"CIP-0069",              author:"Eric Saraniecki",                       approved:"~Aug 2025",  node:"GSF (active+escrow)", url:"https://www.ledger.com", description:"Hardware wallet company with 6M+ devices. 2.0 active (ledger-ledgerops-2) + 3.0 escrow = 5.0. Matches CIP max.", commitments:["2.0 active weight earned","3.0 in escrow","Support Canton Coin in Ledger Live"]},
+{name:"Hex Trust",           liveWeight:3.00,  activeWeight:0,     cipMax:3,    status:"Approved", sector:"Digital Asset Custody",          cip:"CIP-0087",              author:"Giorgia Pellizzari, Alessio Quaglini",   approved:"~Nov 2025",  node:"MPCH node (escrow)", url:"https://hextrust.com", description:"Asia-based regulated digital asset custodian (HK, EU, UAE). Entire weight 3.0 in escrow via MPCH's node (HexTrust-ghost-1).", commitments:["3.0 fully in escrow via MPCH node","Integrate Canton Token Standard","Drive institutional adoption in Asia"]},
+// ── Stablecoin / Payments ────────────────────────────────────────────────────
+{name:"Circle",              liveWeight:10.00, activeWeight:10.00, cipMax:10,   status:"Final",    sector:"Stablecoin / Payments",          cip:"CIP-0041",              author:"Eric Saraniecki",                       approved:"~Feb 2025",  node:"GSF (extraBeneficiary)", url:"https://www.circle.com", description:"Issuer of USDC. Weight 10.0 fully active via circle-validator-1. Led the first on-chain weekend repo transaction in August 2025.", commitments:["10.0 fully active","Deploy USDC natively on Canton","Drive stablecoin-based settlement workflows"]},
+{name:"Zero Hash",           liveWeight:7.50,  activeWeight:3.00,  cipMax:7.5,  status:"Approved", sector:"Stablecoin / Payments",          cip:"CIP-0060",              author:"Eric Saraniecki",                       approved:"~Jun 2025",  node:"GSF (active+escrow)", url:"https://zerohash.com", description:"US-regulated crypto-as-a-service infrastructure. 3.0 active (zerohash-validator-1) + 4.5 escrow = 7.5 total. Matches CIP max. Modified by CIP-0099.", commitments:["3.0 active weight earned","4.5 in escrow","Provide on/off-ramp infrastructure for Canton"]},
+{name:"Ubyx",                liveWeight:4.95,  activeWeight:2.95,  cipMax:5,    status:"Final",    sector:"Stablecoin / Payments",          cip:"CIP-0071",              author:"Tony McLaughlin",                       approved:"~Aug 2025",  node:"GSF (active+escrow)", url:"", description:"Stablecoin clearing system. 2.95 active (Ubyx-validator-1) + 2.0 escrow = 4.95. Slightly below CIP max of 5.0 (0.05 undeployed, shown in GhostSV comment).", commitments:["2.95 active weight earned","2.0 in escrow","Build stablecoin clearing on Canton"]},
+{name:"USDT0",               liveWeight:10.00, activeWeight:0,     cipMax:10,   status:"Approved", sector:"Stablecoin / Payments",          cip:"CIP-0090",              author:"Eric Saraniecki",                       approved:"~Nov 2025",  node:"GSF (escrow)", url:"", description:"Omnichain USDT layer built on LayerZero by Everdawn Labs, backed by Tether. Entire weight 10.0 in escrow (USDT0-ghost-1). Outcome-linked milestones.", commitments:["10.0 fully in escrow","Deploy USDT0 on Canton","Achieve $500M+ TVL milestones"]},
+// ── Data & Analytics / Oracle ────────────────────────────────────────────────
+{name:"Chainlink",           liveWeight:10.50, activeWeight:7.00,  cipMax:10.5, status:"Final",    sector:"Data & Analytics / Oracle",      cip:"CIP-0061 + CIP-0065",  author:"Thodoris Karakostas / Eric Saraniecki",  approved:"Sep 2025",   node:"GSF (active+escrow)", url:"https://chain.link", description:"Leading decentralised oracle network. 7.0 active (Chainlink-Mainnet-1) + 0.5 escrow (CIP-0061) + 3.0 escrow (CIP-0065) = 10.5 total — slightly exceeds the 7.5+3 CIP authorisation due to partial unlock timing.", commitments:["7.5 from CIP-0061 (7.0 active + 0.5 escrow)","3.0 from CIP-0065 (all escrow)","Deploy Data Streams, SmartData, CCIP on Canton"]},
+{name:"Kaiko",               liveWeight:6.50,  activeWeight:6.50,  cipMax:6.5,  status:"Final",    sector:"Data & Analytics / Oracle",      cip:"CIP-0063",              author:"Ambre Soubiran",                        approved:"~Oct 2025",  node:"GSF (extraBeneficiary)", url:"https://www.kaiko.com", description:"Institutional crypto market data provider. Entire 6.5 weight active (kaiko-mainnet-1). Designated reference price feed provider for CC post-listing (CIP-0092).", commitments:["6.5 fully active","Provide CC reference price feed","Deliver institutional market data"]},
+{name:"Coin Metrics",        liveWeight:1.00,  activeWeight:1.00,  cipMax:1,    status:"Final",    sector:"Data & Analytics / Oracle",      cip:"CIP-0046",              author:"Eric Saraniecki",                       approved:"~Feb 2025",  node:"GSF (extraBeneficiary)", url:"https://coinmetrics.io", description:"Institutional crypto data provider. 1.0 active via CoinMetrics-validator-1. Note: Talos also uses this same party ID for its active weight — an unusual shared-ID arrangement.", commitments:["1.0 fully active","Provide on-chain analytics for Canton Coin","Publish Canton network research"]},
+{name:"Lukka",               liveWeight:0.75,  activeWeight:0.75,  cipMax:1,    status:"Final",    sector:"Data & Analytics / Oracle",      cip:"CIP-0032",              author:"Eric Saraniecki",                       approved:"~Dec 2024",  node:"MPCH node (hosted wallet)", url:"https://lukka.tech", description:"Enterprise crypto accounting and tax firm. Live weight 0.75 (hosted as MPCH wallet user). Lower than CIP max of 1.0.", commitments:["0.75 active via MPCH-hosted wallet","Provide crypto accounting for Canton assets"]},
+{name:"Bitwave",             liveWeight:1.00,  activeWeight:1.00,  cipMax:1,    status:"Final",    sector:"Data & Analytics / Oracle",      cip:"CIP-0055",              author:"Eric Saraniecki",                       approved:"~Mar 2025",  node:"GSF (extraBeneficiary)", url:"https://www.bitwave.io", description:"Enterprise crypto accounting and payments platform. Building accounts payable, intercompany payments, and reconciliation workflows using Canton Coin and USDC.", commitments:["1.0 fully active","Build Canton Coin AP payment workflows","Integrate ERP systems with Canton"]},
+{name:"The Tie",             liveWeight:1.00,  activeWeight:1.00,  cipMax:1,    status:"Founding", sector:"Data & Analytics / Oracle",      cip:"Founding (via GSF)",    author:"—",                                     approved:"Jul 2024",   node:"GSF (extraBeneficiary)", url:"https://thetie.io", description:"Institutional crypto data and analytics platform. Weight 1.0 active via the_tie_validator (GSF extraBeneficiary). Not explicitly named in a standalone governance CIP.", commitments:["1.0 active via GSF node","Provide market intelligence and analytics for Canton"]},
+// ── Compliance & Security ────────────────────────────────────────────────────
+{name:"TRM Labs",            liveWeight:2.50,  activeWeight:2.50,  cipMax:3,    status:"Final",    sector:"Compliance & Security",          cip:"CIP-0043",              author:"Eric Saraniecki",                       approved:"~Feb 2025",  node:"GSF (extraBeneficiary)", url:"https://www.trmlabs.com", description:"Blockchain intelligence and AML platform. Live weight 2.5 — notably below the commonly cited max of 3.0. The YAML is the definitive on-chain source.", commitments:["2.5 active (below CIP implied max of 3)","Provide on-chain AML monitoring for Canton"]},
+{name:"Elliptic",            liveWeight:0.50,  activeWeight:0.50,  cipMax:0.5,  status:"Final",    sector:"Compliance & Security",          cip:"CIP-0044",              author:"Eric Saraniecki",                       approved:"~Feb 2025",  node:"GSF (extraBeneficiary)", url:"https://www.elliptic.co", description:"Blockchain analytics and AML compliance firm. Weight 0.5 active via Elliptic-validator-1. Matches CIP-0044 Tier 4 allocation.", commitments:["0.5 fully active","Provide blockchain analytics for Canton","Deliver AML compliance tools"]},
+{name:"Quantstamp",          liveWeight:1.00,  activeWeight:1.00,  cipMax:1,    status:"Final",    sector:"Compliance & Security",          cip:"CIP-0057",              author:"Eric Saraniecki",                       approved:"2025-04-03", node:"GSF (extraBeneficiary)", url:"https://quantstamp.com", description:"Global blockchain security auditor. 1.0 fully active via Quantstamp-validator-1. Committed to annual audits of Canton Coin's Daml contracts for 3 years.", commitments:["1.0 fully active","Annual audit of CC Daml contracts","Audit on every major Daml upgrade"]},
+{name:"Hypernative",         liveWeight:1.00,  activeWeight:1.00,  cipMax:1,    status:"Final",    sector:"Compliance & Security",          cip:"CIP-0076",              author:"Alex Rabke",                            approved:"2025-09-09", node:"GSF (extraBeneficiary)", url:"https://hypernative.io", description:"Real-time on-chain threat detection and monitoring platform. 1.0 active via hypernative-validator-1.", commitments:["1.0 fully active","Deploy Canton-specific monitoring agents","Deliver threat detection and alerts"]},
+{name:"Hexagate",            liveWeight:0,     activeWeight:0,     cipMax:1,    status:"Final",    sector:"Compliance & Security",          cip:"CIP-0038",              author:"Eric Saraniecki",                       approved:"~Jan 2025",  node:"Not found in YAML", url:"", description:"Blockchain exploit prevention firm (acquired by Chainalysis). CIP-0038 approved as T3 Weight 1, but no active entry found in the MainNet approved-sv-id-values.yaml.", commitments:["CIP approved (weight 1)","Not yet appearing in live YAML config"]},
+// ── Blockchain Infrastructure ─────────────────────────────────────────────────
+{name:"Digital Asset (GSF)", liveWeight:185.5, activeWeight:185.5, cipMax:null, status:"Founding", sector:"Blockchain Infrastructure",      cip:"Founding (GSF Node)",   author:"—",                                     approved:"Jul 2024",   node:"Global-Synchronizer-Foundation", url:"https://canton.foundation", description:"The GSF node itself (Global-Synchronizer-Foundation) manages 185.5 total weight on behalf of 44+ beneficiary SVs. It is the largest single node on the network by raw weight, acting as custodian of escrow and proxy rewards for most milestone-based SVs.", commitments:["Operates GSF node (185.5 total weight)","Manages escrow for 30+ milestone-based SVs","Distributes rewards to beneficiary SVs on milestone completion"]},
+{name:"IntellectEU",         liveWeight:1.00,  activeWeight:1.00,  cipMax:1,    status:"Final",    sector:"Blockchain Infrastructure",      cip:"CIP-0058",              author:"Christopher Kelly",                     approved:"~Mar 2025",  node:"GSF (extraBeneficiary)", url:"https://intellecteu.com", description:"Belgian blockchain solutions firm and long-time Daml integrator. 1.0 active via IntellectEU-SVrewards-1.", commitments:["1.0 fully active","Build and maintain Canton applications","Drive Daml/Canton development expertise"]},
+{name:"Kiln",                liveWeight:1.00,  activeWeight:1.00,  cipMax:1,    status:"Final",    sector:"Blockchain Infrastructure",      cip:"CIP-0036",              author:"Eric Saraniecki",                       approved:"~Jan 2025",  node:"GSF (extraBeneficiary)", url:"https://www.kiln.fi", description:"Enterprise staking and validator infrastructure provider. 1.0 active via kiln-validator-1.", commitments:["1.0 fully active","Provide institutional staking infrastructure"]},
+{name:"Figment",             liveWeight:1.00,  activeWeight:1.00,  cipMax:1,    status:"Final",    sector:"Blockchain Infrastructure",      cip:"CIP-0054",              author:"Eric Saraniecki, Jacob McCrum",         approved:"~Mar 2025",  node:"GSF (extraBeneficiary)", url:"https://figment.io", description:"Institutional blockchain infrastructure and staking operator (50+ protocols). 1.0 active via figment-mainnetValidator-1.", commitments:["1.0 fully active","Provide enterprise validator infrastructure"]},
+{name:"Obsidian Systems",    liveWeight:1.00,  activeWeight:1.00,  cipMax:1,    status:"Final",    sector:"Blockchain Infrastructure",      cip:"CIP-0037",              author:"Eric Saraniecki",                       approved:"~Jan 2025",  node:"GSF (extraBeneficiary)", url:"https://obsidian.systems", description:"Blockchain development firm specialising in Daml and enterprise DLT. 1.0 active via ObsidianSystems-validator-1.", commitments:["1.0 fully active","Deliver Daml development services","Build Canton-native applications"]},
+{name:"Proof Group",         liveWeight:1.25,  activeWeight:1.25,  cipMax:1,    status:"Final",    sector:"Blockchain Infrastructure",      cip:"CIP-0034",              author:"Eric Saraniecki",                       approved:"~Dec 2024",  node:"Proof-Group-1 (own node)", url:"", description:"Digital asset infrastructure firm operating its own SV node (Proof-Group-1). Live weight 1.25 — slightly above the CIP max of 1.0, suggesting earned bonus weight.", commitments:["Own SV node (1.25 live, above CIP max 1.0)","Professional validator node management"]},
+{name:"Woodside AI",         liveWeight:10.00, activeWeight:0,     cipMax:10,   status:"Final",    sector:"Blockchain Infrastructure",      cip:"CIP-0059",              author:"Eric Saraniecki",                       approved:"~Jun 2025",  node:"GSF (escrow)", url:"", description:"AI infrastructure firm. Weight 10.0 fully in escrow (WoodsideAI-ghost-1 on GhostSV-validator-1). No milestones completed yet.", commitments:["10.0 fully in escrow","Deploy AI tools and automation for Canton"]},
+{name:"Blockdaemon",         liveWeight:5.00,  activeWeight:0,     cipMax:5,    status:"Approved", sector:"Blockchain Infrastructure",      cip:"CIP-0094",              author:"Brad Turner et al.",                    approved:"2025-12-31", node:"MPCH node (escrow)", url:"https://www.blockdaemon.com", description:"Institutional blockchain infrastructure provider (banks, custodians, exchanges). Entire weight 5.0 in escrow via MPCH's node (Blockdaemon-ghost-1). Note: weight listed as '50000' in YAML rather than standard notation.", commitments:["5.0 in escrow via MPCH node","Operate distributed multi-cloud SV clusters","Act as delegated operator for institutions"]},
+{name:"Zenith",              liveWeight:10.00, activeWeight:0,     cipMax:10,   status:"Approved", sector:"Blockchain Infrastructure",      cip:"CIP-0091",              author:"Norbert Vadas et al.",                  approved:"~Dec 2025",  node:"GSF (escrow)", url:"", description:"Blockchain infrastructure and services firm. Entire weight 10.0 in escrow (Zenith-ghost-1). Four-author proposal including multi-national operational team.", commitments:["10.0 fully in escrow","Provide infrastructure and ecosystem services","Drive European institutional adoption"]},
+{name:"Deribit",             liveWeight:0,     activeWeight:0,     cipMax:1,    status:"Final",    sector:"Blockchain Infrastructure",      cip:"CIP-0040",              author:"Eric Saraniecki",                       approved:"~Jan 2025",  node:"Not found in YAML", url:"https://www.deribit.com", description:"World's largest crypto options exchange. CIP-0040 approved as T3 Weight 1, but no entry found in the MainNet live YAML.", commitments:["CIP approved (weight 1)","Not yet appearing in live YAML config"]},
+// ── Investment / Ecosystem ────────────────────────────────────────────────────
+{name:"Cumberland (DRW)",    liveWeight:27.23, activeWeight:27.23, cipMax:27.23,   status:"Founding", sector:"Investment / Ecosystem",         cip:"Founding (2 nodes)",    author:"—",                                     approved:"Jul 2024",   node:"Cumberland-1 + Cumberland-2", url:"https://cumberland.io", description:"DRW's crypto trading arm and major institutional market maker. Two SV nodes (Cumberland-1 and Cumberland-2) each at 13.6125 weight = 27.225 total. Second-largest entity by raw governance weight.", commitments:["Operate 2 SV nodes (13.6125 each)","Provide institutional OTC liquidity for Canton Coin","Major equity investor in Digital Asset"]},
+{name:"SBI Digital Asset",   liveWeight:10.25, activeWeight:10.25, cipMax:10,   status:"Founding", sector:"Investment / Ecosystem",         cip:"Founding / SV-Nodeops", author:"—",                                     approved:"Jul 2024",   node:"SV-Nodeops-Limited", url:"https://www.sbigroup.co.jp", description:"Digital asset arm of Japan's SBI Holdings. Likely operates as SV-Nodeops-Limited (10.25 weight) in the live config. CIP-0011 noted IEU forfeited minting rights, distinct from SBI's own participation.", commitments:["Operate SV-Nodeops-Limited node (10.25)","Drive Canton adoption in Asian financial markets"]},
+{name:"Liberty City Ventures",liveWeight:10.00,activeWeight:10.00, cipMax:10,   status:"Final",    sector:"Investment / Ecosystem",         cip:"CIP-0010",              author:"Eric Saraniecki",                       approved:"Pre-launch 2024", node:"Liberty-City-Ventures-1", url:"https://libertycityventures.com", description:"Crypto-native investment firm and founding Super Validator. Operates own SV node at full 10.0 weight.", commitments:["Operate own SV node (10.0)","Drive institutional investment in Canton ecosystem"]},
+{name:"Five-North",          liveWeight:9.05,  activeWeight:9.05,  cipMax:3,    status:"Final",    sector:"Investment / Ecosystem",         cip:"CIP-0035",              author:"Eric Saraniecki",                       approved:"~Jan 2025",  node:"Five-North-1 (own node)", url:"https://www.fivenorthgroup.com", description:"Multi-strategy crypto investment firm. Operates own SV node at 9.05 weight — significantly above CIP-0035 max of 3.0, suggesting substantial bonus weight earned. Also hosts the Bosphorus (BSV) 6.0 escrow.", commitments:["Own SV node (9.05, well above CIP max 3.0)","Hosts Bosphorus BSV escrow (6.0)","Deploy Canton ecosystem investment fund"]},
+{name:"Monstera",            liveWeight:5.00,  activeWeight:0,     cipMax:5,    status:"Final",    sector:"Investment / Ecosystem",         cip:"CIP-0052",              author:"Eric Saraniecki",                       approved:"2025-05-13", node:"GSF (escrow)", url:"", description:"Digital asset subsidiary of Witan Group (David Stern). Entire weight 5.0 in escrow (MonsteraFZE-ghost-1). No milestones completed yet.", commitments:["5.0 fully in escrow","Deploy digital asset strategies through Canton"]},
+{name:"AngelHack",           liveWeight:2.50,  activeWeight:2.50,  cipMax:2.5,  status:"Final",    sector:"Investment / Ecosystem",         cip:"CIP-0053",              author:"Eric Saraniecki",                       approved:"~Mar 2025",  node:"GSF (extraBeneficiary)", url:"https://angelhack.com", description:"Global developer community (200K+ developers, 90 countries). 2.5 active via angelhack-mainnet-1. Drives Canton developer ecosystem through hackathons.", commitments:["2.5 fully active","Run Canton-focused hackathons","Build developer community around Canton"]},
+{name:"Republic",            liveWeight:6.00,  activeWeight:3.50,  cipMax:6,    status:"Approved", sector:"Investment / Ecosystem",         cip:"CIP-0080",              author:"Luca Burlando",                         approved:"2025-10-06", node:"GSF (active+escrow)", url:"https://republic.com", description:"Leading on-chain investment platform ($2.6B deployed, 3M members). 3.5 active (Republic-sv-1) + 2.5 escrow = 6.0 total. Matches CIP max.", commitments:["3.5 active weight earned","2.5 in escrow","Integrate Canton Token Standard in Republic Wallet","Build RWA Canton launchpad"]},
+{name:"YZi Labs",            liveWeight:0,     activeWeight:0,     cipMax:10,   status:"Approved", sector:"Investment / Ecosystem",         cip:"CIP-0081",              author:"Eric Saraniecki",                       approved:"~Jan 2026",  node:"Not yet in YAML", url:"", description:"Global multi-billion AUM investment firm (formerly Binance Labs). CIP-0081 approved Jan 2026 but not yet deployed to the MainNet approved-sv-id-values.yaml. Weight 10 max, milestone-based.", commitments:["Approved but not yet deployed to YAML","Flexible milestone-based weight (max 10)","Invest in Canton ecosystem projects"]},
+{name:"Tharimmune",          liveWeight:4.00,  activeWeight:0,     cipMax:4,    status:"Approved", sector:"Investment / Ecosystem",         cip:"CIP-0102",              author:"Mark Wendland",                         approved:"2026-01-21", node:"MPCH node (escrow)", url:"", description:"Nasdaq-listed life sciences company ($545M private placement for CC treasury). Weight 4.0 in escrow via MPCH node. First US publicly-traded company to adopt a CC treasury strategy.", commitments:["4.0 in escrow via MPCH node","Publish quarterly Canton ecosystem reports (SEC-filed)","Host quarterly public webinars"]},
+{name:"Nima Capital",        liveWeight:10.00, activeWeight:10.00, cipMax:null, status:"Founding", sector:"Investment / Ecosystem",         cip:"Founding (via Orb-1)",  author:"—",                                     approved:"Jul 2024",   node:"Orb-1-LP-1 (hosted wallets)", url:"", description:"Crypto investment firm. Two Nima Capital wallet addresses (5.0 + 5.0 = 10.0) hosted under the Orb-1-LP-1 SV node. Not the subject of any named governance CIP.", commitments:["10.0 active via Orb-1-LP-1 node","Two hosted wallet beneficiaries (5.0 each)"]},
+// ── Interoperability ──────────────────────────────────────────────────────────
+{name:"LayerZero",           liveWeight:3.00,  activeWeight:0,     cipMax:3,    status:"Final",    sector:"Interoperability",               cip:"CIP-0065",              author:"Eric Saraniecki",                       approved:"~Jun 2025",  node:"GSF (escrow)", url:"https://layerzero.network", description:"Leading cross-chain interoperability protocol. 3.0 in escrow (LayerZero-ghost-1) via CIP-0065 batch (with Wormhole and Chainlink). Enables USDT0 and omnichain assets.", commitments:["3.0 fully in escrow","Enable cross-chain messaging to/from Canton","Support omnichain token standard"]},
+{name:"Wormhole",            liveWeight:3.00,  activeWeight:0,     cipMax:3,    status:"Final",    sector:"Interoperability",               cip:"CIP-0065",              author:"Eric Saraniecki",                       approved:"~Jun 2025",  node:"GSF (escrow)", url:"https://wormhole.com", description:"Cross-chain interoperability protocol connecting Canton to EVM chains, Solana, and other blockchains. 3.0 in escrow (Wormhole-ghost-1).", commitments:["3.0 fully in escrow","Provide bridge infrastructure to/from Canton","Enable cross-chain asset transfers"]},
+{name:"Mesh",                liveWeight:10.00, activeWeight:0,     cipMax:10,   status:"Approved", sector:"Interoperability",               cip:"CIP-0095",              author:"Jacob McCrum",                          approved:"~Jan 2026",  node:"GSF (escrow)", url:"", description:"Crypto connectivity and payments infrastructure provider. Entire weight 10.0 in escrow (Mesh-ghost-1). Outcome-linked milestones.", commitments:["10.0 fully in escrow","Integrate Canton into Mesh platform","Drive user and volume milestones"]},
+{name:"Bosphorus BSV",       liveWeight:6.00,  activeWeight:0,     cipMax:6,    status:"Approved", sector:"Interoperability",               cip:"CIP-0093",              author:"Eric Saraniecki",                       approved:"~Dec 2025",  node:"Five-North-1 (escrow via bsv-ghost-1)", url:"", description:"Independent SV operator enhancing decentralisation across MENA/Europe. 6.0 in escrow hosted by Five-North's node (bsv-ghost-1). Note: uses rewardWeightBps notation in YAML.", commitments:["6.0 in escrow via Five-North node","Provide geographically diverse infrastructure","Support governance participation"]},
+// ── Rejected ──────────────────────────────────────────────────────────────────
+{name:"Strange Pixels",      liveWeight:0,     activeWeight:0,     cipMax:0.5,  status:"Rejected", sector:"Blockchain Infrastructure",      cip:"CIP-0033",              author:"Eric Saraniecki",                       approved:"—",          node:"Not in YAML (rejected)", url:"", description:"Tech studio. The only governance CIP to be rejected by the Super Validator quorum. No entry in live YAML.", commitments:["Proposed T4 Weight 0.5 — REJECTED by SV quorum"]},
+];
+
+// ═══════════════════════════════════════════════════════════════
+// STATS
+// ═══════════════════════════════════════════════════════════════
+const active = SVS.filter(d=>d.status!=='Rejected' && d.liveWeight>0);
+document.getElementById('stat-svs').textContent = SVS.filter(d=>d.status!=='Rejected').length;
+
+// Exclude the GSF node itself from totals (it's a container for others)
+const forStats = SVS.filter(d=>d.status!=='Rejected' && d.name!=='Digital Asset (GSF)');
+const totalLive = forStats.reduce((s,d)=>s+d.liveWeight,0);
+const totalActive = forStats.reduce((s,d)=>s+d.activeWeight,0);
+document.getElementById('stat-total').textContent = Math.round(totalLive);
+document.getElementById('stat-active').textContent = Math.round(totalActive/totalLive*100)+'%';
+const sorted = [...forStats].sort((a,b)=>b.liveWeight-a.liveWeight);
+const top5 = sorted.slice(0,5).reduce((s,d)=>s+d.liveWeight,0);
+document.getElementById('stat-top5').textContent = Math.round(top5/totalLive*100)+'%';
+
+// ═══════════════════════════════════════════════════════════════
+// SIDEBAR
+// ═══════════════════════════════════════════════════════════════
+let sideFilter='all', selName=null;
+
+function renderList(){
+  const items = SVS
+    .filter(d=>sideFilter==='all'||d.status===sideFilter)
+    .filter(d=>d.name!=='Digital Asset (GSF)')
+    .sort((a,b)=>b.liveWeight-a.liveWeight);
+  document.getElementById('sv-list').innerHTML = items.map(d=>{
+    const col = sc(d.sector);
+    const frac = d.liveWeight>0 ? d.activeWeight/d.liveWeight : 0;
+    return `<div class="sv-item ${selName===d.name?'selected':''}" onclick="selectSV('${d.name.replace(/'/g,"\\'")}')">
+      <div class="sv-item-name">${d.name}</div>
+      <div class="sv-item-meta">${d.cip.split(' ')[0]} &bull; ${d.sector.split('/')[0].trim()}</div>
+      <div class="sv-item-badges">
+        <div style="text-align:right">
+          <div class="sv-item-w" style="color:${col}">${d.liveWeight.toFixed(d.liveWeight%1===0?0:2)}</div>
+          <div class="sv-mini-bar"><div class="sv-mini-fill" style="width:${frac*100}%"></div></div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+document.querySelectorAll('.ftab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.ftab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    sideFilter=t.dataset.filter; renderList(); applyBubbleFilter(sideFilter);
+  });
+});
+
+function applyBubbleFilter(f){
+  if(document.getElementById('chart').style.display==='none') return;
+  d3.selectAll('.node').style('opacity', d=>f==='all'||d.status===f ? 1 : 0.12);
+}
+renderList();
+
+// ═══════════════════════════════════════════════════════════════
+// DETAIL PANEL
+// ═══════════════════════════════════════════════════════════════
+const statusClass = s=>({Final:'s-final',Approved:'s-approved',Founding:'s-founding',Rejected:'s-rejected'}[s]||'s-approved');
+
+window.selectSV = function(name){
+  selName = selName===name ? null : name;
+  renderList();
+  d3.selectAll('.node').classed('selected', d=>d.name===selName);
+  if(!selName){closeDetail();return;}
+  const d=SVS.find(x=>x.name===name);
+  if(!d)return;
+  const col=sc(d.sector);
+  const tot=d.liveWeight; const act=d.activeWeight; const esc=tot-act;
+  const pctTotal = d.name==='Digital Asset (GSF)' ? 100 : (tot/totalLive*100);
+  const actFrac = tot>0 ? act/tot : 0;
+  const cipDiff = d.cipMax!=null ? (tot - d.cipMax) : null;
+  let diffHtml='';
+  if(cipDiff!=null){
+    const sign=cipDiff>0.005?'↑':cipDiff<-0.005?'↓':'=';
+    const cls=cipDiff>0.005?'diff-up':cipDiff<-0.005?'diff-dn':'diff-eq';
+    const abs=Math.abs(cipDiff).toFixed(2);
+    diffHtml=`<span class="${cls}">${sign}${abs} vs CIP max</span>`;
+  }
+  document.getElementById('detail-content').innerHTML = `
+    <span class="d-badge ${statusClass(d.status)}">${d.status}</span>
+    <div class="d-name">${d.name}</div>
+    <div class="d-sector"><div class="d-sector-dot" style="background:${col}"></div>${d.sector}</div>
+    <div class="d-weight-block">
+      <div class="d-total-row">
+        <div><div class="d-total-label">Live Weight</div><div class="d-pct">${pctTotal.toFixed(1)}% of pool</div></div>
+        <div style="text-align:right"><div class="d-total-val">${tot.toFixed(tot%1===0?1:4)}</div>${diffHtml}</div>
+      </div>
+      <div class="d-bar-track">
+        <div class="d-bar-total" style="width:100%;background:${col}"></div>
+        <div class="d-bar-active" style="width:${actFrac*100}%"></div>
+      </div>
+      <div class="d-split-row">
+        <div class="d-split-item">
+          <div class="d-split-label" style="color:var(--active)">● Active</div>
+          <div class="d-split-val" style="color:var(--active)">${act.toFixed(act%1===0?1:4)}</div>
+        </div>
+        <div class="d-split-item">
+          <div class="d-split-label" style="color:var(--escrow)">◌ Escrow</div>
+          <div class="d-split-val" style="color:var(--escrow)">${esc.toFixed(esc%1===0?1:4)}</div>
+        </div>
+        ${d.cipMax!=null?`<div class="d-split-item"><div class="d-split-label">CIP Max</div><div class="d-split-val" style="color:var(--muted)">${d.cipMax.toFixed(d.cipMax%1===0?1:1)}</div></div>`:''}
+      </div>
+    </div>
+    <div class="d-field"><div class="d-field-label">CIP</div><div class="d-field-val">${d.cip}</div></div>
+    <div class="d-field"><div class="d-field-label">Author</div><div class="d-field-val">${d.author}</div></div>
+    <div class="d-field"><div class="d-field-label">Approved</div><div class="d-field-val">${d.approved}</div></div>
+    <div class="d-field"><div class="d-field-label">SV Node</div><div class="d-field-val"><span class="d-node-badge">${d.node}</span></div></div>
+    ${d.url?`<div class="d-field"><div class="d-field-label">Website</div><div class="d-field-val"><a href="${d.url}" target="_blank">${d.url.replace('https://','')}</a></div></div>`:''}
+    <div class="d-field"><div class="d-field-label">About</div><div class="d-field-val">${d.description}</div></div>
+    <div class="d-commitments">
+      <div class="d-section-title">Key Commitments / Notes</div>
+      ${d.commitments.map(c=>`<div class="d-commit-item" style="border-color:${col}">${c}</div>`).join('')}
+    </div>`;
+  document.getElementById('detail').classList.add('open');
+  document.getElementById('reading-guide').style.display='none';
+};
+window.closeDetail=function(){selName=null;document.getElementById('detail').classList.remove('open');document.getElementById('reading-guide').style.display='';d3.selectAll('.node').classed('selected',false);renderList();};
+
+// ═══════════════════════════════════════════════════════════════
+// LEGEND + READING GUIDE
+// ═══════════════════════════════════════════════════════════════
+document.getElementById('legend').innerHTML = `
+  <div class="leg-card">
+    <div class="leg-title"><span class="leg-title-icon">⬤</span> Sector</div>
+    <div class="leg-rows">${Object.entries(SECTORS).map(([s,c])=>`<div class="leg-row"><div class="leg-dot" style="background:${c}"></div>${s}</div>`).join('')}</div>
+  </div>
+  <div class="leg-card">
+    <div class="leg-title">Status</div>
+    <div class="sleg-row">
+      <span class="sleg-badge" style="background:rgba(201,168,76,.15);color:#c9a84c">Founding</span>
+      <span class="sleg-desc">Original launch participants</span>
+    </div>
+    <div class="sleg-row">
+      <span class="sleg-badge" style="background:rgba(78,201,148,.15);color:#4ec994">Final</span>
+      <span class="sleg-desc">Milestones delivered, weight active</span>
+    </div>
+    <div class="sleg-row">
+      <span class="sleg-badge" style="background:rgba(76,127,201,.15);color:#63b3ed">Approved</span>
+      <span class="sleg-desc">CIP passed, weight in escrow</span>
+    </div>
+  </div>`;
+
+document.getElementById('reading-guide').innerHTML = `
+  <div class="rg-title">How to read this chart</div>
+
+  <div class="rg-row">
+    <svg class="rg-svg" width="38" height="38" viewBox="0 0 38 38">
+      <circle cx="19" cy="19" r="16" fill="#38a169" fill-opacity=".08" stroke="#38a169" stroke-width="1.5" stroke-opacity=".5"/>
+      <circle cx="19" cy="19" r="16" fill="#38a169" fill-opacity=".2" stroke="none"/>
+      <text x="19" y="20" text-anchor="middle" dominant-baseline="central" fill="white" font-size="8" font-family="DM Mono,monospace" fill-opacity=".7">10.0</text>
+    </svg>
+    <div class="rg-text">
+      <div class="rg-label">Bubble size = weight</div>
+      <div class="rg-sub">Larger = more governance power in the network</div>
+    </div>
+  </div>
+
+  <div class="rg-row">
+    <svg class="rg-svg" width="38" height="38" viewBox="0 0 38 38">
+      <circle cx="19" cy="19" r="15" fill="#4c7fc9" fill-opacity=".08" stroke="#4c7fc9" stroke-width="1.5" stroke-opacity=".5" stroke-dasharray="4,3"/>
+    </svg>
+    <div class="rg-text">
+      <div class="rg-label">Dashed outline</div>
+      <div class="rg-sub">All weight in escrow — no minting yet</div>
+    </div>
+  </div>
+
+  <div class="rg-row">
+    <svg class="rg-svg" width="38" height="38" viewBox="0 0 38 38">
+      <circle cx="19" cy="19" r="15" fill="#e53e3e" fill-opacity=".08" stroke="#e53e3e" stroke-width="1.5" stroke-opacity=".5"/>
+      <path d="M19,4 A15,15 0 0,1 33.5,22.5 L19,19 Z" fill="#e53e3e" fill-opacity=".28"/>
+    </svg>
+    <div class="rg-text">
+      <div class="rg-label">Filled arc = active</div>
+      <div class="rg-sub">Arc portion shows weight already minting vs still in escrow</div>
+    </div>
+  </div>
+
+  <div class="rg-divider"></div>
+  <div class="rg-sub" style="color:var(--muted)">Click any bubble to see full weight breakdown, CIP details, and commitments</div>`;
+
+
+// ═══════════════════════════════════════════════════════════════
+// BUBBLE CHART
+// ═══════════════════════════════════════════════════════════════
+let sim;
+function drawBubbles(){
+  const container=document.getElementById('chart');
+  const W=container.clientWidth, H=container.clientHeight;
+  d3.select('#chart').selectAll('*').remove();
+  const svg=d3.select('#chart').attr('width',W).attr('height',H);
+  const defs=svg.append('defs');
+  const gr=defs.append('radialGradient').attr('id','bg3').attr('cx','50%').attr('cy','50%').attr('r','70%');
+  gr.append('stop').attr('offset','0%').attr('stop-color','#0d1528');
+  gr.append('stop').attr('offset','100%').attr('stop-color','#06080f');
+  svg.append('rect').attr('width',W).attr('height',H).attr('fill','url(#bg3)');
+  const filt=defs.append('filter').attr('id','glow3').attr('x','-30%').attr('y','-30%').attr('width','160%').attr('height','160%');
+  filt.append('feGaussianBlur').attr('stdDeviation','4').attr('result','blur');
+  const m=filt.append('feMerge'); m.append('feMergeNode').attr('in','blur'); m.append('feMergeNode').attr('in','SourceGraphic');
+
+  // Exclude GSF node from bubble chart (too large, distorts scale)
+  const display = SVS.filter(d=>d.status!=='Rejected' && d.name!=='Digital Asset (GSF)');
+  const rScale=d3.scaleSqrt().domain([0, d3.max(display,d=>d.liveWeight)]).range([0,Math.min(W,H)*0.1]);
+  const nodes=display.map(d=>({...d, r:Math.max(d.liveWeight>0?8:4, rScale(d.liveWeight))}));
+
+  if(sim) sim.stop();
+  sim=d3.forceSimulation(nodes)
+    .force('charge',d3.forceManyBody().strength(d=>-d.r*2.8))
+    .force('collide',d3.forceCollide(d=>d.r+4).strength(0.88))
+    .force('center',d3.forceCenter(W/2,H/2).strength(0.05))
+    .force('x',d3.forceX(W/2).strength(0.04))
+    .force('y',d3.forceY(H/2).strength(0.04))
+    .alphaDecay(0.025)
+    .on('tick',ticked);
+
+  const g=svg.append('g');
+  const node=g.selectAll('.node').data(nodes).join('g')
+    .attr('class','node')
+    .classed('selected',d=>d.name===selName)
+    .call(d3.drag()
+      .on('start',(e,d)=>{if(!e.active)sim.alphaTarget(.3).restart();d.fx=d.x;d.fy=d.y})
+      .on('drag',(e,d)=>{d.fx=e.x;d.fy=e.y})
+      .on('end',(e,d)=>{if(!e.active)sim.alphaTarget(0);d.fx=null;d.fy=null}))
+    .on('click',(e,d)=>{e.stopPropagation();selectSV(d.name)});
+
+  // Outer glow ring
+  node.append('circle').attr('r',d=>d.r+5).attr('fill','none')
+    .attr('stroke',d=>d.status==='Rejected'?'#fc8181':sc(d.sector))
+    .attr('stroke-width',1).attr('opacity',.12);
+
+  // Full circle (escrow portion — lighter)
+  node.append('circle').attr('r',d=>d.r)
+    .attr('fill',d=>d.liveWeight>0 ? sc(d.sector) : 'rgba(100,100,120,.2)')
+    .attr('fill-opacity', d=>d.activeWeight===0&&d.liveWeight>0 ? 0.1 : 0.08)
+    .attr('stroke',d=>d.liveWeight>0 ? sc(d.sector) : '#444')
+    .attr('stroke-width',1.5)
+    .attr('stroke-opacity',d=>d.liveWeight>0?0.6:0.3)
+    .attr('stroke-dasharray',d=>d.activeWeight===0&&d.liveWeight>0?'4,3':'none')
+    .attr('filter','url(#glow3)');
+
+  // Active arc (filled segment proportional to activeWeight/liveWeight)
+  node.each(function(d){
+    const el=d3.select(this);
+    if(d.activeWeight<=0||d.liveWeight<=0) return;
+    const frac=d.activeWeight/d.liveWeight;
+    if(frac>=0.999){
+      el.append('circle').attr('r',d.r).attr('fill',sc(d.sector)).attr('fill-opacity',.22).attr('stroke','none');
+    } else {
+      const arc=d3.arc().innerRadius(0).outerRadius(d.r)
+        .startAngle(-Math.PI/2).endAngle(-Math.PI/2 + frac*2*Math.PI);
+      el.append('path').attr('d',arc()).attr('fill',sc(d.sector)).attr('fill-opacity',.25);
+    }
+  });
+
+  // Labels
+  node.each(function(d){
+    const el=d3.select(this); const r=d.r;
+    const fs=Math.max(7,Math.min(12,r/4.5));
+    if(r<10) return;
+    const parts=d.name.split(' ');
+    const lh=fs*1.3, maxW=r*1.75;
+    let lines=[],ln='';
+    parts.forEach(w=>{
+      const t=ln?ln+' '+w:w;
+      if(t.length*fs*.56>maxW&&ln){lines.push(ln);ln=w;}else ln=t;
+    });
+    if(ln) lines.push(ln);
+    const showW=r>24;
+    const totalH=lines.length*lh+(showW?lh*0.85:0);
+    const sy=-totalH/2+lh/2;
+    lines.forEach((l,i)=>el.append('text').attr('class','n-name').attr('y',sy+i*lh).attr('font-size',fs).text(l));
+    if(showW) el.append('text').attr('class','n-weight').attr('y',sy+lines.length*lh).attr('font-size',Math.max(7,fs*.8))
+      .text(d.liveWeight.toFixed(d.liveWeight%1===0?0:1));
+  });
+
+  function ticked(){
+    node.attr('transform',d=>`translate(${Math.max(d.r,Math.min(W-d.r,d.x))},${Math.max(d.r,Math.min(H-d.r,d.y))})`);
+  }
+
+  node.select('circle').attr('r',0).transition().duration(700).delay((_,i)=>i*15).ease(d3.easeCubicOut).attr('r',d=>d.r);
+  node.selectAll('text').attr('opacity',0).transition().duration(400).delay((_,i)=>400+i*15).attr('opacity',1);
+  svg.on('click',()=>closeDetail());
+}
+drawBubbles();
+
+// ═══════════════════════════════════════════════════════════════
+// TABLE
+// ═══════════════════════════════════════════════════════════════
+let sortCol='liveWeight',sortDir=-1;
+const display4Table = SVS.filter(d=>d.name!=='Digital Asset (GSF)');
+
+function renderTable(){
+  const rows=[...display4Table].sort((a,b)=>{
+    let av=a[sortCol],bv=b[sortCol];
+    return typeof av==='number' ? sortDir*(av-bv) : sortDir*String(av).localeCompare(String(bv));
+  });
+  const th=(col,label)=>`<th onclick="setSort('${col}')" class="${sortCol===col?(sortDir>0?'sort-asc':'sort-desc'):''}">${label}</th>`;
+  document.getElementById('table-view').innerHTML=`<table>
+    <thead><tr>${th('name','Name')}${th('liveWeight','Live Wt')}${th('activeWeight','Active')}${th('cipMax','CIP Max')}${th('status','Status')}${th('sector','Sector')}${th('cip','CIP')}${th('approved','Approved')}</tr></thead>
+    <tbody>${rows.map(d=>{
+      const cipDiff=d.cipMax!=null?(d.liveWeight-d.cipMax):null;
+      const diffStr=cipDiff!=null?(Math.abs(cipDiff)<0.01?'—':(cipDiff>0?`<span class="diff-up">↑${cipDiff.toFixed(2)}</span>`:`<span class="diff-dn">↓${Math.abs(cipDiff).toFixed(2)}</span>`)): '—';
+      return `<tr onclick="selectSV('${d.name.replace(/'/g,"\\'")}')">
+        <td><span class="t-dot" style="background:${sc(d.sector)}"></span>${d.name}</td>
+        <td><span class="t-total">${d.liveWeight.toFixed(d.liveWeight%1===0?1:2)}</span></td>
+        <td><span class="t-active">${d.activeWeight.toFixed(d.activeWeight%1===0?1:2)}</span> <span class="t-escrow">${(d.liveWeight-d.activeWeight)>0?'+'+(d.liveWeight-d.activeWeight).toFixed(2)+' escrow':''}</span></td>
+        <td>${d.cipMax!=null?d.cipMax+' '+diffStr:'—'}</td>
+        <td><span class="t-status ${statusClass(d.status)}">${d.status}</span></td>
+        <td style="color:var(--muted);font-size:10.5px">${d.sector}</td>
+        <td><span class="t-cip">${d.cip.split(' ')[0]}</span></td>
+        <td style="font-size:10.5px;color:var(--muted)">${d.approved}</td>
+      </tr>`;
+    }).join('')}</tbody></table>`;
+}
+window.setSort=function(col){if(sortCol===col)sortDir*=-1;else{sortCol=col;sortDir=-1;}renderTable();};
+
+// ═══════════════════════════════════════════════════════════════
+// VIEW SWITCH
+// ═══════════════════════════════════════════════════════════════
+document.querySelectorAll('.vtab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.vtab').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  const v=t.dataset.view;
+  document.getElementById('chart').style.display=v==='bubble'?'':'none';
+  document.getElementById('legend').style.display=v==='bubble'?'':'none';
+  document.getElementById('reading-guide').style.display=v==='bubble'?'':'none';
+  const tv=document.getElementById('table-view');
+  if(v==='table'){tv.style.display='block';renderTable();}else{tv.style.display='none';}
+}));
+window.addEventListener('resize',()=>{if(document.getElementById('chart').style.display!=='none'){drawBubbles();applyBubbleFilter(sideFilter);}});
+</script>
+</body>
+</html>

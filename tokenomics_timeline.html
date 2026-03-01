@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canton Network — Tokenomics Evolution</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #05070d; --s1: #0b0f1a; --s2: #101520;
+  --b: rgba(255,255,255,0.06); --b2: rgba(255,255,255,0.12);
+  --text: #dde1ec; --muted: #4e5a78; --muted2: #7a89a8;
+  --gold: #c9a84c;
+  --cr: #3ecf8e; --cf: #e8875a; --cs: #a47fd4; --cm: #5aaee0; --cg: #d45a8e;
+}
+html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: 'IBM Plex Sans', sans-serif; }
+
+/* ─── TOP BAR ─── */
+#topbar {
+  position: fixed; top: 0; left: 0; right: 0; height: 52px;
+  background: rgba(5,7,13,0.97); border-bottom: 1px solid var(--b2);
+  display: flex; align-items: center; padding: 0 20px; gap: 20px; z-index: 100;
+}
+#topbar h1 { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--text); white-space: nowrap; }
+#topbar p  { font-size: 7.5px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; letter-spacing: .1em; text-transform: uppercase; margin-top: 1px; white-space: nowrap; }
+.hdivider { width: 1px; height: 28px; background: var(--b2); flex-shrink: 0; }
+.hstat { text-align: right; flex-shrink: 0; }
+.hstat-n { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--gold); line-height: 1; }
+.hstat-l { font-size: 7px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; font-family: 'IBM Plex Mono', monospace; }
+.spacer { flex: 1; }
+.filters { display: flex; gap: 4px; }
+.fbtn {
+  padding: 3px 9px; border-radius: 3px; font-size: 7.5px; font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase; letter-spacing: .08em; border: 1px solid var(--b2);
+  background: transparent; color: var(--muted2); cursor: pointer;
+}
+.fbtn:hover { color: var(--text); border-color: var(--muted2); }
+.fbtn.on { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.1); }
+
+/* ─── MAIN LAYOUT ─── */
+#main {
+  position: fixed; top: 52px; left: 0; right: 0; bottom: 0;
+  display: flex;
+}
+
+/* ─── LANE LABELS (fixed left column) ─── */
+#lane-col {
+  width: 160px; flex-shrink: 0; border-right: 1px solid var(--b);
+  background: var(--s1); display: flex; flex-direction: column;
+  padding-top: 0;
+}
+.lane-hdr {
+  display: flex; align-items: center; gap: 7px;
+  padding: 0 12px; font-size: 8px; font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase; letter-spacing: .09em; color: var(--muted2);
+  border-bottom: 1px solid var(--b); flex-shrink: 0;
+  border-left: 2px solid;
+}
+.ldot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+/* bottom spacer for axis */
+#lane-axis-pad { flex-shrink: 0; border-top: 1px solid var(--b); background: var(--s2); }
+
+/* ─── TIMELINE SCROLL ─── */
+#tl-wrap {
+  flex: 1; overflow-x: auto; overflow-y: hidden;
+  cursor: crosshair; position: relative; background: var(--bg);
+}
+#tl-wrap::-webkit-scrollbar { height: 4px; }
+#tl-wrap::-webkit-scrollbar-thumb { background: var(--b2); border-radius: 2px; }
+#tl-svg { display: block; }
+
+/* ─── RIGHT PANEL ─── */
+#rpanel {
+  width: 290px; flex-shrink: 0; border-left: 1px solid var(--b);
+  background: var(--s1); display: flex; flex-direction: column; overflow: hidden;
+}
+#rp-date-row { padding: 13px 15px 10px; border-bottom: 1px solid var(--b); flex-shrink: 0; }
+#rp-date { font-family: 'Playfair Display', serif; font-size: 21px; color: var(--gold); }
+.rpsub { font-size: 7.5px; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-top: 2px; }
+#rp-bars { padding: 9px 15px; border-bottom: 1px solid var(--b); flex-shrink: 0; }
+.bl { font-size: 7.5px; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); margin-bottom: 4px; display: flex; justify-content: space-between; }
+.btrack { height: 4px; background: rgba(255,255,255,.06); border-radius: 2px; overflow: hidden; margin-bottom: 6px; }
+.bfill { height: 4px; border-radius: 2px; transition: width .4s ease; }
+#rp-body { flex: 1; overflow-y: auto; padding: 11px 15px; }
+#rp-body::-webkit-scrollbar { width: 2px; }
+#rp-body::-webkit-scrollbar-thumb { background: var(--b2); }
+
+.sec { margin-bottom: 14px; }
+.sec-title {
+  font-size: 7.5px; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase;
+  letter-spacing: .12em; color: var(--muted); margin-bottom: 6px; padding-bottom: 4px;
+  border-bottom: 1px solid var(--b); display: flex; align-items: center; gap: 5px;
+}
+.sec-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
+.kv { display: flex; justify-content: space-between; gap: 6px; margin-bottom: 5px; }
+.kv-k { font-size: 9.5px; color: var(--muted2); flex: 1; line-height: 1.4; }
+.kv-v { font-size: 9px; font-family: 'IBM Plex Mono', monospace; text-align: right; max-width: 148px; line-height: 1.4; color: var(--text); }
+@keyframes vf { 0% { background: rgba(201,168,76,.3); color: var(--gold); } 80% { background: rgba(201,168,76,.05); } 100% { background: transparent; color: var(--text); } }
+.kv-v.flash { animation: vf .8s ease forwards; }
+
+/* ─── FLASH BAR ─── */
+#flash { 
+  position: fixed; bottom: 0; left: 160px; right: 290px; height: 32px;
+  background: var(--s2); border-top: 1px solid var(--b);
+  display: flex; align-items: center; padding: 0 14px; gap: 8px; overflow: hidden;
+}
+.fc { font-size: 7.5px; font-family: 'IBM Plex Mono', monospace; letter-spacing: .07em; flex-shrink: 0; }
+.fmid { font-size: 10.5px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.fem { font-size: 8px; font-family: 'IBM Plex Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: .09em; }
+
+/* ─── TOOLTIP ─── */
+#tip {
+  position: fixed; pointer-events: none; z-index: 999;
+  background: var(--s2); border: 1px solid var(--b2); border-radius: 5px;
+  padding: 10px 13px; max-width: 230px; opacity: 0; transition: opacity .1s;
+  box-shadow: 0 12px 40px rgba(0,0,0,.7);
+}
+.tip-id { font-size: 7.5px; font-family: 'IBM Plex Mono', monospace; letter-spacing: .08em; margin-bottom: 3px; }
+.tip-title { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 4px; line-height: 1.3; }
+.tip-desc { font-size: 9.5px; color: var(--muted2); line-height: 1.5; }
+.tip-meta { font-size: 7px; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: .1em; margin-top: 5px; color: var(--muted); }
+
+/* ─── HELP BUTTON ─── */
+#help-btn {
+  width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--b2);
+  background: transparent; color: var(--muted2); cursor: pointer; font-size: 12px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  transition: .15s;
+}
+#help-btn:hover { color: var(--text); border-color: var(--muted2); }
+
+/* ─── INTRO OVERLAY ─── */
+#overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(5,7,13,.82); backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+}
+#overlay.hidden { display: none; }
+#overlay-card {
+  background: var(--s1); border: 1px solid var(--b2); border-radius: 10px;
+  padding: 28px 32px; max-width: 640px; width: 90%;
+  box-shadow: 0 24px 80px rgba(0,0,0,.7);
+}
+#overlay-card h2 {
+  font-family: 'Playfair Display', serif; font-size: 20px; color: var(--text);
+  margin-bottom: 4px;
+}
+#overlay-card .ov-sub {
+  font-size: 9px; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--muted); margin-bottom: 22px;
+}
+.ov-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px;
+}
+.ov-item {
+  display: flex; gap: 13px; align-items: flex-start;
+  background: rgba(255,255,255,.03); border: 1px solid var(--b); border-radius: 6px;
+  padding: 11px 13px;
+}
+.ov-icon { flex-shrink: 0; width: 40px; display: flex; justify-content: center; align-items: center; }
+.ov-text {}
+.ov-label { font-size: 11.5px; font-weight: 500; color: var(--text); margin-bottom: 3px; line-height: 1.3; }
+.ov-desc { font-size: 9.5px; color: var(--muted2); line-height: 1.5; }
+.ov-full {
+  display: flex; gap: 13px; align-items: flex-start;
+  background: rgba(255,255,255,.03); border: 1px solid var(--b); border-radius: 6px;
+  padding: 11px 13px; margin-bottom: 14px;
+}
+.ov-dismiss {
+  display: block; width: 100%; padding: 10px;
+  background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.4);
+  border-radius: 5px; color: var(--gold); font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; text-transform: uppercase; letter-spacing: .1em;
+  cursor: pointer; transition: .15s;
+}
+.ov-dismiss:hover { background: rgba(201,168,76,.2); }
+
+/* ─── CANVAS LEGEND (bottom-left of timeline) ─── */
+#canvas-legend {
+  position: absolute; bottom: 38px; left: 10px; pointer-events: none; z-index: 10;
+  display: flex; flex-direction: column; gap: 5px;
+}
+.cl-row {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 8.5px; font-family: 'IBM Plex Mono', monospace; color: var(--muted);
+  background: rgba(11,15,26,.78); border: 1px solid var(--b); border-radius: 4px;
+  padding: 4px 8px; backdrop-filter: blur(4px);
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div id="topbar">
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#4e5a72;text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:3px;white-space:nowrap;transition:color .15s,border-color .15s;" onmouseover="this.style.color='#c8992a';this.style.borderColor='rgba(200,153,42,0.35)'" onmouseout="this.style.color='#4e5a72';this.style.borderColor='rgba(255,255,255,0.08)'">← Suite</a>
+  <div>
+    <h1>Canton Network — Tokenomics Evolution</h1>
+    <p>36 CIPs · 5 rule dimensions · Jul 2024 → Feb 2026</p>
+  </div>
+  <div class="hdivider"></div>
+  <div class="hstat"><div class="hstat-n" id="hs-circ">0B</div><div class="hstat-l">CC Circulation</div></div>
+  <div class="hstat"><div class="hstat-n" id="hs-sv">48%</div><div class="hstat-l">SV Share</div></div>
+  <div class="hstat"><div class="hstat-n" id="hs-fee">—</div><div class="hstat-l">Transfer Fee</div></div>
+  <div class="spacer"></div>
+  <div class="filters">
+    <button class="fbtn on" onclick="setF(this,'all')">All</button>
+    <button class="fbtn" onclick="setF(this,'Final')">Final</button>
+    <button class="fbtn" onclick="setF(this,'Approved')">Approved</button>
+    <button class="fbtn" onclick="setF(this,'Active')">Active</button>
+  </div>
+  <button id="help-btn" onclick="showOverlay()" title="How to read this chart">?</button>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <!-- Lane labels -->
+  <div id="lane-col">
+    <!-- filled by JS -->
+  </div>
+
+  <!-- Timeline scroll -->
+  <div id="tl-wrap">
+    <svg id="tl-svg"></svg>
+    <div id="canvas-legend">
+      <div class="cl-row">
+        <svg width="18" height="18"><circle cx="9" cy="9" r="7" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/><circle cx="9" cy="9" r="2.5" fill="rgba(255,255,255,.6)"/></svg>
+        <span><b style="color:rgba(255,255,255,.7)">Large bright node</b> = major rule change</span>
+      </div>
+      <div class="cl-row">
+        <svg width="18" height="18"><circle cx="9" cy="9" r="4.5" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1"/></svg>
+        <span><b style="color:rgba(255,255,255,.5)">Small node</b> = incremental update</span>
+      </div>
+      <div class="cl-row">
+        <svg width="18" height="18"><line x1="9" y1="0" x2="9" y2="18" stroke="#c9a84c" stroke-width="1.5"/><polygon points="4,2 14,2 9,8" fill="#c9a84c"/></svg>
+        <span><b style="color:var(--gold)">Gold line</b> = scrubber — drag to travel through time</span>
+      </div>
+      <div class="cl-row">
+        <svg width="18" height="18"><line x1="9" y1="0" x2="9" y2="18" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="3,3" stroke-opacity=".6"/></svg>
+        <span><b style="color:#c9a84c99">Dashed pillar</b> = major network event</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right panel -->
+  <div id="rpanel">
+    <div id="rp-date-row">
+      <div id="rp-date">Jul 2024</div>
+      <div class="rpsub">State snapshot at cursor position</div>
+    </div>
+    <div id="rp-bars">
+      <div class="bl"><span>CC in circulation</span><span id="circ-lbl">0B / 100B</span></div>
+      <div class="btrack"><div class="bfill" id="circ-bar" style="width:0%;background:var(--cs)"></div></div>
+      <div class="bl"><span>Burned</span><span id="burn-lbl">0M</span></div>
+      <div class="btrack"><div class="bfill" id="burn-bar" style="width:0%;background:rgba(212,90,142,.45)"></div></div>
+    </div>
+    <div id="rp-body">Loading…</div>
+  </div>
+</div>
+
+<!-- Flash bar -->
+<div id="flash"><span class="fem">← drag the gold scrubber line or click any node</span></div>
+
+<!-- Intro overlay -->
+<div id="overlay">
+  <div id="overlay-card">
+    <h2>How to read this chart</h2>
+    <div class="ov-sub">Canton Network · Tokenomics rule changes · Jul 2024 → Feb 2026</div>
+
+    <div class="ov-grid">
+      <div class="ov-item">
+        <div class="ov-icon">
+          <svg width="40" height="40">
+            <line x1="20" y1="0" x2="20" y2="40" stroke="#c9a84c" stroke-width="1.5"/>
+            <polygon points="14,4 26,4 20,11" fill="#c9a84c"/>
+          </svg>
+        </div>
+        <div class="ov-text">
+          <div class="ov-label">Gold scrubber line</div>
+          <div class="ov-desc">Drag it left or right — or use ← → arrow keys — to move through time. The right panel updates to show all rules in effect at that exact moment.</div>
+        </div>
+      </div>
+
+      <div class="ov-item">
+        <div class="ov-icon">
+          <svg width="40" height="40">
+            <line x1="20" y1="2" x2="20" y2="38" stroke="#a47fd4" stroke-width="1.5" stroke-dasharray="4,3" stroke-opacity=".7"/>
+          </svg>
+        </div>
+        <div class="ov-text">
+          <div class="ov-label">Dashed event pillars</div>
+          <div class="ov-desc">Mark major network moments — Network Launch (gold) and First Halving (purple). The halving cut SV reward share from 48% → 20%.</div>
+        </div>
+      </div>
+
+      <div class="ov-item">
+        <div class="ov-icon">
+          <svg width="40" height="40">
+            <circle cx="20" cy="20" r="13" fill="none" stroke="#3ecf8e" stroke-width="1.5" stroke-opacity=".5"/>
+            <circle cx="20" cy="20" r="8" fill="#3ecf8e" fill-opacity=".25" stroke="#3ecf8e" stroke-width="1.8" stroke-opacity=".9"/>
+            <circle cx="20" cy="20" r="2.5" fill="#3ecf8e" fill-opacity=".85"/>
+          </svg>
+        </div>
+        <div class="ov-text">
+          <div class="ov-label">Large bright node</div>
+          <div class="ov-desc">A major rule change — structural shift to how rewards, fees, or governance work. Hover for details, click to jump the scrubber there.</div>
+        </div>
+      </div>
+
+      <div class="ov-item">
+        <div class="ov-icon">
+          <svg width="40" height="40">
+            <circle cx="20" cy="20" r="8" fill="none" stroke="#5aaee0" stroke-width="1.2" stroke-opacity=".5"/>
+            <circle cx="20" cy="20" r="4.5" fill="#5aaee0" fill-opacity=".18" stroke="#5aaee0" stroke-width="1.2" stroke-opacity=".65"/>
+          </svg>
+        </div>
+        <div class="ov-text">
+          <div class="ov-label">Small node</div>
+          <div class="ov-desc">An incremental update — refinements, parameter tweaks, or committee decisions. Same lanes, same colours.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ov-full">
+      <div class="ov-icon" style="padding-top:2px">
+        <svg width="40" height="28">
+          <rect x="0" y="8" width="8" height="12" fill="#3ecf8e" fill-opacity=".3" rx="1"/>
+          <rect x="11" y="5" width="8" height="18" fill="#e8875a" fill-opacity=".3" rx="1"/>
+          <rect x="22" y="11" width="8" height="8" fill="#a47fd4" fill-opacity=".3" rx="1"/>
+          <rect x="33" y="3" width="8" height="22" fill="#5aaee0" fill-opacity=".3" rx="1"/>
+        </svg>
+      </div>
+      <div class="ov-text">
+        <div class="ov-label">Five swim lanes, one dimension each</div>
+        <div class="ov-desc">
+          <span style="color:#3ecf8e">■</span> Reward Structure &nbsp;·&nbsp;
+          <span style="color:#e8875a">■</span> Fee & Pricing &nbsp;·&nbsp;
+          <span style="color:#a47fd4">■</span> Supply Management &nbsp;·&nbsp;
+          <span style="color:#5aaee0">■</span> Market Integration &nbsp;·&nbsp;
+          <span style="color:#d45a8e">■</span> Fund Governance<br>
+          <span style="margin-top:4px;display:block">Use the filter buttons (top-right) to highlight only Final, Approved, or Active CIPs.</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="ov-dismiss" onclick="dismissOverlay()">Start exploring →</button>
+  </div>
+</div>
+
+<!-- Tooltip -->
+<div id="tip">
+  <div class="tip-id" id="tip-id"></div>
+  <div class="tip-title" id="tip-title"></div>
+  <div class="tip-desc" id="tip-desc"></div>
+  <div class="tip-meta" id="tip-meta"></div>
+</div>
+
+<script>
+// ─── CONFIG ───────────────────────────────────────────────────
+const LANES = [
+  { id:'reward', label:'Reward Structure',   col:'#3ecf8e' },
+  { id:'fee',    label:'Fee & Pricing',       col:'#e8875a' },
+  { id:'supply', label:'Supply Management',  col:'#a47fd4' },
+  { id:'market', label:'Market Integration', col:'#5aaee0' },
+  { id:'gov',    label:'Fund Governance',     col:'#d45a8e' },
+];
+
+const CIPS = [
+  // REWARD
+  { lane:'reward', date:'2024-07-10', id:'CIP-0001', title:'Weighted SV rewards',
+    desc:"Replaced tranche-delay system. Each SV's minting share is proportional to governance weight — making weight the central economic lever.", status:'Final', major:true },
+  { lane:'reward', date:'2024-07-10', id:'CIP-0003', title:'Rewards to any live validator',
+    desc:'Expanded reward eligibility beyond SVs. Any validator on the network can mint liveness rewards.', status:'Final', major:false },
+  { lane:'reward', date:'2024-09-15', id:'CIP-0007', title:'Earn weight via validators & apps',
+    desc:'SVs accumulate bonus governance weight by onboarding live validators and featured apps. Weight is no longer static.', status:'Replaced', major:true },
+  { lane:'reward', date:'2024-12-01', id:'CIP-0024', title:'Revised validator weight earning',
+    desc:'Refined CIP-0007 mechanics; corrected edge cases around temporary validator downtime.', status:'Final', major:false },
+  { lane:'reward', date:'2025-02-01', id:'CIP-0047', title:'Featured app activity markers',
+    desc:'On-chain markers identify featured-app transactions, enabling precise reward accounting. Authored by Moritz Kiefer.', status:'Final', major:false },
+  { lane:'reward', date:'2025-03-01', id:'CIP-0048', title:'Raise validator & app reward cap',
+    desc:'Increased the maximum minting allocation for validators and featured apps. Authored by Wayne Collier.', status:'Final', major:false },
+  { lane:'reward', date:'2025-07-01', id:'CIP-0070', title:'Validator reward cap (Withdrawn)',
+    desc:'Proposed adjusting reward caps for validators. Withdrawn by Chris Zuehlke.', status:'Withdrawn', major:false },
+  { lane:'reward', date:'2025-09-01', id:'CIP-0073', title:'Weighted validator liveness rewards',
+    desc:'SVs may designate specific validator party IDs to receive weighted liveness minting. Authored by Moritz Kiefer.', status:'Approved', major:false },
+  { lane:'reward', date:'2026-01-10', id:'CIP-0096', title:'Liveness carved out from validator pool',
+    desc:'Separated liveness rewards into their own sub-pool. Simplifies the reward model and enables cleaner milestone tracking. Authored by Chris Zuehlke / Andrew Bryan.', status:'Approved', major:true },
+  { lane:'reward', date:'2026-01-15', id:'CIP-0098', title:'Per-tx app reward cap at $1.50',
+    desc:'Hard ceiling per transaction prevents gaming of the app reward pool and protects issuance sustainability.', status:'Approved', major:true },
+  // FEE,
+  { lane:'reward', date:'2026-01-29', id:'CIP-0104', title:'Traffic-based app rewards',
+    desc:'Replaces FeaturedAppActivityMarker system with traffic-based measurement via sequencer/mediator data. Confirmation responses made free. Supersedes CIP-0047 and CIP-0098. Authored by Simon Meier.', status:'Approved', major:true },
+  { lane:'reward', date:'2026-02-01', id:'CIP-0105', title:'SV locking & long-term commitment',
+    desc:'SVs may voluntarily lock governance weight for defined periods in exchange for enhanced rewards. Community-influenced proposal. Status: Proposed.', status:'Proposed', major:false },
+  { lane:'fee', date:'2025-01-15', id:'CIP-0042', title:'Stable USD price per CC transfer',
+    desc:'First formal pricing mechanism: a fixed USD-denominated synchronizer fee per Canton Coin transfer. Authored by Wayne Collier / Moritz Kiefer.', status:'Active', major:true },
+  { lane:'fee', date:'2025-08-01', id:'CIP-0078', title:'Canton Coin transfer fee removal',
+    desc:'Eliminated all transfer fees — adoption over revenue. Only holding fees retained. Dramatically reduced settlement friction. Authored by Simon Meier.', status:'Final', major:true },
+  { lane:'fee', date:'2025-10-01', id:'CIP-0084', title:'Tokenomics Committee price tuning',
+    desc:'Delegated $/MB synchronizer price recommendations to a standing Tokenomics Committee.', status:'Approved', major:false },
+  // SUPPLY
+  { lane:'supply', date:'2024-07-10', id:'CIP-0002', title:'BME parameter tuning v1 (Replaced)',
+    desc:'Initial burn/mint/emission calibration at network launch. Superseded by CIP-0008 and CIP-0020.', status:'Replaced', major:false },
+  { lane:'supply', date:'2024-07-10', id:'CIP-0008', title:'BME calibration v2 (Replaced)',
+    desc:'Second BME calibration. Co-authored by Wayne Collier and Moritz Kiefer. Superseded by CIP-0020.', status:'Replaced', major:false },
+  { lane:'supply', date:'2024-11-01', id:'CIP-0020', title:'BME calibration refinement',
+    desc:'Post-launch calibration based on observed mainnet data. Adjusted decay rates to smooth reward volatility. Replaces CIP-0008.', status:'Final', major:true },
+  { lane:'supply', date:'2025-06-01', id:'CIP-0066', title:'Mint from unclaimed pool',
+    desc:'Authorised minting from the historical pool of previously frozen unclaimed rewards. Authored by Jose Velasco.', status:'Final', major:true },
+  { lane:'supply', date:'2025-07-01', id:'CIP-0067', title:'Unclaimed pool → GSF',
+    desc:'One-time allocation of all historical unclaimed rewards to the GSF treasury. Centralised reserve management.', status:'Final', major:true },
+  { lane:'supply', date:'2025-11-01', id:'CIP-0082', title:'5% Development Fund established',
+    desc:'5% of all new CC issuance redirected to a Foundation-governed development fund.', status:'Approved', major:true },
+  { lane:'supply', date:'2026-01-01', id:'CIP-0100', title:'Development Fund governance',
+    desc:'Formal committee process and grant criteria for disbursing the 5% development fund. Authored by Bernhard Elsner.', status:'Approved', major:false },
+  // MARKET
+  { lane:'market', date:'2025-04-01', id:'CIP-0056', title:'Canton Network Token Standard',
+    desc:'Daml interface and OpenAPI spec for regulated tokenisation — the ERC-20 of Canton. Enables DvP and privacy-preserving transfer controls. Authored by Simon Meier / Matteo Limberto / Moritz Kiefer.', status:'Final', major:true },
+  { lane:'market', date:'2025-09-01', id:'CIP-0079', title:'SV readiness check for CC listing',
+    desc:'Required all SVs to demonstrate functional third-party price feed integration before public listing.', status:'Approved', major:true },
+  { lane:'market', date:'2025-10-01', id:'CIP-0063', title:'Kaiko reference price provider',
+    desc:'Kaiko formally designated as approved CC reference price data provider post-listing.', status:'Final', major:false },
+  { lane:'market', date:'2025-10-15', id:'CIP-0092', title:'Dynamic market feed transition',
+    desc:'Controlled shift from admin-set fixed price to live oracle feeds once CC achieves public listing.', status:'Approved', major:true },
+  { lane:'market', date:'2025-11-15', id:'CIP-0090', title:'USDT0 omnichain stablecoin',
+    desc:'Omnichain USDT layer (LayerZero / Everdawn Labs) joins as SV. Enables cross-chain stablecoin flows into Canton.', status:'Approved', major:false },
+  { lane:'market', date:'2025-10-01', id:'CIP-0086', title:'ERC-20 middleware & distributed indexer',
+    desc:'EVM-compatible ERC-20 wrapper enabling CIP-0056 assets to be accessible from Ethereum tooling.', status:'Approved', major:true },
+  { lane:'market', date:'2026-01-21', id:'CIP-0102', title:'Tharimmune CC treasury strategy',
+    desc:'First Nasdaq-listed company adopts CC as treasury reserve. $545M private placement validates CC as institutional instrument. Authored by Mark Wendland.', status:'Approved', major:true },
+  // GOV
+  { lane:'gov', date:'2024-08-01', id:'CIP-0000', title:'CIP process established',
+    desc:'Defined the complete Improvement Proposal lifecycle: categories, 2/3 SV quorum threshold, and status transitions. Authored by Wayne Collier.', status:'Active', major:true },
+  { lane:'gov', date:'2024-10-01', id:'CIP-0006', title:'SV weight distribution process',
+    desc:'Formalised how governance weight is distributed and how CIPs are ratified by the SV quorum.', status:'Active', major:false },
+  { lane:'gov', date:'2025-01-15', id:'CIP-0021', title:'Featured App & Validator Committee',
+    desc:'Created FAV-C as a standing committee to oversee all validator and app onboarding approvals. Authored by Chris Zuehlke.', status:'Active', major:true },
+  { lane:'gov', date:'2025-03-15', id:'CIP-0045', title:'SV operating requirements',
+    desc:'Codified minimum operational standards; SVs with weight >2.5 must operate an independent node within 6 months.', status:'Active', major:false },
+  { lane:'gov', date:'2025-04-03', id:'CIP-0051', title:'Streamlined on-chain governance',
+    desc:'Simplified voting mechanics and reduced vote types for routine governance actions. Authored by Itai Segall.', status:'Final', major:false },
+  { lane:'gov', date:'2025-11-01', id:'CIP-0084-tc', title:'Tokenomics Committee formed',
+    desc:'Standing committee empowered to adjust pricing parameters without full SV votes.', status:'Approved', major:false },
+  { lane:'gov', date:'2026-01-01', id:'CIP-0100-ac', title:'Accountability Committee',
+    desc:'Oversight body for the 5% Development Fund, milestone verification, and parameter governance.', status:'Approved', major:false },
+];
+
+const EVENTS = [
+  { date:'2024-07-01', label:'Network Launch', col:'#c9a84c' },
+  { date:'2026-01-27', label:'First Halving · round 78,840', col:'#a47fd4' },
+];
+
+const SNAPS = [
+  { at: new Date('2024-07-01'),
+    reward:{ sv:'48%', val:'12%', app:'40%', mech:'Weighted (CIP-0001)', cap:'Uncapped', liveness:'Any validator' },
+    fee:{ transfer:'Not yet set', holding:'None', price:'Admin-set fixed' },
+    supply:{ circ:'~0B CC', cn:0, burned:'0', bn:0, devFund:'None', unclaimed:'Accumulating' },
+    market:{ price:'Admin $0.005/CC', oracle:'None', listing:'Not planned', std:'None' },
+    gov:{ cttee:'None', req:'None', cip:'In draft', acct:'None' } },
+  { at: new Date('2024-09-01'),
+    reward:{ sv:'48%', val:'12%', app:'40%', mech:'Weighted + earned weight (CIP-0007)', cap:'Uncapped', liveness:'Any validator' },
+    fee:{ transfer:'Not yet set', holding:'None', price:'Admin-set fixed' },
+    supply:{ circ:'~3B CC', cn:3, burned:'~5M', bn:.005, devFund:'None', unclaimed:'Growing' },
+    market:{ price:'Admin $0.005/CC', oracle:'None', listing:'Not planned', std:'None' },
+    gov:{ cttee:'None', req:'None', cip:'CIP-0000 Active', acct:'None' } },
+  { at: new Date('2025-01-01'),
+    reward:{ sv:'48%', val:'12%', app:'40%', mech:'Weighted + earned weight (CIP-0024)', cap:'Uncapped', liveness:'Any validator' },
+    fee:{ transfer:'Fixed USD/tx (CIP-0042)', holding:'None', price:'Admin stable' },
+    supply:{ circ:'~10B CC', cn:10, burned:'~30M', bn:.03, devFund:'None', unclaimed:'Growing' },
+    market:{ price:'Admin $0.005/CC', oracle:'None', listing:'Under discussion', std:'None' },
+    gov:{ cttee:'FAV-C (CIP-0021)', req:'None', cip:'Active', acct:'None' } },
+  { at: new Date('2025-05-01'),
+    reward:{ sv:'48%', val:'12%', app:'40%', mech:'Weighted + activity markers (CIP-0047)', cap:'Raised (CIP-0048)', liveness:'Featured app eligible' },
+    fee:{ transfer:'Fixed USD/tx', holding:'None', price:'Admin-set' },
+    supply:{ circ:'~18B CC', cn:18, burned:'~120M', bn:.12, devFund:'None', unclaimed:'Frozen' },
+    market:{ price:'Admin $0.005/CC', oracle:'None', listing:'Preparing', std:'CIP-0056 Final' },
+    gov:{ cttee:'FAV-C active', req:'CIP-0045 enforced', cip:'Streamlined (CIP-0051)', acct:'None' } },
+  { at: new Date('2025-08-01'),
+    reward:{ sv:'48%', val:'12%', app:'40%', mech:'Weighted + earned weight', cap:'Raised (CIP-0048)', liveness:'Any validator' },
+    fee:{ transfer:'ZERO (CIP-0078)', holding:'None', price:'Admin-set (Tokenomics Cttee pending)' },
+    supply:{ circ:'~27B CC', cn:27, burned:'~350M', bn:.35, devFund:'None', unclaimed:'→ GSF (CIP-0067)' },
+    market:{ price:'Admin-set', oracle:'None', listing:'SV readiness check (CIP-0079)', std:'CIP-0056 Final' },
+    gov:{ cttee:'FAV-C (CIP-0021)', req:'Enforced + node req', cip:'Mature', acct:'None' } },
+  { at: new Date('2025-11-01'),
+    reward:{ sv:'48%', val:'12%', app:'40%', mech:'Weighted + weighted liveness (CIP-0073)', cap:'Raised', liveness:'SV-designated parties' },
+    fee:{ transfer:'ZERO', holding:'None', price:'Tokenomics Committee (CIP-0084)' },
+    supply:{ circ:'~30B CC', cn:30, burned:'~450M', bn:.45, devFund:'5% of issuance (CIP-0082)', unclaimed:'Cleared' },
+    market:{ price:'Admin → oracle transition', oracle:'Kaiko (CIP-0063) + Chainlink', listing:'Pre-listing checks (CIP-0092)', std:'CIP-0056 + CIP-0090' },
+    gov:{ cttee:'FAV-C + Tokenomics + Accountability', req:'CIP-0045 enforced', cip:'Mature', acct:'CIP-0100 pending' } },
+  { at: new Date('2026-01-27'),
+    reward:{ sv:'20% (post-halving)', val:'8%', app:'72%', mech:'Weighted + liveness sub-pool (CIP-0096)', cap:'$1.50/tx (CIP-0098)', liveness:'SV-designated parties' },
+    fee:{ transfer:'ZERO', holding:'None', price:'Live oracle (CIP-0092)' },
+    supply:{ circ:'~32.9B CC', cn:32.9, burned:'~517M', bn:.517, devFund:'CIP-0100 governed', unclaimed:'Cleared' },
+    market:{ price:'Market oracle (Kaiko + Chainlink)', oracle:'Kaiko + Chainlink', listing:'Active / pre-listing', std:'CIP-0056, 0090, 0103' },
+    gov:{ cttee:'FAV-C + Tokenomics + Accountability', req:'Enforced + node req', cip:'dApp Std (CIP-0103)', acct:'Active (CIP-0100)' } },
+  { at: new Date('2026-02-28'),
+    reward:{ sv:'20% (post-halving)', val:'8%', app:'72%', mech:'Traffic-based (CIP-0104)', cap:'Traffic-weighted — CIP-0098 superseded', liveness:'SV-designated parties' },
+    fee:{ transfer:'ZERO', holding:'None', price:'Live oracle (CIP-0092)' },
+    supply:{ circ:'~33.5B CC', cn:33.5, burned:'~530M', bn:.530, devFund:'CIP-0100 governed', unclaimed:'Cleared' },
+    market:{ price:'Market oracle (Kaiko + Chainlink)', oracle:'Kaiko + Chainlink', listing:'Active', std:'CIP-0056, 0090, 0103' },
+    gov:{ cttee:'FAV-C + Tokenomics + Accountability', req:'Enforced + node req', cip:'dApp Std (CIP-0103)', acct:'Active (CIP-0100)' } },
+];
+
+// ─── TIMELINE MATH ────────────────────────────────────────────
+const T0  = new Date('2024-07-01');
+const T1  = new Date('2026-03-01');
+const PPD = 3.4; // px per day
+const AXIS_H = 32;
+
+function d2p(d) { return (+d - +T0) / 86400000 * PPD; }
+function p2d(p) { return new Date(+T0 + p / PPD * 86400000); }
+function fmtD(d) { return d.toLocaleString('default', { month:'short', year:'numeric' }); }
+function getSnap(date) {
+  let s = SNAPS[0];
+  for (const sn of SNAPS) if (sn.at <= date) s = sn;
+  return s;
+}
+
+// ─── STATE ────────────────────────────────────────────────────
+let scrubX   = 0;
+let curFilter = 'all';
+let prevVals = {};
+let lastFlashCip = null;
+
+// ─── RENDER LANE LABELS ───────────────────────────────────────
+function renderLaneLabels(laneH) {
+  const col = document.getElementById('lane-col');
+  col.innerHTML = LANES.map(l =>
+    `<div class="lane-hdr" style="height:${laneH}px; border-left-color:${l.col}44">
+       <div class="ldot" style="background:${l.col}"></div>${l.label}
+     </div>`
+  ).join('') + `<div id="lane-axis-pad" style="height:${AXIS_H}px"></div>`;
+}
+
+// ─── BUILD SVG ────────────────────────────────────────────────
+function buildSVG() {
+  const wrap = document.getElementById('tl-wrap');
+  const W    = Math.max(d2p(T1) + 80, wrap.clientWidth);
+  const LH   = Math.floor((wrap.clientHeight - AXIS_H) / LANES.length);
+  const H    = LANES.length * LH + AXIS_H;
+
+  renderLaneLabels(LH);
+
+  const svg  = document.getElementById('tl-svg');
+  svg.setAttribute('width',  W);
+  svg.setAttribute('height', H);
+
+  // Build SVG as HTML string
+  let parts = [];
+
+  // Defs
+  parts.push(`<defs>
+    <filter id="gl" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="scrubGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c9a84c" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#c9a84c" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>`);
+
+  // Lane backgrounds
+  LANES.forEach((l, i) => {
+    const y = i * LH;
+    const op = i % 2 === 0 ? '.022' : '.013';
+    parts.push(`<rect x="0" y="${y}" width="${W}" height="${LH}" fill="${l.col}" fill-opacity="${op}"/>`);
+  });
+
+  // Monthly grid lines
+  let d = new Date(T0); d.setDate(1);
+  while (d <= T1) {
+    const x   = d2p(d).toFixed(1);
+    const isJ = d.getMonth() === 0;
+    const str = isJ ? '' : '4,5';
+    const op  = isJ ? '.1' : '.03';
+    const sw  = isJ ? '1' : '.5';
+    parts.push(`<line x1="${x}" y1="0" x2="${x}" y2="${H - AXIS_H}" stroke="rgba(255,255,255,${op})" stroke-width="${sw}" stroke-dasharray="${str}"/>`);
+    d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+  }
+
+  // Lane centre tracks
+  LANES.forEach((l, i) => {
+    const y = (i * LH + LH / 2).toFixed(1);
+    parts.push(`<line x1="8" y1="${y}" x2="${W - 8}" y2="${y}" stroke="${l.col}" stroke-opacity=".12" stroke-width="1"/>`);
+  });
+
+  // Macro events
+  EVENTS.forEach(ev => {
+    const x = d2p(new Date(ev.date)).toFixed(1);
+    parts.push(`
+      <rect x="${x - 10}" y="0" width="20" height="${H - AXIS_H}" fill="${ev.col}" fill-opacity=".04"/>
+      <line x1="${x}" y1="0" x2="${x}" y2="${H - AXIS_H}" stroke="${ev.col}" stroke-width="1.5" stroke-opacity=".5" stroke-dasharray="4,3"/>
+      <text transform="translate(${parseFloat(x) + 5},${H - AXIS_H - 8}) rotate(-90)"
+        fill="${ev.col}" fill-opacity=".6" font-size="7" font-family="IBM Plex Mono, monospace"
+        text-anchor="start" dominant-baseline="auto" letter-spacing=".09em">
+        ${ev.label.toUpperCase()}
+      </text>`);
+  });
+
+  // Time axis labels
+  d = new Date(T0); d.setDate(1);
+  while (d <= T1) {
+    const x    = d2p(d).toFixed(1);
+    const isJ  = d.getMonth() === 0;
+    const show = isJ || d.getMonth() % 2 === 0;
+    if (show) {
+      const lbl = isJ
+        ? `${d.toLocaleString('default',{month:'short'})} ${d.getFullYear()}`
+        : d.toLocaleString('default',{month:'short'});
+      const fill = isJ ? 'rgba(255,255,255,.42)' : 'rgba(255,255,255,.2)';
+      parts.push(`<text x="${x}" y="${H - AXIS_H + 18}" fill="${fill}" font-size="7.5"
+        font-family="IBM Plex Mono, monospace" text-anchor="middle" dominant-baseline="central">${lbl}</text>`);
+    }
+    if (isJ) {
+      parts.push(`<line x1="${x}" y1="${H - AXIS_H}" x2="${x}" y2="${H - AXIS_H + 7}" stroke="rgba(255,255,255,.2)" stroke-width="1"/>`);
+    }
+    d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
+  }
+
+  // CIP nodes (rendered before scrubber so scrubber is on top)
+  parts.push('<g id="cip-layer">');
+  CIPS.forEach((cip, idx) => {
+    const li  = LANES.findIndex(l => l.id === cip.lane);
+    if (li < 0) return;
+    const x   = d2p(new Date(cip.date)).toFixed(1);
+    const y   = (li * LH + LH / 2).toFixed(1);
+    const col = LANES[li].col;
+    const r   = cip.major ? 8 : 5.5;
+    const or  = cip.major ? 14 : 9.5;
+    parts.push(`<g class="cip-node" data-idx="${idx}" data-status="${cip.status}" style="cursor:pointer">
+      <circle cx="${x}" cy="${y}" r="${or}" fill="none" stroke="${col}" stroke-opacity="${cip.major?'.22':'.14'}" stroke-width="${cip.major?1.5:1}"/>
+      <circle cx="${x}" cy="${y}" r="${r}" fill="${col}" fill-opacity="${cip.major?'.28':'.17'}"
+        stroke="${col}" stroke-width="${cip.major?1.8:1.2}" stroke-opacity="${cip.major?'.95':'.65'}" filter="url(#gl)"/>
+      ${cip.major ? `<circle cx="${x}" cy="${y}" r="2.5" fill="${col}" fill-opacity=".9"/>` : ''}
+      <circle cx="${x}" cy="${y}" r="${or + 5}" fill="transparent"/>
+    </g>`);
+  });
+  parts.push('</g>');
+
+  // Scrubber (last = on top)
+  parts.push(`<g id="scrub-g">
+    <line id="scrub-line" x1="0" y1="0" x2="0" y2="${H - AXIS_H}"
+      stroke="url(#scrubGrad)" stroke-width="1.5"/>
+    <polygon points="-6,0 6,0 0,8" fill="#c9a84c"/>
+    <polygon points="-6,0 6,0 0,-8" fill="#c9a84c" fill-opacity=".4"
+      transform="translate(0,${H - AXIS_H})"/>
+  </g>`);
+
+  svg.innerHTML = parts.join('\n');
+
+  // Attach CIP node events AFTER setting innerHTML
+  svg.querySelectorAll('.cip-node').forEach(node => {
+    const idx = parseInt(node.getAttribute('data-idx'));
+    const cip = CIPS[idx];
+    const li  = LANES.findIndex(l => l.id === cip.lane);
+    const col = LANES[li]?.col || '#888';
+    node.addEventListener('mouseenter', e => showTip(e, cip, col));
+    node.addEventListener('mousemove',  moveTip);
+    node.addEventListener('mouseleave', hideTip);
+    node.addEventListener('click', e => { e.stopPropagation(); setScrub(d2p(new Date(cip.date))); });
+  });
+
+  // Drag on the wrap — use a flag on the element to avoid duplicate listeners
+  if (!wrap._dragBound) {
+    wrap._dragBound = true;
+    wrap.addEventListener('mousedown', e => {
+      wrap._dragging = true;
+      const svgW = parseInt(document.getElementById('tl-svg').getAttribute('width')) || 9999;
+      setScrub(clampPx(e.clientX - wrap.getBoundingClientRect().left + wrap.scrollLeft, svgW));
+    });
+  }
+
+  applyFilter(curFilter);
+  setScrub(d2p(new Date('2024-07-01')));
+
+  return { W, LH, H };
+}
+
+function clampPx(px, max) { return Math.max(0, Math.min(max, px)); }
+
+// ─── GLOBAL DRAG + KEY LISTENERS (registered once, not per buildSVG) ─────────
+window.addEventListener('mousemove', e => {
+  const wrap = document.getElementById('tl-wrap');
+  if (!wrap || !wrap._dragging) return;
+  const svgW = parseInt(document.getElementById('tl-svg').getAttribute('width')) || 9999;
+  setScrub(clampPx(e.clientX - wrap.getBoundingClientRect().left + wrap.scrollLeft, svgW));
+  moveTip(e);
+});
+window.addEventListener('mouseup', () => {
+  const wrap = document.getElementById('tl-wrap');
+  if (wrap) wrap._dragging = false;
+});
+document.addEventListener('keydown', e => {
+  const svgW = parseInt(document.getElementById('tl-svg').getAttribute('width')) || 9999;
+  if (e.key === 'ArrowRight') setScrub(Math.min(svgW, scrubX + PPD * 7));
+  if (e.key === 'ArrowLeft')  setScrub(Math.max(0,    scrubX - PPD * 7));
+});
+
+// ─── SCRUBBER ─────────────────────────────────────────────────
+function setScrub(px) {
+  scrubX = px;
+  const g = document.getElementById('scrub-g');
+  if (g) g.setAttribute('transform', `translate(${px},0)`);
+  const date = p2d(px);
+  document.getElementById('rp-date').textContent = fmtD(date);
+  updateSnap(date);
+  flashNearest(px);
+}
+
+// ─── FLASH BAR ────────────────────────────────────────────────
+function flashNearest(px) {
+  const vis = CIPS.filter(c => curFilter === 'all' || c.status === curFilter);
+  let best = null, bestD = Infinity;
+  vis.forEach(c => {
+    const dd = Math.abs(d2p(new Date(c.date)) - px);
+    if (dd < bestD) { bestD = dd; best = c; }
+  });
+  if (!best || bestD > PPD * 14 || best === lastFlashCip) return;
+  lastFlashCip = best;
+  const li  = LANES.findIndex(l => l.id === best.lane);
+  const col = li >= 0 ? LANES[li].col : '#888';
+  document.getElementById('flash').innerHTML =
+    `<span class="fc" style="color:${col}">${best.id.replace(/-tc$|-ac$/,'')}</span>
+     <span class="fc" style="color:var(--muted2)">·</span>
+     <span class="fmid">${best.title}</span>
+     <span class="fc" style="color:${col}">${LANES[li]?.label||''}</span>
+     <span class="fc" style="color:var(--muted2)">·</span>
+     <span class="fc" style="color:var(--muted2)">${best.status}</span>`;
+}
+
+// ─── SNAPSHOT PANEL ───────────────────────────────────────────
+function updateSnap(date) {
+  const s = getSnap(date);
+
+  // Header stats
+  document.getElementById('hs-circ').textContent = s.supply.circ;
+  document.getElementById('hs-sv').textContent   = s.reward.sv;
+  document.getElementById('hs-fee').textContent  = s.fee.transfer;
+
+  // Bars
+  const cn = s.supply.cn || 0;
+  const bn = s.supply.bn || 0;
+  document.getElementById('circ-bar').style.width = Math.min(100, cn) + '%';
+  document.getElementById('burn-bar').style.width = Math.min(100, bn * 120) + '%';
+  document.getElementById('circ-lbl').textContent = `${cn.toFixed(1)}B / 100B`;
+  document.getElementById('burn-lbl').textContent = `${(bn * 1000).toFixed(0)}M CC`;
+
+  // Detect changed fields
+  const changed = new Set();
+  function walk(obj, prefix) {
+    Object.entries(obj).forEach(([k, v]) => {
+      if (v && typeof v === 'object' && !(v instanceof Date)) {
+        walk(v, prefix + k + '.');
+      } else {
+        const key = prefix + k;
+        if (key in prevVals && prevVals[key] !== v) changed.add(key);
+        prevVals[key] = v;
+      }
+    });
+  }
+  walk(s, '');
+
+  function KVlabel(label, key, val) {
+    const cls = changed.has(key) ? ' flash' : '';
+    return `<div class="kv"><div class="kv-k">${label}</div><div class="kv-v${cls}">${val}</div></div>`;
+  }
+
+  document.getElementById('rp-body').innerHTML = `
+    <div class="sec">
+      <div class="sec-title"><div class="sec-dot" style="background:#3ecf8e"></div>Reward Structure</div>
+      ${KVlabel('SV share',        'reward.sv',       s.reward.sv)}
+      ${KVlabel('Validator share', 'reward.val',      s.reward.val)}
+      ${KVlabel('App share',       'reward.app',      s.reward.app)}
+      ${KVlabel('Mechanism',       'reward.mech',     s.reward.mech)}
+      ${KVlabel('Per-tx cap',      'reward.cap',      s.reward.cap)}
+      ${KVlabel('Liveness model',  'reward.liveness', s.reward.liveness)}
+    </div>
+    <div class="sec">
+      <div class="sec-title"><div class="sec-dot" style="background:#e8875a"></div>Fee & Pricing</div>
+      ${KVlabel('Transfer fee',    'fee.transfer', s.fee.transfer)}
+      ${KVlabel('Holding fee',     'fee.holding',  s.fee.holding)}
+      ${KVlabel('Price mechanism', 'fee.price',    s.fee.price)}
+    </div>
+    <div class="sec">
+      <div class="sec-title"><div class="sec-dot" style="background:#a47fd4"></div>Supply Management</div>
+      ${KVlabel('Dev fund',       'supply.devFund',  s.supply.devFund)}
+      ${KVlabel('Unclaimed pool', 'supply.unclaimed', s.supply.unclaimed)}
+    </div>
+    <div class="sec">
+      <div class="sec-title"><div class="sec-dot" style="background:#5aaee0"></div>Market Integration</div>
+      ${KVlabel('CC price source', 'market.price',   s.market.price)}
+      ${KVlabel('Oracle provider', 'market.oracle',  s.market.oracle)}
+      ${KVlabel('Listing status',  'market.listing', s.market.listing)}
+      ${KVlabel('Token standard',  'market.std',     s.market.std)}
+    </div>
+    <div class="sec">
+      <div class="sec-title"><div class="sec-dot" style="background:#d45a8e"></div>Fund Governance</div>
+      ${KVlabel('Committees',    'gov.cttee', s.gov.cttee)}
+      ${KVlabel('SV req.',       'gov.req',   s.gov.req)}
+      ${KVlabel('CIP process',   'gov.cip',   s.gov.cip)}
+      ${KVlabel('Accountability','gov.acct',  s.gov.acct)}
+    </div>`;
+}
+
+// ─── FILTER ───────────────────────────────────────────────────
+window.setF = function(btn, f) {
+  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  curFilter = f;
+  applyFilter(f);
+};
+function applyFilter(f) {
+  document.querySelectorAll('.cip-node').forEach(node => {
+    const st   = node.getAttribute('data-status');
+    const show = f === 'all' || st === f;
+    node.style.opacity       = show ? '1' : '0.07';
+    node.style.pointerEvents = show ? 'auto' : 'none';
+  });
+}
+
+// ─── TOOLTIP ──────────────────────────────────────────────────
+const tipEl = document.getElementById('tip');
+function showTip(e, cip, col) {
+  document.getElementById('tip-id').textContent    = cip.id.replace(/-tc$|-ac$/,'');
+  document.getElementById('tip-id').style.color    = col;
+  document.getElementById('tip-title').textContent = cip.title;
+  document.getElementById('tip-desc').textContent  = cip.desc;
+  document.getElementById('tip-meta').textContent  =
+    `${cip.status} · ${cip.major?'Major':'Standard'} · ${LANES.find(l=>l.id===cip.lane)?.label||''}`;
+  tipEl.style.opacity = '1';
+  positionTip(e);
+}
+function moveTip(e) { if (tipEl.style.opacity !== '0') positionTip(e); }
+function positionTip(e) {
+  let x = e.clientX + 16, y = e.clientY - 20;
+  if (x + 240 > window.innerWidth)  x = e.clientX - 252;
+  if (y + tipEl.offsetHeight > window.innerHeight) y = e.clientY - tipEl.offsetHeight - 8;
+  tipEl.style.left = x + 'px';
+  tipEl.style.top  = y + 'px';
+}
+function hideTip() { tipEl.style.opacity = '0'; }
+
+// ─── OVERLAY ──────────────────────────────────────────────────
+function showOverlay() { document.getElementById('overlay').classList.remove('hidden'); }
+function dismissOverlay() { document.getElementById('overlay').classList.add('hidden'); }
+window.showOverlay = showOverlay;
+window.dismissOverlay = dismissOverlay;
+// Dismiss on backdrop click
+document.getElementById('overlay').addEventListener('click', function(e) {
+  if (e.target === this) dismissOverlay();
+});
+
+// ─── BOOT ─────────────────────────────────────────────────────
+// Use setTimeout(0) after DOMContentLoaded — more reliable than RAF for measuring layout
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    buildSVG();
+    // Update flash bar bottom offset to match actual rendered height
+    const flash = document.getElementById('flash');
+    flash.style.bottom = '0';
+  }, 50);
+});
+window.addEventListener('resize', () => {
+  lastFlashCip = null;
+  prevVals = {};
+  buildSVG();
+});
+</script>
+</body>
+</html>
