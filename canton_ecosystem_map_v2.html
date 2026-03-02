@@ -3,10 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Canton Network — Ecosystem Map</title>
+<title>Canton Network — Ecosystem Map · 7Trust</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -16,13 +14,13 @@
     --border: rgba(255,255,255,0.07);
     --text: #e8eaf0;
     --muted: #6b7594;
-    --accent: #c9a84c;
-    --accent2: #4c7fc9;
+    --accent: #609CBF;
+    --accent2: #71A9C7;
   }
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Courier New', Courier, monospace;
     height: 100vh;
     overflow: hidden;
     display: flex;
@@ -40,7 +38,7 @@
     z-index: 10;
   }
   .logo-area h1 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 20px;
     letter-spacing: 0.01em;
     color: var(--text);
@@ -48,7 +46,7 @@
   .logo-area p {
     font-size: 11px;
     color: var(--muted);
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     margin-top: 2px;
@@ -56,7 +54,7 @@
   .header-stats { display: flex; gap: 28px; align-items: center; }
   .stat { text-align: right; }
   .stat-num {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 22px;
     color: var(--accent);
     line-height: 1;
@@ -66,7 +64,7 @@
     color: var(--muted);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
   }
   .breadcrumb {
     display: flex;
@@ -77,7 +75,7 @@
     color: var(--muted);
     border-bottom: 1px solid var(--border);
     flex-shrink: 0;
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     letter-spacing: 0.05em;
     min-height: 38px;
   }
@@ -90,7 +88,7 @@
     cursor: pointer;
     padding: 3px 10px;
     font-size: 11px;
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     letter-spacing: 0.06em;
     border-radius: 3px;
     transition: all 0.15s;
@@ -106,7 +104,7 @@
   .cat-bubble:hover text { fill: white; }
   .cat-label {
     fill: white;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Courier New', Courier, monospace;
     font-weight: 500;
     text-anchor: middle;
     pointer-events: none;
@@ -114,7 +112,7 @@
   }
   .cat-count {
     fill: rgba(255,255,255,0.55);
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 11px;
     text-anchor: middle;
     pointer-events: none;
@@ -137,12 +135,12 @@
     flex-wrap: wrap;
   }
   .company-header h2 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 26px;
     color: var(--text);
   }
   .company-header .cat-count-big {
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 13px;
     color: var(--muted);
   }
@@ -152,7 +150,7 @@
     color: var(--text);
     padding: 8px 14px;
     font-size: 13px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Courier New', Courier, monospace;
     border-radius: 4px;
     width: 260px;
     outline: none;
@@ -190,7 +188,7 @@
   .company-card .co-country {
     font-size: 10px;
     color: var(--muted);
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     margin-top: 3px;
   }
   .company-card .co-desc {
@@ -215,11 +213,11 @@
     transition: opacity 0.12s;
     z-index: 999;
     max-width: 200px;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Courier New', Courier, monospace;
   }
   #tooltip.show { opacity: 1; }
   #tooltip strong { display: block; color: var(--text); margin-bottom: 2px; }
-  #tooltip span { color: var(--muted); font-family: 'DM Mono', monospace; font-size: 11px; }
+  #tooltip span { color: var(--muted); font-family: 'Courier New', Courier, monospace; font-size: 11px; }
   #view-hint {
     position: absolute;
     bottom: 24px;
@@ -227,7 +225,7 @@
     transform: translateX(-50%);
     font-size: 11px;
     color: var(--muted);
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
     letter-spacing: 0.08em;
     pointer-events: none;
   }
@@ -247,7 +245,7 @@
     gap: 7px;
     font-size: 10px;
     color: var(--muted);
-    font-family: 'DM Mono', monospace;
+    font-family: 'Courier New', Courier, monospace;
   }
   .legend-dot {
     width: 10px;
@@ -259,7 +257,7 @@
 </head>
 <body>
 <header style="display:flex;align-items:center;gap:16px;">
-  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#4e5a72;text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:3px;white-space:nowrap;transition:color .15s,border-color .15s;" onmouseover="this.style.color='#c8992a';this.style.borderColor='rgba(200,153,42,0.35)'" onmouseout="this.style.color='#4e5a72';this.style.borderColor='rgba(255,255,255,0.08)'">← Suite</a>
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-family:'Courier New', Courier, monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#4e5a72;text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:3px;white-space:nowrap;transition:color .15s,border-color .15s;" onmouseover="this.style.color='#609CBF';this.style.borderColor='rgba(200,153,42,0.35)'" onmouseout="this.style.color='#4e5a72';this.style.borderColor='rgba(255,255,255,0.08)'">← Suite</a>
   <div class="logo-area">
     <h1>Canton Network</h1>
     <p>Ecosystem Map &mdash; 2602</p>
@@ -309,37 +307,37 @@ const BUCKETS = {
 };
 
 const BUCKET_COLORS = {
-  'Core Crypto Infrastructure': '#2b6cb0',
-  'DeFi & Trading':             '#276749',
-  'Digital Assets / Finance':   '#9b2c2c',
-  'Data, Compliance & Security':'#7b6d1a',
-  'Ecosystem Services':          '#553c9a',
-  'Other / Niche':               '#2c5c5c',
+  'Core Crypto Infrastructure': '#497EA2',
+  'DeFi & Trading':             '#717500',
+  'Digital Assets / Finance':   '#8B2030',
+  'Data, Compliance & Security':'#497EA2',
+  'Ecosystem Services':          '#497EA2',
+  'Other / Niche':               '#325170',
 };
 
 const CAT_COLORS = {
-  'Blockchain Infrastructure / Validator': '#3182ce',
-  'General Web3 / Blockchain':            '#63b3ed',
-  'DeFi / Lending / Yield':              '#38a169',
-  'Crypto Exchange / Trading Platform':  '#48bb78',
-  'Digital Asset Custody / Wallet':      '#68d391',
-  'Tokenization / RWA':                  '#e53e3e',
-  'Stablecoin / Payments':               '#fc8181',
+  'Blockchain Infrastructure / Validator': '#71A9C7',
+  'General Web3 / Blockchain':            '#85B8CF',
+  'DeFi / Lending / Yield':              '#B1DB31',
+  'Crypto Exchange / Trading Platform':  '#B1DB31',
+  'Digital Asset Custody / Wallet':      '#C3E0EA',
+  'Tokenization / RWA':                  '#D52F41',
+  'Stablecoin / Payments':               '#E07080',
   'Asset Manager / Regulated Financial Services': '#feb2b2',
-  'Bank / TradFi Institution':           '#f56565',
-  'Fintech':                             '#f687b0',
-  'Data & Analytics / Oracle':           '#d69e2e',
-  'Identity / KYC / Compliance / RegTech': '#ecc94b',
-  'Security / Audit':                    '#f6e05e',
-  'Consulting / Advisory / Professional Services': '#805ad5',
-  'Venture / Investment':                '#9f7aea',
-  'Technology / IT Company':             '#b794f4',
+  'Bank / TradFi Institution':           '#D52F41',
+  'Fintech':                             '#D070C0',
+  'Data & Analytics / Oracle':           '#609CBF',
+  'Identity / KYC / Compliance / RegTech': '#71A9C7',
+  'Security / Audit':                    '#85B8CF',
+  'Consulting / Advisory / Professional Services': '#71A9C7',
+  'Venture / Investment':                '#85B8CF',
+  'Technology / IT Company':             '#A2CCDE',
   'Software / Tech / Developer Studio':  '#d6bcfa',
   'AI / Automation':                     '#e9d8fd',
   'Education / Research':                '#c4b5fd',
-  'NFT / Gaming / Social / Community':   '#2c7a7b',
-  'Carbon / Sustainability / ESG':       '#319795',
-  'Individual / Freelancer':             '#4a5568',
+  'NFT / Gaming / Social / Community':   '#497EA2',
+  'Carbon / Sustainability / ESG':       '#497EA2',
+  'Individual / Freelancer':             '#58595B',
 };
 
 function getCatColor(cat) { return CAT_COLORS[cat] || '#6b7594'; }

@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Canton Network — CIP Intelligence</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<title>Canton Network — CIP Intelligence · 7Trust</title>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -17,16 +16,16 @@
   --text:   #c8d0e0;
   --muted:  #4e5a72;
   --muted2: #7a8aa8;
-  --amber:  #f0a030;
-  --amber2: #c07820;
-  --green:  #3ecf8e;
-  --blue:   #4c7fc9;
-  --pink:   #d45a8e;
-  --red:    #e05050;
-  --purple: #9b59b6;
+  --amber:  #609CBF;
+  --amber2: #558FB3;
+  --green:  #B1DB31;
+  --blue:   #71A9C7;
+  --pink:   #D070C0;
+  --red:    #D52F41;
+  --purple: #71A9C7;
 }
 html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text);
-  font-family: 'Lato', sans-serif; font-size: 13px; }
+  font-family: 'Courier New', Courier, monospace; font-size: 13px; }
 
 /* ─── HEADER ─── */
 #header {
@@ -35,17 +34,17 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   display: flex; align-items: center; gap: 24px; padding: 0 22px;
 }
 #header h1 {
-  font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: .06em;
+  font-family: 'Courier New', Courier, monospace; font-size: 22px; letter-spacing: .06em;
   color: var(--text); white-space: nowrap; line-height: 1;
 }
 #header h1 span { color: var(--amber); }
-.h-sub { font-family: 'JetBrains Mono', monospace; font-size: 8px; color: var(--muted);
+.h-sub { font-family: 'Courier New', Courier, monospace; font-size: 8px; color: var(--muted);
   text-transform: uppercase; letter-spacing: .12em; margin-top: 2px; }
 .h-divider { width: 1px; height: 30px; background: var(--b2); flex-shrink: 0; }
 .hstats { display: flex; gap: 24px; }
 .hstat { text-align: center; }
-.hstat-n { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--amber); line-height: 1; }
-.hstat-l { font-family: 'JetBrains Mono', monospace; font-size: 7.5px; color: var(--muted);
+.hstat-n { font-family: 'Courier New', Courier, monospace; font-size: 22px; color: var(--amber); line-height: 1; }
+.hstat-l { font-family: 'Courier New', Courier, monospace; font-size: 7.5px; color: var(--muted);
   text-transform: uppercase; letter-spacing: .1em; margin-top: 1px; }
 .spacer { flex: 1; }
 
@@ -56,7 +55,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   display: flex; align-items: flex-end; padding: 0 22px; gap: 2px;
 }
 .tab {
-  padding: 6px 16px; font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  padding: 6px 16px; font-family: 'Courier New', Courier, monospace; font-size: 9px;
   text-transform: uppercase; letter-spacing: .1em; color: var(--muted); cursor: pointer;
   border-bottom: 2px solid transparent; transition: .15s; white-space: nowrap;
 }
@@ -78,25 +77,25 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 #search {
   flex: 1; min-width: 180px; background: var(--s2); border: 1px solid var(--b2);
   border-radius: 3px; padding: 5px 10px; color: var(--text);
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  font-family: 'Courier New', Courier, monospace; font-size: 10px;
   outline: none; transition: border-color .15s;
 }
 #search::placeholder { color: var(--muted); }
 #search:focus { border-color: var(--amber2); }
 .sel {
   background: var(--s2); border: 1px solid var(--b2); border-radius: 3px;
-  padding: 5px 8px; color: var(--muted2); font-family: 'JetBrains Mono', monospace;
+  padding: 5px 8px; color: var(--muted2); font-family: 'Courier New', Courier, monospace;
   font-size: 9px; outline: none; cursor: pointer;
 }
 .sel:focus { border-color: var(--amber2); }
-#browser-count { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted); white-space: nowrap; }
+#browser-count { font-family: 'Courier New', Courier, monospace; font-size: 9px; color: var(--muted); white-space: nowrap; }
 #browser-table-wrap { flex: 1; overflow-y: auto; }
 #browser-table-wrap::-webkit-scrollbar { width: 4px; }
 #browser-table-wrap::-webkit-scrollbar-thumb { background: var(--b2); border-radius: 2px; }
 table { width: 100%; border-collapse: collapse; }
 thead th {
   position: sticky; top: 0; padding: 7px 12px; text-align: left;
-  font-family: 'JetBrains Mono', monospace; font-size: 8.5px; text-transform: uppercase;
+  font-family: 'Courier New', Courier, monospace; font-size: 8.5px; text-transform: uppercase;
   letter-spacing: .09em; color: var(--muted); background: var(--s2);
   border-bottom: 1px solid var(--b2); cursor: pointer; white-space: nowrap; user-select: none;
 }
@@ -107,38 +106,38 @@ tbody tr { border-bottom: 1px solid rgba(255,255,255,.03); cursor: pointer; tran
 tbody tr:hover { background: rgba(240,160,48,.04); }
 tbody tr.expanded { background: rgba(240,160,48,.06); }
 tbody td { padding: 7px 12px; vertical-align: middle; }
-.cip-id { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--amber2); white-space: nowrap; }
+.cip-id { font-family: 'Courier New', Courier, monospace; font-size: 10px; color: var(--amber2); white-space: nowrap; }
 .cip-title { font-size: 12px; font-weight: 700; color: var(--text); }
-.cip-author { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted2); }
+.cip-author { font-family: 'Courier New', Courier, monospace; font-size: 9px; color: var(--muted2); }
 .track-pill {
   display: inline-block; padding: 1px 7px; border-radius: 2px; font-size: 8px;
-  font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: .06em;
+  font-family: 'Courier New', Courier, monospace; text-transform: uppercase; letter-spacing: .06em;
   white-space: nowrap;
 }
 .st-pill {
   display: inline-block; padding: 1px 7px; border-radius: 2px; font-size: 8px;
-  font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: .06em;
+  font-family: 'Courier New', Courier, monospace; text-transform: uppercase; letter-spacing: .06em;
 }
-.st-Final    { background:rgba(62,207,142,.12); color:#3ecf8e; }
+.st-Final    { background:rgba(62,207,142,.12); color:#B1DB31; }
 .st-Approved { background:rgba(76,127,201,.12); color:#6fa0d8; }
-.st-Active   { background:rgba(240,160,48,.12); color:#f0a030; }
-.st-Founding { background:rgba(240,160,48,.12); color:#f0a030; }
-.st-Rejected { background:rgba(224,80,80,.12);  color:#e05050; }
+.st-Active   { background:rgba(240,160,48,.12); color:#609CBF; }
+.st-Founding { background:rgba(240,160,48,.12); color:#609CBF; }
+.st-Rejected { background:rgba(224,80,80,.12);  color:#D52F41; }
 .st-Withdrawn{ background:rgba(122,138,168,.1); color:#7a8aa8; }
 .tr-SV       { background:rgba(76,127,201,.1);  color:#6fa0d8; }
-.tr-Tokenomics{ background:rgba(62,207,142,.1); color:#3ecf8e; }
-.tr-Governance{ background:rgba(240,160,48,.1); color:#f0a030; }
+.tr-Tokenomics{ background:rgba(62,207,142,.1); color:#B1DB31; }
+.tr-Governance{ background:rgba(240,160,48,.1); color:#609CBF; }
 .tr-Standards { background:rgba(155,89,182,.1); color:#b07fd4; }
 .tr-Infrastructure{ background:rgba(122,138,168,.1); color:#8899bb; }
-.date-cell { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted); white-space: nowrap; }
-.w-cell { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--green); white-space: nowrap; }
+.date-cell { font-family: 'Courier New', Courier, monospace; font-size: 9px; color: var(--muted); white-space: nowrap; }
+.w-cell { font-family: 'Courier New', Courier, monospace; font-size: 10px; color: var(--green); white-space: nowrap; }
 
 /* Expanded row */
 .expand-row { display: none; }
 .expand-row.open { display: table-row; }
 .expand-row td { background: var(--s2); border-bottom: 2px solid rgba(240,160,48,.15); }
 .expand-inner { padding: 14px 18px 16px 52px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.ei-block h4 { font-family: 'JetBrains Mono', monospace; font-size: 8px; text-transform: uppercase;
+.ei-block h4 { font-family: 'Courier New', Courier, monospace; font-size: 8px; text-transform: uppercase;
   letter-spacing: .1em; color: var(--muted); margin-bottom: 6px; }
 .ei-block p { font-size: 11px; color: var(--muted2); line-height: 1.6; }
 .ei-block ul { list-style: none; }
@@ -159,15 +158,15 @@ tbody td { padding: 7px 12px; vertical-align: middle; }
   padding: 13px 15px 10px; border-bottom: 1px solid var(--b);
   display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;
 }
-.ms-entity { font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: .04em; color: var(--text); line-height: 1; }
-.ms-cip { font-family: 'JetBrains Mono', monospace; font-size: 8px; color: var(--amber2); margin-top: 2px; }
+.ms-entity { font-family: 'Courier New', Courier, monospace; font-size: 17px; letter-spacing: .04em; color: var(--text); line-height: 1; }
+.ms-cip { font-family: 'Courier New', Courier, monospace; font-size: 8px; color: var(--amber2); margin-top: 2px; }
 .ms-weight-block { text-align: right; flex-shrink: 0; }
-.ms-weight-n { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--amber); line-height: 1; }
-.ms-weight-l { font-family: 'JetBrains Mono', monospace; font-size: 7px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+.ms-weight-n { font-family: 'Courier New', Courier, monospace; font-size: 22px; color: var(--amber); line-height: 1; }
+.ms-weight-l { font-family: 'Courier New', Courier, monospace; font-size: 7px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
 .ms-progress { padding: 10px 15px; border-bottom: 1px solid var(--b); }
 .ms-prog-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-.ms-prog-label { font-family: 'JetBrains Mono', monospace; font-size: 8px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); }
-.ms-prog-pct { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--amber); }
+.ms-prog-label { font-family: 'Courier New', Courier, monospace; font-size: 8px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); }
+.ms-prog-pct { font-family: 'Courier New', Courier, monospace; font-size: 9px; color: var(--amber); }
 .ms-bar { height: 4px; background: rgba(255,255,255,.06); border-radius: 2px; overflow: hidden; }
 .ms-bar-fill { height: 4px; border-radius: 2px; background: var(--amber); transition: width .6s ease; }
 .ms-milestones { padding: 10px 15px; }
@@ -175,15 +174,15 @@ tbody td { padding: 7px 12px; vertical-align: middle; }
 .ms-m:last-child { margin-bottom: 0; }
 .ms-m-icon { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
   display: flex; align-items: center; justify-content: center; font-size: 7px; font-weight: 700; }
-.ms-m-done { background: rgba(62,207,142,.2); color: #3ecf8e; border: 1px solid rgba(62,207,142,.4); }
+.ms-m-done { background: rgba(62,207,142,.2); color: #B1DB31; border: 1px solid rgba(62,207,142,.4); }
 .ms-m-pend { background: rgba(240,160,48,.1); color: var(--amber); border: 1px solid rgba(240,160,48,.3); }
 .ms-m-escrow { background: rgba(76,127,201,.1); color: #6fa0d8; border: 1px solid rgba(76,127,201,.3); }
 .ms-m-text { font-size: 10.5px; color: var(--muted2); line-height: 1.45; flex: 1; }
 .ms-m-text strong { color: var(--text); font-weight: 700; }
 .ms-escrow-split { padding: 8px 15px 12px; display: flex; gap: 14px; }
 .ms-es-item { flex: 1; }
-.ms-es-label { font-family: 'JetBrains Mono', monospace; font-size: 7.5px; text-transform: uppercase; letter-spacing: .09em; margin-bottom: 2px; }
-.ms-es-val { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; }
+.ms-es-label { font-family: 'Courier New', Courier, monospace; font-size: 7.5px; text-transform: uppercase; letter-spacing: .09em; margin-bottom: 2px; }
+.ms-es-val { font-family: 'Courier New', Courier, monospace; font-size: 13px; font-weight: 600; }
 
 /* ─── GOVERNANCE VIEW ─── */
 #v-governance { flex-direction: row; overflow: hidden; }
@@ -193,7 +192,7 @@ tbody td { padding: 7px 12px; vertical-align: middle; }
 .gov-col::-webkit-scrollbar-thumb { background: var(--b2); }
 .gov-section { margin-bottom: 26px; }
 .gov-section h3 {
-  font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: .06em;
+  font-family: 'Courier New', Courier, monospace; font-size: 14px; letter-spacing: .06em;
   color: var(--amber); margin-bottom: 12px; padding-bottom: 7px;
   border-bottom: 1px solid rgba(240,160,48,.2);
 }
@@ -202,25 +201,25 @@ tbody td { padding: 7px 12px; vertical-align: middle; }
 .auth-name { font-size: 10.5px; color: var(--text); min-width: 150px; flex-shrink: 0; }
 .auth-bar-wrap { flex: 1; background: rgba(255,255,255,.04); border-radius: 2px; height: 12px; overflow: hidden; }
 .auth-bar { height: 12px; border-radius: 2px; }
-.auth-count { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted); min-width: 24px; text-align: right; }
+.auth-count { font-family: 'Courier New', Courier, monospace; font-size: 9px; color: var(--muted); min-width: 24px; text-align: right; }
 /* Status donut */
 .donut-wrap { display: flex; gap: 20px; align-items: center; }
 .donut-legend { display: flex; flex-direction: column; gap: 6px; }
 .donut-leg-row { display: flex; align-items: center; gap: 7px; }
 .donut-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 .donut-leg-label { font-size: 10px; color: var(--muted2); }
-.donut-leg-n { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text); margin-left: 4px; }
+.donut-leg-n { font-family: 'Courier New', Courier, monospace; font-size: 10px; color: var(--text); margin-left: 4px; }
 /* Timeline of CIP creation */
 .cip-timeline-bar { display: flex; flex-direction: column; gap: 3px; }
 .ctb-row { display: flex; align-items: center; gap: 8px; }
-.ctb-label { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; color: var(--muted); width: 55px; flex-shrink: 0; text-align: right; }
+.ctb-label { font-family: 'Courier New', Courier, monospace; font-size: 8.5px; color: var(--muted); width: 55px; flex-shrink: 0; text-align: right; }
 .ctb-bar-wrap { flex: 1; background: rgba(255,255,255,.04); border-radius: 2px; height: 10px; overflow: hidden; }
 .ctb-bar { height: 10px; border-radius: 2px; }
-.ctb-count { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; color: var(--muted); min-width: 20px; }
+.ctb-count { font-family: 'Courier New', Courier, monospace; font-size: 8.5px; color: var(--muted); min-width: 20px; }
 /* Gap analysis */
 .gap-row { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
 .gap-pill {
-  font-family: 'JetBrains Mono', monospace; font-size: 8.5px; padding: 2px 7px;
+  font-family: 'Courier New', Courier, monospace; font-size: 8.5px; padding: 2px 7px;
   border-radius: 3px; border: 1px solid;
 }
 .gap-withdrawn { background: rgba(122,138,168,.08); border-color: rgba(122,138,168,.25); color: #7a8aa8; }
@@ -232,7 +231,7 @@ tbody td { padding: 7px 12px; vertical-align: middle; }
 .track-label { font-size: 10.5px; color: var(--muted2); min-width: 100px; }
 .track-bar-wrap { flex: 1; background: rgba(255,255,255,.04); border-radius: 2px; height: 10px; overflow: hidden; }
 .track-bar { height: 10px; border-radius: 2px; }
-.track-count { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted); min-width: 22px; text-align: right; }
+.track-count { font-family: 'Courier New', Courier, monospace; font-size: 9px; color: var(--muted); min-width: 22px; text-align: right; }
 
 /* ─── INTELLIGENCE VIEW ─── */
 #v-intelligence { flex-direction: column; overflow: hidden; }
@@ -253,7 +252,7 @@ tbody td { padding: 7px 12px; vertical-align: middle; }
 .intel-card.red::before   { background: var(--red); }
 .intel-card.purple::before{ background: var(--purple); }
 .intel-tag {
-  font-family: 'JetBrains Mono', monospace; font-size: 7.5px; text-transform: uppercase;
+  font-family: 'Courier New', Courier, monospace; font-size: 7.5px; text-transform: uppercase;
   letter-spacing: .12em; margin-bottom: 7px;
 }
 .intel-card.amber .intel-tag { color: var(--amber); }
@@ -262,14 +261,14 @@ tbody td { padding: 7px 12px; vertical-align: middle; }
 .intel-card.pink  .intel-tag { color: var(--pink); }
 .intel-card.red   .intel-tag { color: var(--red); }
 .intel-card.purple .intel-tag { color: var(--purple); }
-.intel-title { font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: .04em; color: var(--text); margin-bottom: 9px; line-height: 1.2; }
+.intel-title { font-family: 'Courier New', Courier, monospace; font-size: 15px; letter-spacing: .04em; color: var(--text); margin-bottom: 9px; line-height: 1.2; }
 .intel-body { font-size: 10.5px; color: var(--muted2); line-height: 1.65; }
 .intel-body strong { color: var(--text); }
-.intel-body .cip-ref { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--amber2); }
+.intel-body .cip-ref { font-family: 'Courier New', Courier, monospace; font-size: 9px; color: var(--amber2); }
 .intel-stat { display: flex; gap: 12px; margin-top: 11px; flex-wrap: wrap; }
 .intel-stat-item { text-align: center; }
-.intel-stat-n { font-family: 'Bebas Neue', sans-serif; font-size: 20px; line-height: 1; }
-.intel-stat-l { font-family: 'JetBrains Mono', monospace; font-size: 7px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-top: 1px; }
+.intel-stat-n { font-family: 'Courier New', Courier, monospace; font-size: 20px; line-height: 1; }
+.intel-stat-l { font-family: 'Courier New', Courier, monospace; font-size: 7px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-top: 1px; }
 .intel-card.amber .intel-stat-n { color: var(--amber); }
 .intel-card.green .intel-stat-n { color: var(--green); }
 .intel-card.blue  .intel-stat-n { color: var(--blue); }
@@ -286,8 +285,8 @@ tbody td { padding: 7px 12px; vertical-align: middle; }
 
 <!-- HEADER -->
 <div id="header">
-  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#4e5a72;text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:3px;white-space:nowrap;transition:color .15s,border-color .15s;" onmouseover="this.style.color='#c8992a';this.style.borderColor='rgba(200,153,42,0.35)'" onmouseout="this.style.color='#4e5a72';this.style.borderColor='rgba(255,255,255,0.08)'">← Suite</a>
-  <a href="https://github.com/canton-foundation/cips" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#4e5a72;text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:3px;white-space:nowrap;transition:color .15s,border-color .15s;" onmouseover="this.style.color='#c8992a';this.style.borderColor='rgba(200,153,42,0.35)'" onmouseout="this.style.color='#4e5a72';this.style.borderColor='rgba(255,255,255,0.08)'"><svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor" style="flex-shrink:0"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>CIP Repository</a>
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-family:'Courier New', Courier, monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#4e5a72;text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:3px;white-space:nowrap;transition:color .15s,border-color .15s;" onmouseover="this.style.color='#609CBF';this.style.borderColor='rgba(200,153,42,0.35)'" onmouseout="this.style.color='#4e5a72';this.style.borderColor='rgba(255,255,255,0.08)'">← Suite</a>
+  <a href="https://github.com/canton-foundation/cips" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font-family:'Courier New', Courier, monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#4e5a72;text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:3px;white-space:nowrap;transition:color .15s,border-color .15s;" onmouseover="this.style.color='#609CBF';this.style.borderColor='rgba(200,153,42,0.35)'" onmouseout="this.style.color='#4e5a72';this.style.borderColor='rgba(255,255,255,0.08)'"><svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor" style="flex-shrink:0"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>CIP Repository</a>
   <div>
     <h1>Canton <span>CIP</span> Intelligence</h1>
     <div class="h-sub">Canton Improvement Proposals · 94 of 105 in repository · Feb 2026</div>
@@ -672,7 +671,7 @@ function renderBrowser() {
       <div class="expand-inner">
         <div class="ei-block"><h4>Summary</h4><p>${c.desc}</p></div>
         <div class="ei-block"><h4>Commitments</h4><ul>${c.commitments.map(x=>`<li>${x}</li>`).join('')}</ul></div>
-        <div class="ei-block" style="display:flex;align-items:flex-end"><a href="https://github.com/canton-foundation/cips/blob/main/${c.id.toLowerCase()}/${c.id.toLowerCase()}.md" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#c8992a;text-decoration:none;padding:4px 10px;border:1px solid rgba(200,153,42,0.35);border-radius:3px;" onmouseover="this.style.background='rgba(200,153,42,0.08)'" onmouseout="this.style.background='transparent'">View on GitHub ↗</a></div>
+        <div class="ei-block" style="display:flex;align-items:flex-end"><a href="https://github.com/canton-foundation/cips/blob/main/${c.id.toLowerCase()}/${c.id.toLowerCase()}.md" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="font-family:'Courier New', Courier, monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#609CBF;text-decoration:none;padding:4px 10px;border:1px solid rgba(200,153,42,0.35);border-radius:3px;" onmouseover="this.style.background='rgba(200,153,42,0.08)'" onmouseout="this.style.background='transparent'">View on GitHub ↗</a></div>
       </div>
     </td></tr>`;
   }).join('');
@@ -756,7 +755,7 @@ function renderGovernance() {
   });
   const authorsSorted = Object.entries(authorMap).sort((a,b)=>b[1]-a[1]);
   const maxAuthor = authorsSorted[0][1];
-  const AUTHOR_COLORS = ['#f0a030','#c07820','#a06010','#3ecf8e','#4c7fc9','#d45a8e','#9b59b6','#7a8aa8'];
+  const AUTHOR_COLORS = ['#609CBF','#558FB3','#558FB3','#B1DB31','#71A9C7','#D070C0','#71A9C7','#7a8aa8'];
   document.getElementById('author-bars').innerHTML = authorsSorted.map(([name, n], i) => `
     <div class="auth-row">
       <div class="auth-name">${name}</div>
@@ -771,7 +770,7 @@ function renderGovernance() {
   CIPS.forEach(c => { trackMap[c.track]=(trackMap[c.track]||0)+1; });
   const tracksSorted = Object.entries(trackMap).sort((a,b)=>b[1]-a[1]);
   const maxTrack = tracksSorted[0][1];
-  const TRACK_COLORS = {'SV Admission':'#4c7fc9','Tokenomics':'#3ecf8e','Governance':'#f0a030','Standards':'#9b59b6','Infrastructure':'#7a8aa8'};
+  const TRACK_COLORS = {'SV Admission':'#71A9C7','Tokenomics':'#B1DB31','Governance':'#609CBF','Standards':'#71A9C7','Infrastructure':'#7a8aa8'};
   document.getElementById('track-bars').innerHTML = tracksSorted.map(([t, n]) => `
     <div class="track-row">
       <div class="track-label">${t}</div>
@@ -782,7 +781,7 @@ function renderGovernance() {
     </div>`).join('');
 
   // Donut
-  const DONUT_COLORS = { Final:'#3ecf8e', Approved:'#4c7fc9', Active:'#f0a030', Founding:'#f0a030', Withdrawn:'#7a8aa8', Rejected:'#e05050' };
+  const DONUT_COLORS = { Final:'#B1DB31', Approved:'#71A9C7', Active:'#609CBF', Founding:'#609CBF', Withdrawn:'#7a8aa8', Rejected:'#D52F41' };
   const statusOrder = ['Final','Approved','Active','Withdrawn','Rejected'];
   const total = CIPS.length;
   let startAngle = -Math.PI/2;
@@ -817,7 +816,7 @@ function renderGovernance() {
   });
   const quarters = Object.keys(qMap).sort();
   const maxQ = Math.max(...Object.values(qMap));
-  const Q_COLORS = ['#3ecf8e','#4c7fc9','#f0a030','#9b59b6','#d45a8e','#7a8aa8','#3ecf8e','#4c7fc9','#f0a030'];
+  const Q_COLORS = ['#B1DB31','#71A9C7','#609CBF','#71A9C7','#D070C0','#7a8aa8','#B1DB31','#71A9C7','#609CBF'];
   document.getElementById('quarter-bars').innerHTML = `<div class="cip-timeline-bar">` +
     quarters.map((q, i) => `
     <div class="ctb-row">

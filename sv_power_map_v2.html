@@ -3,17 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Canton Network — Super Validator Power Map</title>
+<title>Canton Network — Super Validator Power Map · 7Trust</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#06080f;--surface:#0c1121;--surface2:#121a2e;--surface3:#1a2540;
   --border:rgba(255,255,255,0.07);--text:#e8eaf0;--muted:#6b7594;
-  --gold:#c9a84c;--blue:#4c7fc9;--active:#4ec994;--escrow:#4c7fc9;
+  --gold:#609CBF;--blue:#71A9C7;--active:#4ec994;--escrow:#71A9C7;
 }
-html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:'Courier New', Courier, monospace}
 #app{display:flex;flex-direction:column;height:100vh}
 #header{flex-shrink:0;padding:13px 24px 11px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:rgba(6,8,15,.96);backdrop-filter:blur(12px);z-index:20}
 #body{flex:1;display:flex;overflow:hidden}
@@ -21,16 +20,16 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 #main{flex:1;position:relative;overflow:hidden}
 
 /* HEADER */
-.logo h1{font-family:'DM Serif Display',serif;font-size:17px;color:var(--text)}
-.logo p{font-size:9.5px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+.logo h1{font-family:'Courier New', Courier, monospace;font-size:17px;color:var(--text)}
+.logo p{font-size:9.5px;color:var(--muted);font-family:'Courier New', Courier, monospace;letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
 .hstats{display:flex;gap:20px}
 .hstat{text-align:right}
-.hstat-n{font-family:'DM Serif Display',serif;font-size:19px;color:var(--gold);line-height:1}
-.hstat-l{font-size:8.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-family:'DM Mono',monospace}
+.hstat-n{font-family:'Courier New', Courier, monospace;font-size:19px;color:var(--gold);line-height:1}
+.hstat-l{font-size:8.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-family:'Courier New', Courier, monospace}
 
 /* SIDEBAR */
 #filter-tabs{display:flex;border-bottom:1px solid var(--border);flex-shrink:0}
-.ftab{flex:1;padding:8px 0;text-align:center;font-size:9.5px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:.15s}
+.ftab{flex:1;padding:8px 0;text-align:center;font-size:9.5px;font-family:'Courier New', Courier, monospace;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:.15s}
 .ftab:hover{color:var(--text)}
 .ftab.active{color:var(--gold);border-bottom-color:var(--gold)}
 #sv-list{flex:1;overflow-y:auto;padding:6px}
@@ -40,9 +39,9 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 .sv-item:hover{background:var(--surface);border-color:var(--border)}
 .sv-item.selected{background:var(--surface2);border-color:var(--gold)}
 .sv-item-name{font-size:12px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:60px}
-.sv-item-meta{font-size:9.5px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:1px}
+.sv-item-meta{font-size:9.5px;color:var(--muted);font-family:'Courier New', Courier, monospace;margin-top:1px}
 .sv-item-badges{position:absolute;right:8px;top:7px;display:flex;gap:3px;align-items:center}
-.sv-item-w{font-family:'DM Serif Display',serif;font-size:13px;line-height:1}
+.sv-item-w{font-family:'Courier New', Courier, monospace;font-size:13px;line-height:1}
 .sv-mini-bar{width:32px;height:3px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:2px;overflow:hidden}
 .sv-mini-fill{height:3px;background:var(--active);border-radius:2px}
 
@@ -51,106 +50,106 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 #detail.open{transform:translateX(0)}
 #detail-close{position:absolute;top:11px;right:12px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:4px}
 #detail-close:hover{color:var(--text)}
-.d-badge{display:inline-block;padding:2px 7px;border-radius:3px;font-size:9px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
-.d-name{font-family:'DM Serif Display',serif;font-size:21px;color:var(--text);line-height:1.2;margin-bottom:4px}
+.d-badge{display:inline-block;padding:2px 7px;border-radius:3px;font-size:9px;font-family:'Courier New', Courier, monospace;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
+.d-name{font-family:'Courier New', Courier, monospace;font-size:21px;color:var(--text);line-height:1.2;margin-bottom:4px}
 .d-sector{font-size:11px;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:5px}
 .d-sector-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 
 /* Weight breakdown */
 .d-weight-block{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:12px;margin-bottom:14px}
 .d-total-row{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:10px}
-.d-total-label{font-size:9px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
-.d-total-val{font-family:'DM Serif Display',serif;font-size:34px;color:var(--gold);line-height:1}
-.d-pct{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace}
+.d-total-label{font-size:9px;font-family:'Courier New', Courier, monospace;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.d-total-val{font-family:'Courier New', Courier, monospace;font-size:34px;color:var(--gold);line-height:1}
+.d-pct{font-size:10px;color:var(--muted);font-family:'Courier New', Courier, monospace}
 .d-bar-track{background:rgba(255,255,255,.06);border-radius:4px;height:8px;overflow:hidden;margin-bottom:8px;position:relative}
 .d-bar-total{height:8px;border-radius:4px;position:absolute;left:0;top:0;opacity:.2}
 .d-bar-active{height:8px;border-radius:4px;position:absolute;left:0;top:0;background:var(--active)}
 .d-split-row{display:flex;gap:10px}
 .d-split-item{flex:1}
-.d-split-label{font-size:9px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:2px}
-.d-split-val{font-size:14px;font-family:'DM Serif Display',serif}
-.d-split-cip{font-size:9px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:4px}
+.d-split-label{font-size:9px;font-family:'Courier New', Courier, monospace;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:2px}
+.d-split-val{font-size:14px;font-family:'Courier New', Courier, monospace}
+.d-split-cip{font-size:9px;font-family:'Courier New', Courier, monospace;color:var(--muted);margin-top:4px}
 
 .d-field{margin-bottom:9px}
-.d-field-label{font-size:9px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.09em;margin-bottom:2px}
+.d-field-label{font-size:9px;color:var(--muted);font-family:'Courier New', Courier, monospace;text-transform:uppercase;letter-spacing:.09em;margin-bottom:2px}
 .d-field-val{font-size:11.5px;color:var(--text);line-height:1.45}
 .d-field-val a{color:var(--blue);text-decoration:none}
 .d-field-val a:hover{color:var(--gold)}
-.d-node-badge{display:inline-block;padding:1px 6px;border-radius:3px;font-size:9px;font-family:'DM Mono',monospace;background:rgba(255,255,255,.07);color:var(--muted);margin-right:4px;margin-bottom:3px}
+.d-node-badge{display:inline-block;padding:1px 6px;border-radius:3px;font-size:9px;font-family:'Courier New', Courier, monospace;background:rgba(255,255,255,.07);color:var(--muted);margin-right:4px;margin-bottom:3px}
 .d-commitments{margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
 .d-commit-item{font-size:11px;color:#8892aa;padding:4px 0 4px 10px;border-left:2px solid;margin-bottom:3px;line-height:1.4}
-.d-section-title{font-size:9px;color:var(--muted);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.09em;margin-bottom:7px;margin-top:12px}
+.d-section-title{font-size:9px;color:var(--muted);font-family:'Courier New', Courier, monospace;text-transform:uppercase;letter-spacing:.09em;margin-bottom:7px;margin-top:12px}
 
 /* SVG */
 #chart{width:100%;height:100%}
 .node{cursor:pointer}
 .node text{pointer-events:none;dominant-baseline:central;text-anchor:middle}
-.node .n-name{fill:white;font-family:'DM Sans',sans-serif;font-weight:500}
-.node .n-weight{fill:rgba(255,255,255,.5);font-family:'DM Mono',monospace}
+.node .n-name{fill:white;font-family:'Courier New', Courier, monospace;font-weight:500}
+.node .n-weight{fill:rgba(255,255,255,.5);font-family:'Courier New', Courier, monospace}
 
 /* LEGEND */
 #legend{position:absolute;bottom:14px;left:14px;pointer-events:none;display:flex;flex-direction:column;gap:10px}
 .leg-card{background:rgba(12,17,33,.88);border:1px solid var(--border);border-radius:6px;padding:11px 13px;backdrop-filter:blur(8px)}
-.leg-title{font-size:8.5px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.leg-title{font-size:8.5px;font-family:'Courier New', Courier, monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:7px;display:flex;align-items:center;gap:5px}
 .leg-title-icon{font-size:10px}
 .leg-rows{display:flex;flex-direction:column;gap:3px}
-.leg-row{display:flex;align-items:center;gap:6px;font-size:9px;color:var(--muted);font-family:'DM Mono',monospace}
+.leg-row{display:flex;align-items:center;gap:6px;font-size:9px;color:var(--muted);font-family:'Courier New', Courier, monospace}
 .leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 
 /* HOW TO READ */
 #reading-guide{position:absolute;top:54px;right:14px;width:200px;pointer-events:none;
   background:rgba(12,17,33,.88);border:1px solid var(--border);border-radius:6px;
   padding:12px 13px;backdrop-filter:blur(8px)}
-.rg-title{font-size:8.5px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px}
+.rg-title{font-size:8.5px;font-family:'Courier New', Courier, monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px}
 .rg-row{display:flex;align-items:center;gap:10px;margin-bottom:9px}
 .rg-row:last-child{margin-bottom:0}
 .rg-svg{flex-shrink:0}
 .rg-text{}
 .rg-label{font-size:10px;font-weight:500;color:var(--text);line-height:1.3}
-.rg-sub{font-size:8.5px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:1px;line-height:1.3}
+.rg-sub{font-size:8.5px;color:var(--muted);font-family:'Courier New', Courier, monospace;margin-top:1px;line-height:1.3}
 .rg-divider{border-top:1px solid var(--border);margin:8px 0}
 
 /* STATUS LEGEND */
 .sleg-row{display:flex;align-items:center;gap:7px;margin-bottom:5px}
 .sleg-row:last-child{margin-bottom:0}
-.sleg-badge{font-size:8px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em;padding:1px 6px;border-radius:3px;flex-shrink:0}
+.sleg-badge{font-size:8px;font-family:'Courier New', Courier, monospace;text-transform:uppercase;letter-spacing:.06em;padding:1px 6px;border-radius:3px;flex-shrink:0}
 .sleg-desc{font-size:9px;color:var(--muted);line-height:1.3}
 
 /* VIEW TABS */
 #view-tabs{position:absolute;top:13px;left:14px;display:flex;gap:5px;z-index:5}
-.vtab{padding:4px 11px;font-size:9.5px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.07em;border:1px solid var(--border);border-radius:3px;cursor:pointer;color:var(--muted);transition:.12s;background:rgba(6,8,15,.7);backdrop-filter:blur(8px)}
+.vtab{padding:4px 11px;font-size:9.5px;font-family:'Courier New', Courier, monospace;text-transform:uppercase;letter-spacing:.07em;border:1px solid var(--border);border-radius:3px;cursor:pointer;color:var(--muted);transition:.12s;background:rgba(6,8,15,.7);backdrop-filter:blur(8px)}
 .vtab:hover{color:var(--text);border-color:var(--muted)}
 .vtab.active{color:var(--gold);border-color:var(--gold);background:rgba(201,168,76,.08)}
 
 /* TABLE */
 #table-view{display:none;width:100%;height:100%;overflow:auto;padding:18px}
 #table-view table{width:100%;border-collapse:collapse;font-size:11.5px}
-#table-view th{padding:7px 11px;text-align:left;font-size:8.5px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);cursor:pointer}
+#table-view th{padding:7px 11px;text-align:left;font-size:8.5px;font-family:'Courier New', Courier, monospace;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);cursor:pointer}
 #table-view th:hover{color:var(--text)}
 #table-view th.sort-asc::after{content:' ↑'}
 #table-view th.sort-desc::after{content:' ↓'}
 #table-view td{padding:6px 11px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text)}
 #table-view tr:hover td{background:var(--surface)}
 .t-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:6px;vertical-align:middle}
-.t-total{font-family:'DM Serif Display',serif;font-size:14px;color:var(--gold)}
-.t-active{color:var(--active);font-family:'DM Mono',monospace;font-size:11px}
-.t-escrow{color:var(--blue);font-family:'DM Mono',monospace;font-size:11px}
-.t-cip{font-family:'DM Mono',monospace;font-size:9.5px;color:var(--blue)}
-.t-status{font-size:8.5px;font-family:'DM Mono',monospace;padding:1px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:.05em}
+.t-total{font-family:'Courier New', Courier, monospace;font-size:14px;color:var(--gold)}
+.t-active{color:var(--active);font-family:'Courier New', Courier, monospace;font-size:11px}
+.t-escrow{color:var(--blue);font-family:'Courier New', Courier, monospace;font-size:11px}
+.t-cip{font-family:'Courier New', Courier, monospace;font-size:9.5px;color:var(--blue)}
+.t-status{font-size:8.5px;font-family:'Courier New', Courier, monospace;padding:1px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:.05em}
 .s-final{background:rgba(78,201,148,.15);color:#4ec994}
-.s-approved{background:rgba(76,127,201,.15);color:#63b3ed}
+.s-approved{background:rgba(76,127,201,.15);color:#85B8CF}
 .s-founding{background:rgba(201,168,76,.15);color:var(--gold)}
-.s-rejected{background:rgba(255,80,80,.1);color:#fc8181}
-.t-node{font-size:9px;color:var(--muted);font-family:'DM Mono',monospace}
-.diff-up{color:#fc8181;font-size:9px}
-.diff-dn{color:#68d391;font-size:9px}
+.s-rejected{background:rgba(255,80,80,.1);color:#E07080}
+.t-node{font-size:9px;color:var(--muted);font-family:'Courier New', Courier, monospace}
+.diff-up{color:#E07080;font-size:9px}
+.diff-dn{color:#C3E0EA;font-size:9px}
 .diff-eq{color:var(--muted);font-size:9px}
 </style>
 </head>
 <body>
 <div id="app">
 <div id="header">
-  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#4e5a72;text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:3px;white-space:nowrap;transition:color .15s,border-color .15s;" onmouseover="this.style.color='#c8992a';this.style.borderColor='rgba(200,153,42,0.35)'" onmouseout="this.style.color='#4e5a72';this.style.borderColor='rgba(255,255,255,0.08)'">← Suite</a>
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-family:'Courier New', Courier, monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#4e5a72;text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:3px;white-space:nowrap;transition:color .15s,border-color .15s;" onmouseover="this.style.color='#609CBF';this.style.borderColor='rgba(200,153,42,0.35)'" onmouseout="this.style.color='#4e5a72';this.style.borderColor='rgba(255,255,255,0.08)'">← Suite</a>
   <div class="logo">
     <h1>Canton Network — Super Validator Power Map</h1>
     <p>Live on-chain weights (approved-sv-id-values.yaml) &bull; CIP governance source &bull; Feb 2026</p>
@@ -190,14 +189,14 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
 // SECTORS
 // ═══════════════════════════════════════════════════════════════
 const SECTORS = {
-  "TradFi / Market Infrastructure": "#e53e3e",
-  "Digital Asset Custody":          "#4c7fc9",
-  "Stablecoin / Payments":          "#38a169",
-  "Data & Analytics / Oracle":      "#d69e2e",
-  "Compliance & Security":          "#f6e05e",
-  "Blockchain Infrastructure":      "#805ad5",
-  "Investment / Ecosystem":         "#2c7a7b",
-  "Interoperability":               "#ed8936",
+  "TradFi / Market Infrastructure": "#D52F41",
+  "Digital Asset Custody":          "#71A9C7",
+  "Stablecoin / Payments":          "#B1DB31",
+  "Data & Analytics / Oracle":      "#609CBF",
+  "Compliance & Security":          "#85B8CF",
+  "Blockchain Infrastructure":      "#71A9C7",
+  "Investment / Ecosystem":         "#497EA2",
+  "Interoperability":               "#E07060",
 };
 const sc = s => SECTORS[s] || '#6b7594';
 
@@ -227,13 +226,13 @@ const SVS = [
 {name:"Hex Trust",           liveWeight:3.00,  activeWeight:0,     cipMax:3,    status:"Approved", sector:"Digital Asset Custody",          cip:"CIP-0087",              author:"Giorgia Pellizzari, Alessio Quaglini",   approved:"~Nov 2025",  node:"MPCH node (escrow)", url:"https://hextrust.com", description:"Asia-based regulated digital asset custodian (HK, EU, UAE). Entire weight 3.0 in escrow via MPCH's node (HexTrust-ghost-1).", commitments:["3.0 fully in escrow via MPCH node","Integrate Canton Token Standard","Drive institutional adoption in Asia"]},
 // ── Stablecoin / Payments ────────────────────────────────────────────────────
 {name:"Circle",              liveWeight:10.00, activeWeight:10.00, cipMax:10,   status:"Final",    sector:"Stablecoin / Payments",          cip:"CIP-0041",              author:"Eric Saraniecki",                       approved:"~Feb 2025",  node:"GSF (extraBeneficiary)", url:"https://www.circle.com", description:"Issuer of USDC. Weight 10.0 fully active via circle-validator-1. Led the first on-chain weekend repo transaction in August 2025.", commitments:["10.0 fully active","Deploy USDC natively on Canton","Drive stablecoin-based settlement workflows"]},
-{name:"Zero Hash",           liveWeight:10.50, activeWeight:6.00,  cipMax:7.5,  status:"Approved", sector:"Stablecoin / Payments",          cip:"CIP-0060",              author:"Eric Saraniecki",                       approved:"~Jun 2025",  node:"GSF (active+escrow)", url:"https://zerohash.com", description:"US-regulated crypto-as-a-service infrastructure. Live weight 10.5 exceeds CIP-0060 max of 7.5 due to earned bonuses. Breakdown: zerohash-validator-1 (3.0 active) + zh-treasury (3.0 active) + ZeroHash-ghost-1 (4.5 escrow) = 10.5. Modified by CIP-0099.", commitments:["6.0 active weight (validator + treasury)","4.5 in escrow","Provide on/off-ramp infrastructure for Canton"]},
+{name:"Zero Hash",           liveWeight:7.50,  activeWeight:3.00,  cipMax:7.5,  status:"Approved", sector:"Stablecoin / Payments",          cip:"CIP-0060",              author:"Eric Saraniecki",                       approved:"~Jun 2025",  node:"GSF (active+escrow)", url:"https://zerohash.com", description:"US-regulated crypto-as-a-service infrastructure. 3.0 active (zerohash-validator-1) + 4.5 escrow = 7.5 total. Matches CIP max. Modified by CIP-0099.", commitments:["3.0 active weight earned","4.5 in escrow","Provide on/off-ramp infrastructure for Canton"]},
 {name:"Ubyx",                liveWeight:4.95,  activeWeight:2.95,  cipMax:5,    status:"Final",    sector:"Stablecoin / Payments",          cip:"CIP-0071",              author:"Tony McLaughlin",                       approved:"~Aug 2025",  node:"GSF (active+escrow)", url:"", description:"Stablecoin clearing system. 2.95 active (Ubyx-validator-1) + 2.0 escrow = 4.95. Slightly below CIP max of 5.0 (0.05 undeployed, shown in GhostSV comment).", commitments:["2.95 active weight earned","2.0 in escrow","Build stablecoin clearing on Canton"]},
 {name:"USDT0",               liveWeight:10.00, activeWeight:0,     cipMax:10,   status:"Approved", sector:"Stablecoin / Payments",          cip:"CIP-0090",              author:"Eric Saraniecki",                       approved:"~Nov 2025",  node:"GSF (escrow)", url:"", description:"Omnichain USDT layer built on LayerZero by Everdawn Labs, backed by Tether. Entire weight 10.0 in escrow (USDT0-ghost-1). Outcome-linked milestones.", commitments:["10.0 fully in escrow","Deploy USDT0 on Canton","Achieve $500M+ TVL milestones"]},
 // ── Data & Analytics / Oracle ────────────────────────────────────────────────
 {name:"Chainlink",           liveWeight:10.50, activeWeight:7.00,  cipMax:10.5, status:"Final",    sector:"Data & Analytics / Oracle",      cip:"CIP-0061 + CIP-0065",  author:"Thodoris Karakostas / Eric Saraniecki",  approved:"Sep 2025",   node:"GSF (active+escrow)", url:"https://chain.link", description:"Leading decentralised oracle network. 7.0 active (Chainlink-Mainnet-1) + 0.5 escrow (CIP-0061) + 3.0 escrow (CIP-0065) = 10.5 total — slightly exceeds the 7.5+3 CIP authorisation due to partial unlock timing.", commitments:["7.5 from CIP-0061 (7.0 active + 0.5 escrow)","3.0 from CIP-0065 (all escrow)","Deploy Data Streams, SmartData, CCIP on Canton"]},
-{name:"Kaiko",               liveWeight:9.00,  activeWeight:6.50,  cipMax:6.5,  status:"Final",    sector:"Data & Analytics / Oracle",      cip:"CIP-0063",              author:"Ambre Soubiran",                        approved:"~Oct 2025",  node:"GSF (active+escrow)", url:"https://www.kaiko.com", description:"Institutional crypto market data provider. Live weight 9.0 exceeds CIP-0063 max of 6.5 due to earned bonuses. kaiko-mainnet-1 (6.5 active) + Kaiko-ghost-1 (2.5 escrow) = 9.0. Designated reference price feed provider for CC post-listing (CIP-0092).", commitments:["6.5 active via kaiko-mainnet-1","2.5 in escrow (earned bonus)","Provide CC reference price feed","Deliver institutional market data"]},
-{name:"Coin Metrics",        liveWeight:6.41,  activeWeight:6.41,  cipMax:1,    status:"Final",    sector:"Data & Analytics / Oracle",      cip:"CIP-0046",              author:"Eric Saraniecki",                       approved:"~Feb 2025",  node:"GSF (extraBeneficiary)", url:"https://coinmetrics.io", description:"Institutional crypto data provider. CIP-0046 approved weight 1.0, but live weight is 6.41 via CoinMetrics-validator-1 — significantly above CIP max due to earned validator/app onboarding bonuses (CIP-0024). One of the largest earned-weight outliers on the network.", commitments:["6.41 live weight (1.0 CIP base + 5.41 earned)","Provide on-chain analytics for Canton Coin","Publish Canton network research"]},
+{name:"Kaiko",               liveWeight:6.50,  activeWeight:6.50,  cipMax:6.5,  status:"Final",    sector:"Data & Analytics / Oracle",      cip:"CIP-0063",              author:"Ambre Soubiran",                        approved:"~Oct 2025",  node:"GSF (extraBeneficiary)", url:"https://www.kaiko.com", description:"Institutional crypto market data provider. Entire 6.5 weight active (kaiko-mainnet-1). Designated reference price feed provider for CC post-listing (CIP-0092).", commitments:["6.5 fully active","Provide CC reference price feed","Deliver institutional market data"]},
+{name:"Coin Metrics",        liveWeight:1.00,  activeWeight:1.00,  cipMax:1,    status:"Final",    sector:"Data & Analytics / Oracle",      cip:"CIP-0046",              author:"Eric Saraniecki",                       approved:"~Feb 2025",  node:"GSF (extraBeneficiary)", url:"https://coinmetrics.io", description:"Institutional crypto data provider. 1.0 active via CoinMetrics-validator-1. Note: Talos also uses this same party ID for its active weight — an unusual shared-ID arrangement.", commitments:["1.0 fully active","Provide on-chain analytics for Canton Coin","Publish Canton network research"]},
 {name:"Lukka",               liveWeight:0.75,  activeWeight:0.75,  cipMax:1,    status:"Final",    sector:"Data & Analytics / Oracle",      cip:"CIP-0032",              author:"Eric Saraniecki",                       approved:"~Dec 2024",  node:"MPCH node (hosted wallet)", url:"https://lukka.tech", description:"Enterprise crypto accounting and tax firm. Live weight 0.75 (hosted as MPCH wallet user). Lower than CIP max of 1.0.", commitments:["0.75 active via MPCH-hosted wallet","Provide crypto accounting for Canton assets"]},
 {name:"Bitwave",             liveWeight:1.00,  activeWeight:1.00,  cipMax:1,    status:"Final",    sector:"Data & Analytics / Oracle",      cip:"CIP-0055",              author:"Eric Saraniecki",                       approved:"~Mar 2025",  node:"GSF (extraBeneficiary)", url:"https://www.bitwave.io", description:"Enterprise crypto accounting and payments platform. Building accounts payable, intercompany payments, and reconciliation workflows using Canton Coin and USDC.", commitments:["1.0 fully active","Build Canton Coin AP payment workflows","Integrate ERP systems with Canton"]},
 {name:"The Tie",             liveWeight:1.00,  activeWeight:1.00,  cipMax:1,    status:"Founding", sector:"Data & Analytics / Oracle",      cip:"Founding (via GSF)",    author:"—",                                     approved:"Jul 2024",   node:"GSF (extraBeneficiary)", url:"https://thetie.io", description:"Institutional crypto data and analytics platform. Weight 1.0 active via the_tie_validator (GSF extraBeneficiary). Not explicitly named in a standalone governance CIP.", commitments:["1.0 active via GSF node","Provide market intelligence and analytics for Canton"]},
@@ -241,7 +240,7 @@ const SVS = [
 {name:"TRM Labs",            liveWeight:2.50,  activeWeight:2.50,  cipMax:3,    status:"Final",    sector:"Compliance & Security",          cip:"CIP-0043",              author:"Eric Saraniecki",                       approved:"~Feb 2025",  node:"GSF (extraBeneficiary)", url:"https://www.trmlabs.com", description:"Blockchain intelligence and AML platform. Live weight 2.5 — notably below the commonly cited max of 3.0. The YAML is the definitive on-chain source.", commitments:["2.5 active (below CIP implied max of 3)","Provide on-chain AML monitoring for Canton"]},
 {name:"Elliptic",            liveWeight:0.50,  activeWeight:0.50,  cipMax:0.5,  status:"Final",    sector:"Compliance & Security",          cip:"CIP-0044",              author:"Eric Saraniecki",                       approved:"~Feb 2025",  node:"GSF (extraBeneficiary)", url:"https://www.elliptic.co", description:"Blockchain analytics and AML compliance firm. Weight 0.5 active via Elliptic-validator-1. Matches CIP-0044 Tier 4 allocation.", commitments:["0.5 fully active","Provide blockchain analytics for Canton","Deliver AML compliance tools"]},
 {name:"Quantstamp",          liveWeight:1.00,  activeWeight:1.00,  cipMax:1,    status:"Final",    sector:"Compliance & Security",          cip:"CIP-0057",              author:"Eric Saraniecki",                       approved:"2025-04-03", node:"GSF (extraBeneficiary)", url:"https://quantstamp.com", description:"Global blockchain security auditor. 1.0 fully active via Quantstamp-validator-1. Committed to annual audits of Canton Coin's Daml contracts for 3 years.", commitments:["1.0 fully active","Annual audit of CC Daml contracts","Audit on every major Daml upgrade"]},
-{name:"Hypernative",         liveWeight:2.00,  activeWeight:1.00,  cipMax:1,    status:"Final",    sector:"Compliance & Security",          cip:"CIP-0076",              author:"Alex Rabke",                            approved:"2025-09-09", node:"GSF (active+escrow)", url:"https://hypernative.io", description:"Real-time on-chain threat detection and monitoring platform. Live weight 2.0 exceeds CIP-0076 max of 1.0 due to earned bonuses. hypernative-validator-1 (1.0 active) + Hypernative-ghost-1 (1.0 escrow) = 2.0.", commitments:["1.0 active via hypernative-validator-1","1.0 in escrow (earned bonus)","Deploy Canton-specific monitoring agents","Deliver threat detection and alerts"]},
+{name:"Hypernative",         liveWeight:1.00,  activeWeight:1.00,  cipMax:1,    status:"Final",    sector:"Compliance & Security",          cip:"CIP-0076",              author:"Alex Rabke",                            approved:"2025-09-09", node:"GSF (extraBeneficiary)", url:"https://hypernative.io", description:"Real-time on-chain threat detection and monitoring platform. 1.0 active via hypernative-validator-1.", commitments:["1.0 fully active","Deploy Canton-specific monitoring agents","Deliver threat detection and alerts"]},
 {name:"Hexagate",            liveWeight:0,     activeWeight:0,     cipMax:1,    status:"Final",    sector:"Compliance & Security",          cip:"CIP-0038",              author:"Eric Saraniecki",                       approved:"~Jan 2025",  node:"Not found in YAML", url:"", description:"Blockchain exploit prevention firm (acquired by Chainalysis). CIP-0038 approved as T3 Weight 1, but no active entry found in the MainNet approved-sv-id-values.yaml.", commitments:["CIP approved (weight 1)","Not yet appearing in live YAML config"]},
 // ── Blockchain Infrastructure ─────────────────────────────────────────────────
 {name:"Digital Asset (GSF)", liveWeight:185.5, activeWeight:185.5, cipMax:null, status:"Founding", sector:"Blockchain Infrastructure",      cip:"Founding (GSF Node)",   author:"—",                                     approved:"Jul 2024",   node:"Global-Synchronizer-Foundation", url:"https://canton.foundation", description:"The GSF node itself (Global-Synchronizer-Foundation) manages 185.5 total weight on behalf of 44+ beneficiary SVs. It is the largest single node on the network by raw weight, acting as custodian of escrow and proxy rewards for most milestone-based SVs.", commitments:["Operates GSF node (185.5 total weight)","Manages escrow for 30+ milestone-based SVs","Distributes rewards to beneficiary SVs on milestone completion"]},
@@ -260,11 +259,11 @@ const SVS = [
 {name:"Liberty City Ventures",liveWeight:10.00,activeWeight:10.00, cipMax:10,   status:"Final",    sector:"Investment / Ecosystem",         cip:"CIP-0010",              author:"Eric Saraniecki",                       approved:"Pre-launch 2024", node:"Liberty-City-Ventures-1", url:"https://libertycityventures.com", description:"Crypto-native investment firm and founding Super Validator. Operates own SV node at full 10.0 weight.", commitments:["Operate own SV node (10.0)","Drive institutional investment in Canton ecosystem"]},
 {name:"Five-North",          liveWeight:9.05,  activeWeight:9.05,  cipMax:3,    status:"Final",    sector:"Investment / Ecosystem",         cip:"CIP-0035",              author:"Eric Saraniecki",                       approved:"~Jan 2025",  node:"Five-North-1 (own node)", url:"https://www.fivenorthgroup.com", description:"Multi-strategy crypto investment firm. Operates own SV node at 9.05 weight — significantly above CIP-0035 max of 3.0, suggesting substantial bonus weight earned. Also hosts the Bosphorus (BSV) 6.0 escrow.", commitments:["Own SV node (9.05, well above CIP max 3.0)","Hosts Bosphorus BSV escrow (6.0)","Deploy Canton ecosystem investment fund"]},
 {name:"Monstera",            liveWeight:5.00,  activeWeight:0,     cipMax:5,    status:"Final",    sector:"Investment / Ecosystem",         cip:"CIP-0052",              author:"Eric Saraniecki",                       approved:"2025-05-13", node:"GSF (escrow)", url:"", description:"Digital asset subsidiary of Witan Group (David Stern). Entire weight 5.0 in escrow (MonsteraFZE-ghost-1). No milestones completed yet.", commitments:["5.0 fully in escrow","Deploy digital asset strategies through Canton"]},
-{name:"AngelHack",           liveWeight:4.00,  activeWeight:2.50,  cipMax:2.5,  status:"Final",    sector:"Investment / Ecosystem",         cip:"CIP-0053",              author:"Eric Saraniecki",                       approved:"~Mar 2025",  node:"GSF (active+escrow)", url:"https://angelhack.com", description:"Global developer community (200K+ developers, 90 countries). Live weight 4.0 exceeds CIP-0053 max of 2.5 due to earned bonuses. angelhack-mainnet-1 (2.5 active) + AngelHack-ghost-1 (1.5 escrow) = 4.0. Drives Canton developer ecosystem through hackathons.", commitments:["2.5 active via angelhack-mainnet-1","1.5 in escrow (earned bonus)","Run Canton-focused hackathons","Build developer community around Canton"]},
+{name:"AngelHack",           liveWeight:2.50,  activeWeight:2.50,  cipMax:2.5,  status:"Final",    sector:"Investment / Ecosystem",         cip:"CIP-0053",              author:"Eric Saraniecki",                       approved:"~Mar 2025",  node:"GSF (extraBeneficiary)", url:"https://angelhack.com", description:"Global developer community (200K+ developers, 90 countries). 2.5 active via angelhack-mainnet-1. Drives Canton developer ecosystem through hackathons.", commitments:["2.5 fully active","Run Canton-focused hackathons","Build developer community around Canton"]},
 {name:"Republic",            liveWeight:6.00,  activeWeight:3.50,  cipMax:6,    status:"Approved", sector:"Investment / Ecosystem",         cip:"CIP-0080",              author:"Luca Burlando",                         approved:"2025-10-06", node:"GSF (active+escrow)", url:"https://republic.com", description:"Leading on-chain investment platform ($2.6B deployed, 3M members). 3.5 active (Republic-sv-1) + 2.5 escrow = 6.0 total. Matches CIP max.", commitments:["3.5 active weight earned","2.5 in escrow","Integrate Canton Token Standard in Republic Wallet","Build RWA Canton launchpad"]},
 {name:"YZi Labs",            liveWeight:0,     activeWeight:0,     cipMax:10,   status:"Approved", sector:"Investment / Ecosystem",         cip:"CIP-0081",              author:"Eric Saraniecki",                       approved:"~Jan 2026",  node:"Not yet in YAML", url:"", description:"Global multi-billion AUM investment firm (formerly Binance Labs). CIP-0081 approved Jan 2026 but not yet deployed to the MainNet approved-sv-id-values.yaml. Weight 10 max, milestone-based.", commitments:["Approved but not yet deployed to YAML","Flexible milestone-based weight (max 10)","Invest in Canton ecosystem projects"]},
 {name:"Tharimmune",          liveWeight:4.00,  activeWeight:0,     cipMax:4,    status:"Approved", sector:"Investment / Ecosystem",         cip:"CIP-0102",              author:"Mark Wendland",                         approved:"2026-01-21", node:"MPCH node (escrow)", url:"", description:"Nasdaq-listed life sciences company ($545M private placement for CC treasury). Weight 4.0 in escrow via MPCH node. First US publicly-traded company to adopt a CC treasury strategy.", commitments:["4.0 in escrow via MPCH node","Publish quarterly Canton ecosystem reports (SEC-filed)","Host quarterly public webinars"]},
-{name:"Nima Capital",        liveWeight:10.00, activeWeight:10.00, cipMax:10,   status:"Founding", sector:"Investment / Ecosystem",         cip:"Founding (via Orb-1)",  author:"—",                                     approved:"Jul 2024",   node:"Orb-1-LP-1 (own node)", url:"", description:"Crypto investment firm operating its own dedicated SV node (Orb-1-LP-1) at 10.0 weight. Not the subject of any named governance CIP — admitted as a Founding SV. One of only 13 entities running their own physical node infrastructure.", commitments:["10.0 fully active on own Orb-1-LP-1 node","Founding SV — no CIP admission required"]},
+{name:"Nima Capital",        liveWeight:10.00, activeWeight:10.00, cipMax:null, status:"Founding", sector:"Investment / Ecosystem",         cip:"Founding (via Orb-1)",  author:"—",                                     approved:"Jul 2024",   node:"Orb-1-LP-1 (hosted wallets)", url:"", description:"Crypto investment firm. Two Nima Capital wallet addresses (5.0 + 5.0 = 10.0) hosted under the Orb-1-LP-1 SV node. Not the subject of any named governance CIP.", commitments:["10.0 active via Orb-1-LP-1 node","Two hosted wallet beneficiaries (5.0 each)"]},
 // ── Interoperability ──────────────────────────────────────────────────────────
 {name:"LayerZero",           liveWeight:3.00,  activeWeight:0,     cipMax:3,    status:"Final",    sector:"Interoperability",               cip:"CIP-0065",              author:"Eric Saraniecki",                       approved:"~Jun 2025",  node:"GSF (escrow)", url:"https://layerzero.network", description:"Leading cross-chain interoperability protocol. 3.0 in escrow (LayerZero-ghost-1) via CIP-0065 batch (with Wormhole and Chainlink). Enables USDT0 and omnichain assets.", commitments:["3.0 fully in escrow","Enable cross-chain messaging to/from Canton","Support omnichain token standard"]},
 {name:"Wormhole",            liveWeight:3.00,  activeWeight:0,     cipMax:3,    status:"Final",    sector:"Interoperability",               cip:"CIP-0065",              author:"Eric Saraniecki",                       approved:"~Jun 2025",  node:"GSF (escrow)", url:"https://wormhole.com", description:"Cross-chain interoperability protocol connecting Canton to EVM chains, Solana, and other blockchains. 3.0 in escrow (Wormhole-ghost-1).", commitments:["3.0 fully in escrow","Provide bridge infrastructure to/from Canton","Enable cross-chain asset transfers"]},
@@ -404,7 +403,7 @@ document.getElementById('legend').innerHTML = `
   <div class="leg-card">
     <div class="leg-title">Status</div>
     <div class="sleg-row">
-      <span class="sleg-badge" style="background:rgba(201,168,76,.15);color:#c9a84c">Founding</span>
+      <span class="sleg-badge" style="background:rgba(201,168,76,.15);color:#609CBF">Founding</span>
       <span class="sleg-desc">Original launch participants</span>
     </div>
     <div class="sleg-row">
@@ -412,7 +411,7 @@ document.getElementById('legend').innerHTML = `
       <span class="sleg-desc">Milestones delivered, weight active</span>
     </div>
     <div class="sleg-row">
-      <span class="sleg-badge" style="background:rgba(76,127,201,.15);color:#63b3ed">Approved</span>
+      <span class="sleg-badge" style="background:rgba(76,127,201,.15);color:#85B8CF">Approved</span>
       <span class="sleg-desc">CIP passed, weight in escrow</span>
     </div>
   </div>`;
@@ -422,8 +421,8 @@ document.getElementById('reading-guide').innerHTML = `
 
   <div class="rg-row">
     <svg class="rg-svg" width="38" height="38" viewBox="0 0 38 38">
-      <circle cx="19" cy="19" r="16" fill="#38a169" fill-opacity=".08" stroke="#38a169" stroke-width="1.5" stroke-opacity=".5"/>
-      <circle cx="19" cy="19" r="16" fill="#38a169" fill-opacity=".2" stroke="none"/>
+      <circle cx="19" cy="19" r="16" fill="#B1DB31" fill-opacity=".08" stroke="#B1DB31" stroke-width="1.5" stroke-opacity=".5"/>
+      <circle cx="19" cy="19" r="16" fill="#B1DB31" fill-opacity=".2" stroke="none"/>
       <text x="19" y="20" text-anchor="middle" dominant-baseline="central" fill="white" font-size="8" font-family="DM Mono,monospace" fill-opacity=".7">10.0</text>
     </svg>
     <div class="rg-text">
@@ -434,7 +433,7 @@ document.getElementById('reading-guide').innerHTML = `
 
   <div class="rg-row">
     <svg class="rg-svg" width="38" height="38" viewBox="0 0 38 38">
-      <circle cx="19" cy="19" r="15" fill="#4c7fc9" fill-opacity=".08" stroke="#4c7fc9" stroke-width="1.5" stroke-opacity=".5" stroke-dasharray="4,3"/>
+      <circle cx="19" cy="19" r="15" fill="#71A9C7" fill-opacity=".08" stroke="#71A9C7" stroke-width="1.5" stroke-opacity=".5" stroke-dasharray="4,3"/>
     </svg>
     <div class="rg-text">
       <div class="rg-label">Dashed outline</div>
@@ -444,8 +443,8 @@ document.getElementById('reading-guide').innerHTML = `
 
   <div class="rg-row">
     <svg class="rg-svg" width="38" height="38" viewBox="0 0 38 38">
-      <circle cx="19" cy="19" r="15" fill="#e53e3e" fill-opacity=".08" stroke="#e53e3e" stroke-width="1.5" stroke-opacity=".5"/>
-      <path d="M19,4 A15,15 0 0,1 33.5,22.5 L19,19 Z" fill="#e53e3e" fill-opacity=".28"/>
+      <circle cx="19" cy="19" r="15" fill="#D52F41" fill-opacity=".08" stroke="#D52F41" stroke-width="1.5" stroke-opacity=".5"/>
+      <path d="M19,4 A15,15 0 0,1 33.5,22.5 L19,19 Z" fill="#D52F41" fill-opacity=".28"/>
     </svg>
     <div class="rg-text">
       <div class="rg-label">Filled arc = active</div>
@@ -502,7 +501,7 @@ function drawBubbles(){
 
   // Outer glow ring
   node.append('circle').attr('r',d=>d.r+5).attr('fill','none')
-    .attr('stroke',d=>d.status==='Rejected'?'#fc8181':sc(d.sector))
+    .attr('stroke',d=>d.status==='Rejected'?'#E07080':sc(d.sector))
     .attr('stroke-width',1).attr('opacity',.12);
 
   // Full circle (escrow portion — lighter)

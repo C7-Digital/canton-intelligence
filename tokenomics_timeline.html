@@ -3,18 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Canton Network — Tokenomics Evolution</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Canton Network — Tokenomics Evolution · 7Trust</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #05070d; --s1: #0b0f1a; --s2: #101520;
   --b: rgba(255,255,255,0.06); --b2: rgba(255,255,255,0.12);
   --text: #dde1ec; --muted: #4e5a78; --muted2: #7a89a8;
-  --gold: #c9a84c;
-  --cr: #3ecf8e; --cf: #e8875a; --cs: #a47fd4; --cm: #5aaee0; --cg: #d45a8e;
+  --gold: #609CBF;
+  --cr: #B1DB31; --cf: #E07060; --cs: #85B8CF; --cm: #71A9C7; --cg: #D070C0;
 }
-html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: 'IBM Plex Sans', sans-serif; }
+html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: 'Courier New', Courier, monospace; }
 
 /* ─── TOP BAR ─── */
 #topbar {
@@ -22,16 +21,16 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   background: rgba(5,7,13,0.97); border-bottom: 1px solid var(--b2);
   display: flex; align-items: center; padding: 0 20px; gap: 20px; z-index: 100;
 }
-#topbar h1 { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--text); white-space: nowrap; }
-#topbar p  { font-size: 7.5px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; letter-spacing: .1em; text-transform: uppercase; margin-top: 1px; white-space: nowrap; }
+#topbar h1 { font-family: 'Courier New', Courier, monospace; font-size: 14px; color: var(--text); white-space: nowrap; }
+#topbar p  { font-size: 7.5px; color: var(--muted); font-family: 'Courier New', Courier, monospace; letter-spacing: .1em; text-transform: uppercase; margin-top: 1px; white-space: nowrap; }
 .hdivider { width: 1px; height: 28px; background: var(--b2); flex-shrink: 0; }
 .hstat { text-align: right; flex-shrink: 0; }
-.hstat-n { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--gold); line-height: 1; }
-.hstat-l { font-size: 7px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; font-family: 'IBM Plex Mono', monospace; }
+.hstat-n { font-family: 'Courier New', Courier, monospace; font-size: 15px; color: var(--gold); line-height: 1; }
+.hstat-l { font-size: 7px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; font-family: 'Courier New', Courier, monospace; }
 .spacer { flex: 1; }
 .filters { display: flex; gap: 4px; }
 .fbtn {
-  padding: 3px 9px; border-radius: 3px; font-size: 7.5px; font-family: 'IBM Plex Mono', monospace;
+  padding: 3px 9px; border-radius: 3px; font-size: 7.5px; font-family: 'Courier New', Courier, monospace;
   text-transform: uppercase; letter-spacing: .08em; border: 1px solid var(--b2);
   background: transparent; color: var(--muted2); cursor: pointer;
 }
@@ -52,7 +51,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 }
 .lane-hdr {
   display: flex; align-items: center; gap: 7px;
-  padding: 0 12px; font-size: 8px; font-family: 'IBM Plex Mono', monospace;
+  padding: 0 12px; font-size: 8px; font-family: 'Courier New', Courier, monospace;
   text-transform: uppercase; letter-spacing: .09em; color: var(--muted2);
   border-bottom: 1px solid var(--b); flex-shrink: 0;
   border-left: 2px solid;
@@ -76,10 +75,10 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   background: var(--s1); display: flex; flex-direction: column; overflow: hidden;
 }
 #rp-date-row { padding: 13px 15px 10px; border-bottom: 1px solid var(--b); flex-shrink: 0; }
-#rp-date { font-family: 'Playfair Display', serif; font-size: 21px; color: var(--gold); }
-.rpsub { font-size: 7.5px; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-top: 2px; }
+#rp-date { font-family: 'Courier New', Courier, monospace; font-size: 21px; color: var(--gold); }
+.rpsub { font-size: 7.5px; font-family: 'Courier New', Courier, monospace; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-top: 2px; }
 #rp-bars { padding: 9px 15px; border-bottom: 1px solid var(--b); flex-shrink: 0; }
-.bl { font-size: 7.5px; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); margin-bottom: 4px; display: flex; justify-content: space-between; }
+.bl { font-size: 7.5px; font-family: 'Courier New', Courier, monospace; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); margin-bottom: 4px; display: flex; justify-content: space-between; }
 .btrack { height: 4px; background: rgba(255,255,255,.06); border-radius: 2px; overflow: hidden; margin-bottom: 6px; }
 .bfill { height: 4px; border-radius: 2px; transition: width .4s ease; }
 #rp-body { flex: 1; overflow-y: auto; padding: 11px 15px; }
@@ -88,14 +87,14 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 
 .sec { margin-bottom: 14px; }
 .sec-title {
-  font-size: 7.5px; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase;
+  font-size: 7.5px; font-family: 'Courier New', Courier, monospace; text-transform: uppercase;
   letter-spacing: .12em; color: var(--muted); margin-bottom: 6px; padding-bottom: 4px;
   border-bottom: 1px solid var(--b); display: flex; align-items: center; gap: 5px;
 }
 .sec-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
 .kv { display: flex; justify-content: space-between; gap: 6px; margin-bottom: 5px; }
 .kv-k { font-size: 9.5px; color: var(--muted2); flex: 1; line-height: 1.4; }
-.kv-v { font-size: 9px; font-family: 'IBM Plex Mono', monospace; text-align: right; max-width: 148px; line-height: 1.4; color: var(--text); }
+.kv-v { font-size: 9px; font-family: 'Courier New', Courier, monospace; text-align: right; max-width: 148px; line-height: 1.4; color: var(--text); }
 @keyframes vf { 0% { background: rgba(201,168,76,.3); color: var(--gold); } 80% { background: rgba(201,168,76,.05); } 100% { background: transparent; color: var(--text); } }
 .kv-v.flash { animation: vf .8s ease forwards; }
 
@@ -105,9 +104,9 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   background: var(--s2); border-top: 1px solid var(--b);
   display: flex; align-items: center; padding: 0 14px; gap: 8px; overflow: hidden;
 }
-.fc { font-size: 7.5px; font-family: 'IBM Plex Mono', monospace; letter-spacing: .07em; flex-shrink: 0; }
+.fc { font-size: 7.5px; font-family: 'Courier New', Courier, monospace; letter-spacing: .07em; flex-shrink: 0; }
 .fmid { font-size: 10.5px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
-.fem { font-size: 8px; font-family: 'IBM Plex Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: .09em; }
+.fem { font-size: 8px; font-family: 'Courier New', Courier, monospace; color: var(--muted); text-transform: uppercase; letter-spacing: .09em; }
 
 /* ─── TOOLTIP ─── */
 #tip {
@@ -116,10 +115,10 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   padding: 10px 13px; max-width: 230px; opacity: 0; transition: opacity .1s;
   box-shadow: 0 12px 40px rgba(0,0,0,.7);
 }
-.tip-id { font-size: 7.5px; font-family: 'IBM Plex Mono', monospace; letter-spacing: .08em; margin-bottom: 3px; }
+.tip-id { font-size: 7.5px; font-family: 'Courier New', Courier, monospace; letter-spacing: .08em; margin-bottom: 3px; }
 .tip-title { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 4px; line-height: 1.3; }
 .tip-desc { font-size: 9.5px; color: var(--muted2); line-height: 1.5; }
-.tip-meta { font-size: 7px; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: .1em; margin-top: 5px; color: var(--muted); }
+.tip-meta { font-size: 7px; font-family: 'Courier New', Courier, monospace; text-transform: uppercase; letter-spacing: .1em; margin-top: 5px; color: var(--muted); }
 
 /* ─── HELP BUTTON ─── */
 #help-btn {
@@ -143,11 +142,11 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   box-shadow: 0 24px 80px rgba(0,0,0,.7);
 }
 #overlay-card h2 {
-  font-family: 'Playfair Display', serif; font-size: 20px; color: var(--text);
+  font-family: 'Courier New', Courier, monospace; font-size: 20px; color: var(--text);
   margin-bottom: 4px;
 }
 #overlay-card .ov-sub {
-  font-size: 9px; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase;
+  font-size: 9px; font-family: 'Courier New', Courier, monospace; text-transform: uppercase;
   letter-spacing: .1em; color: var(--muted); margin-bottom: 22px;
 }
 .ov-grid {
@@ -170,7 +169,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .ov-dismiss {
   display: block; width: 100%; padding: 10px;
   background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.4);
-  border-radius: 5px; color: var(--gold); font-family: 'IBM Plex Mono', monospace;
+  border-radius: 5px; color: var(--gold); font-family: 'Courier New', Courier, monospace;
   font-size: 10px; text-transform: uppercase; letter-spacing: .1em;
   cursor: pointer; transition: .15s;
 }
@@ -183,7 +182,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 }
 .cl-row {
   display: flex; align-items: center; gap: 7px;
-  font-size: 8.5px; font-family: 'IBM Plex Mono', monospace; color: var(--muted);
+  font-size: 8.5px; font-family: 'Courier New', Courier, monospace; color: var(--muted);
   background: rgba(11,15,26,.78); border: 1px solid var(--b); border-radius: 4px;
   padding: 4px 8px; backdrop-filter: blur(4px);
 }
@@ -193,7 +192,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 
 <!-- TOP BAR -->
 <div id="topbar">
-  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#4e5a72;text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:3px;white-space:nowrap;transition:color .15s,border-color .15s;" onmouseover="this.style.color='#c8992a';this.style.borderColor='rgba(200,153,42,0.35)'" onmouseout="this.style.color='#4e5a72';this.style.borderColor='rgba(255,255,255,0.08)'">← Suite</a>
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-family:'Courier New', Courier, monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#4e5a72;text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:3px;white-space:nowrap;transition:color .15s,border-color .15s;" onmouseover="this.style.color='#609CBF';this.style.borderColor='rgba(200,153,42,0.35)'" onmouseout="this.style.color='#4e5a72';this.style.borderColor='rgba(255,255,255,0.08)'">← Suite</a>
   <div>
     <h1>Canton Network — Tokenomics Evolution</h1>
     <p>36 CIPs · 5 rule dimensions · Jul 2024 → Feb 2026</p>
@@ -232,12 +231,12 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
         <span><b style="color:rgba(255,255,255,.5)">Small node</b> = incremental update</span>
       </div>
       <div class="cl-row">
-        <svg width="18" height="18"><line x1="9" y1="0" x2="9" y2="18" stroke="#c9a84c" stroke-width="1.5"/><polygon points="4,2 14,2 9,8" fill="#c9a84c"/></svg>
+        <svg width="18" height="18"><line x1="9" y1="0" x2="9" y2="18" stroke="#609CBF" stroke-width="1.5"/><polygon points="4,2 14,2 9,8" fill="#609CBF"/></svg>
         <span><b style="color:var(--gold)">Gold line</b> = scrubber — drag to travel through time</span>
       </div>
       <div class="cl-row">
-        <svg width="18" height="18"><line x1="9" y1="0" x2="9" y2="18" stroke="#c9a84c" stroke-width="1.5" stroke-dasharray="3,3" stroke-opacity=".6"/></svg>
-        <span><b style="color:#c9a84c99">Dashed pillar</b> = major network event</span>
+        <svg width="18" height="18"><line x1="9" y1="0" x2="9" y2="18" stroke="#609CBF" stroke-width="1.5" stroke-dasharray="3,3" stroke-opacity=".6"/></svg>
+        <span><b style="color:#609CBF99">Dashed pillar</b> = major network event</span>
       </div>
     </div>
   </div>
@@ -271,8 +270,8 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <div class="ov-item">
         <div class="ov-icon">
           <svg width="40" height="40">
-            <line x1="20" y1="0" x2="20" y2="40" stroke="#c9a84c" stroke-width="1.5"/>
-            <polygon points="14,4 26,4 20,11" fill="#c9a84c"/>
+            <line x1="20" y1="0" x2="20" y2="40" stroke="#609CBF" stroke-width="1.5"/>
+            <polygon points="14,4 26,4 20,11" fill="#609CBF"/>
           </svg>
         </div>
         <div class="ov-text">
@@ -284,7 +283,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <div class="ov-item">
         <div class="ov-icon">
           <svg width="40" height="40">
-            <line x1="20" y1="2" x2="20" y2="38" stroke="#a47fd4" stroke-width="1.5" stroke-dasharray="4,3" stroke-opacity=".7"/>
+            <line x1="20" y1="2" x2="20" y2="38" stroke="#85B8CF" stroke-width="1.5" stroke-dasharray="4,3" stroke-opacity=".7"/>
           </svg>
         </div>
         <div class="ov-text">
@@ -296,9 +295,9 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <div class="ov-item">
         <div class="ov-icon">
           <svg width="40" height="40">
-            <circle cx="20" cy="20" r="13" fill="none" stroke="#3ecf8e" stroke-width="1.5" stroke-opacity=".5"/>
-            <circle cx="20" cy="20" r="8" fill="#3ecf8e" fill-opacity=".25" stroke="#3ecf8e" stroke-width="1.8" stroke-opacity=".9"/>
-            <circle cx="20" cy="20" r="2.5" fill="#3ecf8e" fill-opacity=".85"/>
+            <circle cx="20" cy="20" r="13" fill="none" stroke="#B1DB31" stroke-width="1.5" stroke-opacity=".5"/>
+            <circle cx="20" cy="20" r="8" fill="#B1DB31" fill-opacity=".25" stroke="#B1DB31" stroke-width="1.8" stroke-opacity=".9"/>
+            <circle cx="20" cy="20" r="2.5" fill="#B1DB31" fill-opacity=".85"/>
           </svg>
         </div>
         <div class="ov-text">
@@ -310,8 +309,8 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <div class="ov-item">
         <div class="ov-icon">
           <svg width="40" height="40">
-            <circle cx="20" cy="20" r="8" fill="none" stroke="#5aaee0" stroke-width="1.2" stroke-opacity=".5"/>
-            <circle cx="20" cy="20" r="4.5" fill="#5aaee0" fill-opacity=".18" stroke="#5aaee0" stroke-width="1.2" stroke-opacity=".65"/>
+            <circle cx="20" cy="20" r="8" fill="none" stroke="#71A9C7" stroke-width="1.2" stroke-opacity=".5"/>
+            <circle cx="20" cy="20" r="4.5" fill="#71A9C7" fill-opacity=".18" stroke="#71A9C7" stroke-width="1.2" stroke-opacity=".65"/>
           </svg>
         </div>
         <div class="ov-text">
@@ -324,20 +323,20 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
     <div class="ov-full">
       <div class="ov-icon" style="padding-top:2px">
         <svg width="40" height="28">
-          <rect x="0" y="8" width="8" height="12" fill="#3ecf8e" fill-opacity=".3" rx="1"/>
-          <rect x="11" y="5" width="8" height="18" fill="#e8875a" fill-opacity=".3" rx="1"/>
-          <rect x="22" y="11" width="8" height="8" fill="#a47fd4" fill-opacity=".3" rx="1"/>
-          <rect x="33" y="3" width="8" height="22" fill="#5aaee0" fill-opacity=".3" rx="1"/>
+          <rect x="0" y="8" width="8" height="12" fill="#B1DB31" fill-opacity=".3" rx="1"/>
+          <rect x="11" y="5" width="8" height="18" fill="#E07060" fill-opacity=".3" rx="1"/>
+          <rect x="22" y="11" width="8" height="8" fill="#85B8CF" fill-opacity=".3" rx="1"/>
+          <rect x="33" y="3" width="8" height="22" fill="#71A9C7" fill-opacity=".3" rx="1"/>
         </svg>
       </div>
       <div class="ov-text">
         <div class="ov-label">Five swim lanes, one dimension each</div>
         <div class="ov-desc">
-          <span style="color:#3ecf8e">■</span> Reward Structure &nbsp;·&nbsp;
-          <span style="color:#e8875a">■</span> Fee & Pricing &nbsp;·&nbsp;
-          <span style="color:#a47fd4">■</span> Supply Management &nbsp;·&nbsp;
-          <span style="color:#5aaee0">■</span> Market Integration &nbsp;·&nbsp;
-          <span style="color:#d45a8e">■</span> Fund Governance<br>
+          <span style="color:#B1DB31">■</span> Reward Structure &nbsp;·&nbsp;
+          <span style="color:#E07060">■</span> Fee & Pricing &nbsp;·&nbsp;
+          <span style="color:#85B8CF">■</span> Supply Management &nbsp;·&nbsp;
+          <span style="color:#71A9C7">■</span> Market Integration &nbsp;·&nbsp;
+          <span style="color:#D070C0">■</span> Fund Governance<br>
           <span style="margin-top:4px;display:block">Use the filter buttons (top-right) to highlight only Final, Approved, or Active CIPs.</span>
         </div>
       </div>
@@ -358,11 +357,11 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────
 const LANES = [
-  { id:'reward', label:'Reward Structure',   col:'#3ecf8e' },
-  { id:'fee',    label:'Fee & Pricing',       col:'#e8875a' },
-  { id:'supply', label:'Supply Management',  col:'#a47fd4' },
-  { id:'market', label:'Market Integration', col:'#5aaee0' },
-  { id:'gov',    label:'Fund Governance',     col:'#d45a8e' },
+  { id:'reward', label:'Reward Structure',   col:'#B1DB31' },
+  { id:'fee',    label:'Fee & Pricing',       col:'#E07060' },
+  { id:'supply', label:'Supply Management',  col:'#85B8CF' },
+  { id:'market', label:'Market Integration', col:'#71A9C7' },
+  { id:'gov',    label:'Fund Governance',     col:'#D070C0' },
 ];
 
 const CIPS = [
@@ -446,8 +445,8 @@ const CIPS = [
 ];
 
 const EVENTS = [
-  { date:'2024-07-01', label:'Network Launch', col:'#c9a84c' },
-  { date:'2026-01-27', label:'First Halving · round 78,840', col:'#a47fd4' },
+  { date:'2024-07-01', label:'Network Launch', col:'#609CBF' },
+  { date:'2026-01-27', label:'First Halving · round 78,840', col:'#85B8CF' },
 ];
 
 const SNAPS = [
@@ -555,8 +554,8 @@ function buildSVG() {
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
     <linearGradient id="scrubGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#c9a84c" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#c9a84c" stop-opacity="0.1"/>
+      <stop offset="0%" stop-color="#609CBF" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#609CBF" stop-opacity="0.1"/>
     </linearGradient>
   </defs>`);
 
@@ -642,8 +641,8 @@ function buildSVG() {
   parts.push(`<g id="scrub-g">
     <line id="scrub-line" x1="0" y1="0" x2="0" y2="${H - AXIS_H}"
       stroke="url(#scrubGrad)" stroke-width="1.5"/>
-    <polygon points="-6,0 6,0 0,8" fill="#c9a84c"/>
-    <polygon points="-6,0 6,0 0,-8" fill="#c9a84c" fill-opacity=".4"
+    <polygon points="-6,0 6,0 0,8" fill="#609CBF"/>
+    <polygon points="-6,0 6,0 0,-8" fill="#609CBF" fill-opacity=".4"
       transform="translate(0,${H - AXIS_H})"/>
   </g>`);
 
@@ -768,7 +767,7 @@ function updateSnap(date) {
 
   document.getElementById('rp-body').innerHTML = `
     <div class="sec">
-      <div class="sec-title"><div class="sec-dot" style="background:#3ecf8e"></div>Reward Structure</div>
+      <div class="sec-title"><div class="sec-dot" style="background:#B1DB31"></div>Reward Structure</div>
       ${KVlabel('SV share',        'reward.sv',       s.reward.sv)}
       ${KVlabel('Validator share', 'reward.val',      s.reward.val)}
       ${KVlabel('App share',       'reward.app',      s.reward.app)}
@@ -777,25 +776,25 @@ function updateSnap(date) {
       ${KVlabel('Liveness model',  'reward.liveness', s.reward.liveness)}
     </div>
     <div class="sec">
-      <div class="sec-title"><div class="sec-dot" style="background:#e8875a"></div>Fee & Pricing</div>
+      <div class="sec-title"><div class="sec-dot" style="background:#E07060"></div>Fee & Pricing</div>
       ${KVlabel('Transfer fee',    'fee.transfer', s.fee.transfer)}
       ${KVlabel('Holding fee',     'fee.holding',  s.fee.holding)}
       ${KVlabel('Price mechanism', 'fee.price',    s.fee.price)}
     </div>
     <div class="sec">
-      <div class="sec-title"><div class="sec-dot" style="background:#a47fd4"></div>Supply Management</div>
+      <div class="sec-title"><div class="sec-dot" style="background:#85B8CF"></div>Supply Management</div>
       ${KVlabel('Dev fund',       'supply.devFund',  s.supply.devFund)}
       ${KVlabel('Unclaimed pool', 'supply.unclaimed', s.supply.unclaimed)}
     </div>
     <div class="sec">
-      <div class="sec-title"><div class="sec-dot" style="background:#5aaee0"></div>Market Integration</div>
+      <div class="sec-title"><div class="sec-dot" style="background:#71A9C7"></div>Market Integration</div>
       ${KVlabel('CC price source', 'market.price',   s.market.price)}
       ${KVlabel('Oracle provider', 'market.oracle',  s.market.oracle)}
       ${KVlabel('Listing status',  'market.listing', s.market.listing)}
       ${KVlabel('Token standard',  'market.std',     s.market.std)}
     </div>
     <div class="sec">
-      <div class="sec-title"><div class="sec-dot" style="background:#d45a8e"></div>Fund Governance</div>
+      <div class="sec-title"><div class="sec-dot" style="background:#D070C0"></div>Fund Governance</div>
       ${KVlabel('Committees',    'gov.cttee', s.gov.cttee)}
       ${KVlabel('SV req.',       'gov.req',   s.gov.req)}
       ${KVlabel('CIP process',   'gov.cip',   s.gov.cip)}

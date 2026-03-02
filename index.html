@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Canton Network Intelligence Suite</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@300;400;500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<title>Canton Network Intelligence Suite · 7Trust</title>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -17,8 +16,8 @@
   --text:   #cdd5e4;
   --muted:  #48566c;
   --muted2: #6e7e9a;
-  --gold:   #c8992a;
-  --gold2:  #e8b840;
+  --gold:   #609CBF;
+  --gold2:  #71A9C7;
   --gold3:  rgba(200,153,42,0.12);
 }
 
@@ -26,7 +25,7 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Lato', sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 14px;
   min-height: 100vh;
   overflow-x: hidden;
@@ -54,7 +53,7 @@ body::before {
   display: flex; justify-content: space-between; align-items: center;
 }
 .site-wordmark {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
   color: var(--muted); display: flex; align-items: center; gap: 10px;
 }
@@ -63,7 +62,7 @@ body::before {
   display: block; width: 18px; height: 1px; background: var(--muted);
 }
 .site-date {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
   color: var(--muted);
 }
@@ -75,7 +74,7 @@ body::before {
   animation: rise 0.9s cubic-bezier(0.16,1,0.3,1) 0.1s forwards;
 }
 .hero-eyebrow {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase;
   color: var(--gold); margin-bottom: 22px;
   display: flex; align-items: center; gap: 12px;
@@ -85,7 +84,7 @@ body::before {
   background: linear-gradient(90deg, var(--gold), transparent);
 }
 #hero h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Courier New', Courier, monospace;
   font-size: clamp(38px, 6vw, 66px);
   font-weight: 700; line-height: 1.07; letter-spacing: -.01em;
   color: #e2e8f0; margin-bottom: 28px;
@@ -119,19 +118,19 @@ body::before {
 }
 .agg-stat:hover::before { opacity: 1; }
 .agg-n {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 28px; color: var(--gold2); line-height: 1;
   margin-bottom: 4px;
 }
 .agg-l {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 8px; text-transform: uppercase; letter-spacing: .12em;
   color: var(--muted);
 }
 
 /* ─── SECTION LABEL ─── */
 .section-label {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 8.5px; letter-spacing: .2em; text-transform: uppercase;
   color: var(--muted); margin-bottom: 28px;
   display: flex; align-items: center; gap: 14px;
@@ -186,12 +185,12 @@ body::before {
 /* Body */
 .tool-body { padding: 22px 24px 24px; flex: 1; display: flex; flex-direction: column; }
 .tool-number {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 8px; letter-spacing: .18em; text-transform: uppercase;
   color: var(--muted); margin-bottom: 10px;
 }
 .tool-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 20px; font-weight: 700; color: #dde4f0;
   margin-bottom: 10px; line-height: 1.2;
 }
@@ -201,7 +200,7 @@ body::before {
 }
 .tool-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 20px; }
 .tool-tag {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 7.5px; text-transform: uppercase; letter-spacing: .08em;
   padding: 2px 8px; border-radius: 2px;
   background: rgba(255,255,255,0.04); border: 1px solid var(--b2);
@@ -209,7 +208,7 @@ body::before {
 }
 .tool-cta {
   display: flex; align-items: center; gap: 8px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 9px; text-transform: uppercase; letter-spacing: .14em;
   color: var(--gold); transition: gap .2s;
 }
@@ -227,13 +226,13 @@ body::before {
   flex-wrap: wrap;
 }
 .footer-note {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase;
   color: var(--muted); line-height: 1.7;
 }
 .footer-links { display: flex; gap: 20px; }
 .footer-link {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase;
   color: var(--muted); text-decoration: none; transition: color .15s;
 }
@@ -302,38 +301,38 @@ body::before {
   <div id="tools">
 
     <!-- 1: Ecosystem Map -->
-    <a class="tool-card" href="canton_ecosystem_map_v2.html" style="--accent:#3ecf8e; --delay:0.45s">
+    <a class="tool-card" href="canton_ecosystem_map_v2.html" style="--accent:#B1DB31; --delay:0.45s">
       <div class="tool-preview">
         <svg width="320" height="160" viewBox="0 0 320 160" fill="none" xmlns="http://www.w3.org/2000/svg">
           <!-- Background -->
           <rect width="320" height="160" fill="#141820"/>
           <!-- Bubble cluster simulation -->
           <!-- Large central bubbles -->
-          <circle cx="160" cy="80" r="38" fill="#3ecf8e" fill-opacity=".07" stroke="#3ecf8e" stroke-opacity=".2" stroke-width="1"/>
-          <circle cx="160" cy="80" r="26" fill="#3ecf8e" fill-opacity=".06"/>
+          <circle cx="160" cy="80" r="38" fill="#B1DB31" fill-opacity=".07" stroke="#B1DB31" stroke-opacity=".2" stroke-width="1"/>
+          <circle cx="160" cy="80" r="26" fill="#B1DB31" fill-opacity=".06"/>
           <!-- Mid bubbles -->
-          <circle cx="88" cy="60" r="22" fill="#4c7fc9" fill-opacity=".09" stroke="#4c7fc9" stroke-opacity=".2" stroke-width="1"/>
-          <circle cx="235" cy="55" r="18" fill="#f0a030" fill-opacity=".09" stroke="#f0a030" stroke-opacity=".2" stroke-width="1"/>
-          <circle cx="95" cy="108" r="15" fill="#d45a8e" fill-opacity=".09" stroke="#d45a8e" stroke-opacity=".2" stroke-width="1"/>
-          <circle cx="240" cy="110" r="14" fill="#9b59b6" fill-opacity=".09" stroke="#9b59b6" stroke-opacity=".2" stroke-width="1"/>
+          <circle cx="88" cy="60" r="22" fill="#71A9C7" fill-opacity=".09" stroke="#71A9C7" stroke-opacity=".2" stroke-width="1"/>
+          <circle cx="235" cy="55" r="18" fill="#609CBF" fill-opacity=".09" stroke="#609CBF" stroke-opacity=".2" stroke-width="1"/>
+          <circle cx="95" cy="108" r="15" fill="#D070C0" fill-opacity=".09" stroke="#D070C0" stroke-opacity=".2" stroke-width="1"/>
+          <circle cx="240" cy="110" r="14" fill="#71A9C7" fill-opacity=".09" stroke="#71A9C7" stroke-opacity=".2" stroke-width="1"/>
           <!-- Small bubbles -->
-          <circle cx="50"  cy="78" r="10" fill="#3ecf8e" fill-opacity=".08" stroke="#3ecf8e" stroke-opacity=".15" stroke-width="1"/>
-          <circle cx="275" cy="78" r="9" fill="#4c7fc9" fill-opacity=".08" stroke="#4c7fc9" stroke-opacity=".15" stroke-width="1"/>
-          <circle cx="145" cy="130" r="11" fill="#f0a030" fill-opacity=".08" stroke="#f0a030" stroke-opacity=".15" stroke-width="1"/>
-          <circle cx="195" cy="128" r="8"  fill="#3ecf8e" fill-opacity=".07" stroke="#3ecf8e" stroke-opacity=".12" stroke-width="1"/>
-          <circle cx="55"  cy="33" r="9"  fill="#d45a8e" fill-opacity=".07" stroke="#d45a8e" stroke-opacity=".12" stroke-width="1"/>
-          <circle cx="270" cy="30" r="7"  fill="#9b59b6" fill-opacity=".07" stroke="#9b59b6" stroke-opacity=".12" stroke-width="1"/>
-          <circle cx="120" cy="28" r="6"  fill="#f0a030" fill-opacity=".06" stroke="#f0a030" stroke-opacity=".1" stroke-width="1"/>
-          <circle cx="200" cy="26" r="8"  fill="#4c7fc9" fill-opacity=".06" stroke="#4c7fc9" stroke-opacity=".1" stroke-width="1"/>
+          <circle cx="50"  cy="78" r="10" fill="#B1DB31" fill-opacity=".08" stroke="#B1DB31" stroke-opacity=".15" stroke-width="1"/>
+          <circle cx="275" cy="78" r="9" fill="#71A9C7" fill-opacity=".08" stroke="#71A9C7" stroke-opacity=".15" stroke-width="1"/>
+          <circle cx="145" cy="130" r="11" fill="#609CBF" fill-opacity=".08" stroke="#609CBF" stroke-opacity=".15" stroke-width="1"/>
+          <circle cx="195" cy="128" r="8"  fill="#B1DB31" fill-opacity=".07" stroke="#B1DB31" stroke-opacity=".12" stroke-width="1"/>
+          <circle cx="55"  cy="33" r="9"  fill="#D070C0" fill-opacity=".07" stroke="#D070C0" stroke-opacity=".12" stroke-width="1"/>
+          <circle cx="270" cy="30" r="7"  fill="#71A9C7" fill-opacity=".07" stroke="#71A9C7" stroke-opacity=".12" stroke-width="1"/>
+          <circle cx="120" cy="28" r="6"  fill="#609CBF" fill-opacity=".06" stroke="#609CBF" stroke-opacity=".1" stroke-width="1"/>
+          <circle cx="200" cy="26" r="8"  fill="#71A9C7" fill-opacity=".06" stroke="#71A9C7" stroke-opacity=".1" stroke-width="1"/>
           <!-- Cluster label -->
           <text x="160" y="84" text-anchor="middle" fill="white" fill-opacity=".5" font-family="sans-serif" font-size="8">Blockchain Infra</text>
           <text x="88" y="63" text-anchor="middle" fill="white" fill-opacity=".4" font-family="sans-serif" font-size="6.5">DeFi</text>
           <text x="235" y="58" text-anchor="middle" fill="white" fill-opacity=".4" font-family="sans-serif" font-size="6">RWA</text>
           <!-- Category count badges -->
-          <rect x="8" y="8" width="56" height="14" rx="2" fill="#3ecf8e" fill-opacity=".1" stroke="#3ecf8e" stroke-opacity=".2" stroke-width=".5"/>
-          <text x="36" y="17.5" text-anchor="middle" fill="#3ecf8e" fill-opacity=".8" font-family="monospace" font-size="7">22 CATEGORIES</text>
-          <rect x="8" y="138" width="68" height="14" rx="2" fill="#3ecf8e" fill-opacity=".1" stroke="#3ecf8e" stroke-opacity=".2" stroke-width=".5"/>
-          <text x="42" y="147.5" text-anchor="middle" fill="#3ecf8e" fill-opacity=".8" font-family="monospace" font-size="7">1,349 COMPANIES</text>
+          <rect x="8" y="8" width="56" height="14" rx="2" fill="#B1DB31" fill-opacity=".1" stroke="#B1DB31" stroke-opacity=".2" stroke-width=".5"/>
+          <text x="36" y="17.5" text-anchor="middle" fill="#B1DB31" fill-opacity=".8" font-family="monospace" font-size="7">22 CATEGORIES</text>
+          <rect x="8" y="138" width="68" height="14" rx="2" fill="#B1DB31" fill-opacity=".1" stroke="#B1DB31" stroke-opacity=".2" stroke-width=".5"/>
+          <text x="42" y="147.5" text-anchor="middle" fill="#B1DB31" fill-opacity=".8" font-family="monospace" font-size="7">1,349 COMPANIES</text>
         </svg>
       </div>
       <div class="tool-body">
@@ -351,37 +350,37 @@ body::before {
     </a>
 
     <!-- 2: SV Power Map -->
-    <a class="tool-card" href="sv_power_map_v2.html" style="--accent:#c8992a; --delay:0.55s">
+    <a class="tool-card" href="sv_power_map_v2.html" style="--accent:#609CBF; --delay:0.55s">
       <div class="tool-preview">
         <svg width="320" height="160" viewBox="0 0 320 160" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="320" height="160" fill="#141820"/>
           <!-- Large SV nodes -->
-          <circle cx="100" cy="75" r="32" fill="#c8992a" fill-opacity=".07" stroke="#c8992a" stroke-opacity=".25" stroke-width="1.5"/>
+          <circle cx="100" cy="75" r="32" fill="#609CBF" fill-opacity=".07" stroke="#609CBF" stroke-opacity=".25" stroke-width="1.5"/>
           <!-- Active arc -->
-          <path d="M100,43 A32,32 0 0,1 131.5,86 L100,75 Z" fill="#c8992a" fill-opacity=".22"/>
+          <path d="M100,43 A32,32 0 0,1 131.5,86 L100,75 Z" fill="#609CBF" fill-opacity=".22"/>
           <text x="100" y="73" text-anchor="middle" fill="white" fill-opacity=".5" font-family="monospace" font-size="7">Digital Asset</text>
-          <text x="100" y="83" text-anchor="middle" fill="#c8992a" fill-opacity=".7" font-family="monospace" font-size="7.5">31.85</text>
+          <text x="100" y="83" text-anchor="middle" fill="#609CBF" fill-opacity=".7" font-family="monospace" font-size="7.5">31.85</text>
 
-          <circle cx="195" cy="68" r="22" fill="#c8992a" fill-opacity=".07" stroke="#c8992a" stroke-opacity=".2" stroke-width="1.5"/>
-          <circle cx="195" cy="68" r="22" fill="#c8992a" fill-opacity=".14" stroke="none"/>
+          <circle cx="195" cy="68" r="22" fill="#609CBF" fill-opacity=".07" stroke="#609CBF" stroke-opacity=".2" stroke-width="1.5"/>
+          <circle cx="195" cy="68" r="22" fill="#609CBF" fill-opacity=".14" stroke="none"/>
           <text x="195" y="66" text-anchor="middle" fill="white" fill-opacity=".5" font-family="monospace" font-size="6.5">Circle</text>
-          <text x="195" y="76" text-anchor="middle" fill="#c8992a" fill-opacity=".7" font-family="monospace" font-size="7">10.0</text>
+          <text x="195" y="76" text-anchor="middle" fill="#609CBF" fill-opacity=".7" font-family="monospace" font-size="7">10.0</text>
 
-          <circle cx="258" cy="85" r="20" fill="#4c7fc9" fill-opacity=".07" stroke="#4c7fc9" stroke-opacity=".2" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <circle cx="258" cy="85" r="20" fill="#71A9C7" fill-opacity=".07" stroke="#71A9C7" stroke-opacity=".2" stroke-width="1.5" stroke-dasharray="4,3"/>
           <text x="258" y="83" text-anchor="middle" fill="white" fill-opacity=".4" font-family="monospace" font-size="6.5">DTCC</text>
-          <text x="258" y="93" text-anchor="middle" fill="#4c7fc9" fill-opacity=".6" font-family="monospace" font-size="7">10.0</text>
+          <text x="258" y="93" text-anchor="middle" fill="#71A9C7" fill-opacity=".6" font-family="monospace" font-size="7">10.0</text>
 
-          <circle cx="200" cy="118" r="13" fill="#c8992a" fill-opacity=".07" stroke="#c8992a" stroke-opacity=".18" stroke-width="1"/>
-          <path d="M200,105 A13,13 0 0,1 213,118 L200,118 Z" fill="#c8992a" fill-opacity=".2"/>
+          <circle cx="200" cy="118" r="13" fill="#609CBF" fill-opacity=".07" stroke="#609CBF" stroke-opacity=".18" stroke-width="1"/>
+          <path d="M200,105 A13,13 0 0,1 213,118 L200,118 Z" fill="#609CBF" fill-opacity=".2"/>
           <text x="200" y="122" text-anchor="middle" fill="white" fill-opacity=".4" font-family="monospace" font-size="5.5">Chainlink</text>
 
-          <circle cx="148" cy="120" r="11" fill="#c8992a" fill-opacity=".07" stroke="#c8992a" stroke-opacity=".15" stroke-width="1"/>
-          <circle cx="148" cy="120" r="11" fill="#c8992a" fill-opacity=".12"/>
+          <circle cx="148" cy="120" r="11" fill="#609CBF" fill-opacity=".07" stroke="#609CBF" stroke-opacity=".15" stroke-width="1"/>
+          <circle cx="148" cy="120" r="11" fill="#609CBF" fill-opacity=".12"/>
 
           <!-- Legend -->
-          <rect x="8" y="8" width="70" height="14" rx="2" fill="#c8992a" fill-opacity=".08" stroke="#c8992a" stroke-opacity=".2" stroke-width=".5"/>
-          <text x="43" y="17.5" text-anchor="middle" fill="#c8992a" fill-opacity=".8" font-family="monospace" font-size="7">13 SV NODES</text>
-          <rect x="8" y="138" width="62" height="14" rx="2" fill="#4c7fc9" fill-opacity=".08" stroke="#4c7fc9" stroke-opacity=".2" stroke-width=".5"/>
+          <rect x="8" y="8" width="70" height="14" rx="2" fill="#609CBF" fill-opacity=".08" stroke="#609CBF" stroke-opacity=".2" stroke-width=".5"/>
+          <text x="43" y="17.5" text-anchor="middle" fill="#609CBF" fill-opacity=".8" font-family="monospace" font-size="7">13 SV NODES</text>
+          <rect x="8" y="138" width="62" height="14" rx="2" fill="#71A9C7" fill-opacity=".08" stroke="#71A9C7" stroke-opacity=".2" stroke-width=".5"/>
           <text x="39" y="147.5" text-anchor="middle" fill="#6fa0d8" fill-opacity=".8" font-family="monospace" font-size="7">DASHED = ESCROW</text>
         </svg>
       </div>
@@ -400,36 +399,36 @@ body::before {
     </a>
 
     <!-- 3: Tokenomics Timeline -->
-    <a class="tool-card" href="tokenomics_timeline.html" style="--accent:#4c7fc9; --delay:0.65s">
+    <a class="tool-card" href="tokenomics_timeline.html" style="--accent:#71A9C7; --delay:0.65s">
       <div class="tool-preview">
         <svg width="320" height="160" viewBox="0 0 320 160" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="320" height="160" fill="#141820"/>
           <!-- Swim lanes -->
-          <rect x="0" y="20"  width="320" height="22" fill="#4c7fc9" fill-opacity=".04"/>
-          <rect x="0" y="62"  width="320" height="22" fill="#3ecf8e" fill-opacity=".04"/>
-          <rect x="0" y="104" width="320" height="22" fill="#f0a030" fill-opacity=".04"/>
+          <rect x="0" y="20"  width="320" height="22" fill="#71A9C7" fill-opacity=".04"/>
+          <rect x="0" y="62"  width="320" height="22" fill="#B1DB31" fill-opacity=".04"/>
+          <rect x="0" y="104" width="320" height="22" fill="#609CBF" fill-opacity=".04"/>
           <!-- Lane labels -->
-          <text x="8" y="34" fill="#4c7fc9" fill-opacity=".5" font-family="monospace" font-size="6">SV WEIGHT</text>
-          <text x="8" y="76" fill="#3ecf8e" fill-opacity=".5" font-family="monospace" font-size="6">REWARD RULES</text>
-          <text x="8" y="118" fill="#f0a030" fill-opacity=".5" font-family="monospace" font-size="6">PRICING</text>
+          <text x="8" y="34" fill="#71A9C7" fill-opacity=".5" font-family="monospace" font-size="6">SV WEIGHT</text>
+          <text x="8" y="76" fill="#B1DB31" fill-opacity=".5" font-family="monospace" font-size="6">REWARD RULES</text>
+          <text x="8" y="118" fill="#609CBF" fill-opacity=".5" font-family="monospace" font-size="6">PRICING</text>
           <!-- Timeline nodes — row 1 -->
-          <circle cx="70"  cy="31" r="5" fill="#4c7fc9" fill-opacity=".9"/>
-          <circle cx="120" cy="31" r="4" fill="#4c7fc9" fill-opacity=".6"/>
-          <circle cx="180" cy="31" r="7" fill="#4c7fc9" fill-opacity=".9" stroke="#4c7fc9" stroke-opacity=".3" stroke-width="1.5"/>
-          <circle cx="240" cy="31" r="4" fill="#4c7fc9" fill-opacity=".6"/>
-          <circle cx="285" cy="31" r="5" fill="#4c7fc9" fill-opacity=".8"/>
+          <circle cx="70"  cy="31" r="5" fill="#71A9C7" fill-opacity=".9"/>
+          <circle cx="120" cy="31" r="4" fill="#71A9C7" fill-opacity=".6"/>
+          <circle cx="180" cy="31" r="7" fill="#71A9C7" fill-opacity=".9" stroke="#71A9C7" stroke-opacity=".3" stroke-width="1.5"/>
+          <circle cx="240" cy="31" r="4" fill="#71A9C7" fill-opacity=".6"/>
+          <circle cx="285" cy="31" r="5" fill="#71A9C7" fill-opacity=".8"/>
           <!-- Row 2 -->
-          <circle cx="85"  cy="73" r="4" fill="#3ecf8e" fill-opacity=".7"/>
-          <circle cx="150" cy="73" r="6" fill="#3ecf8e" fill-opacity=".9"/>
-          <circle cx="210" cy="73" r="4" fill="#3ecf8e" fill-opacity=".6"/>
-          <circle cx="265" cy="73" r="7" fill="#3ecf8e" fill-opacity=".9" stroke="#3ecf8e" stroke-opacity=".3" stroke-width="1.5"/>
+          <circle cx="85"  cy="73" r="4" fill="#B1DB31" fill-opacity=".7"/>
+          <circle cx="150" cy="73" r="6" fill="#B1DB31" fill-opacity=".9"/>
+          <circle cx="210" cy="73" r="4" fill="#B1DB31" fill-opacity=".6"/>
+          <circle cx="265" cy="73" r="7" fill="#B1DB31" fill-opacity=".9" stroke="#B1DB31" stroke-opacity=".3" stroke-width="1.5"/>
           <!-- Row 3 -->
-          <circle cx="95"  cy="115" r="5" fill="#f0a030" fill-opacity=".8"/>
-          <circle cx="170" cy="115" r="7" fill="#f0a030" fill-opacity=".9" stroke="#f0a030" stroke-opacity=".3" stroke-width="1.5"/>
-          <circle cx="240" cy="115" r="4" fill="#f0a030" fill-opacity=".6"/>
+          <circle cx="95"  cy="115" r="5" fill="#609CBF" fill-opacity=".8"/>
+          <circle cx="170" cy="115" r="7" fill="#609CBF" fill-opacity=".9" stroke="#609CBF" stroke-opacity=".3" stroke-width="1.5"/>
+          <circle cx="240" cy="115" r="4" fill="#609CBF" fill-opacity=".6"/>
           <!-- Scrubber line -->
-          <line x1="210" y1="12" x2="210" y2="148" stroke="#c8992a" stroke-width="1.5" stroke-dasharray="3,3" opacity=".6"/>
-          <circle cx="210" cy="10" r="4" fill="#c8992a" fill-opacity=".9"/>
+          <line x1="210" y1="12" x2="210" y2="148" stroke="#609CBF" stroke-width="1.5" stroke-dasharray="3,3" opacity=".6"/>
+          <circle cx="210" cy="10" r="4" fill="#609CBF" fill-opacity=".9"/>
           <!-- Date markers -->
           <text x="42" y="154" fill="white" fill-opacity=".2" font-family="monospace" font-size="6">Jul 24</text>
           <text x="148" y="154" fill="white" fill-opacity=".2" font-family="monospace" font-size="6">Feb 25</text>
@@ -451,7 +450,7 @@ body::before {
     </a>
 
     <!-- 4: CIP Intelligence -->
-    <a class="tool-card" href="cip_intelligence.html" style="--accent:#d45a8e; --delay:0.75s">
+    <a class="tool-card" href="cip_intelligence.html" style="--accent:#D070C0; --delay:0.75s">
       <div class="tool-preview">
         <svg width="320" height="160" viewBox="0 0 320 160" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="320" height="160" fill="#141820"/>
@@ -462,33 +461,33 @@ body::before {
           <rect x="16" y="60" width="288" height="11" rx="1" fill="white" fill-opacity=".02"/>
           <rect x="16" y="74" width="288" height="11" rx="1" fill="white" fill-opacity=".03"/>
           <!-- Row content -->
-          <rect x="20" y="21" width="32" height="5" rx="1" fill="#d45a8e" fill-opacity=".5"/>
+          <rect x="20" y="21" width="32" height="5" rx="1" fill="#D070C0" fill-opacity=".5"/>
           <rect x="60" y="21" width="120" height="5" rx="1" fill="white" fill-opacity=".2"/>
-          <rect x="240" y="21" width="40" height="5" rx="1" fill="#3ecf8e" fill-opacity=".4"/>
-          <rect x="20" y="35" width="32" height="5" rx="1" fill="#d45a8e" fill-opacity=".4"/>
+          <rect x="240" y="21" width="40" height="5" rx="1" fill="#B1DB31" fill-opacity=".4"/>
+          <rect x="20" y="35" width="32" height="5" rx="1" fill="#D070C0" fill-opacity=".4"/>
           <rect x="60" y="35" width="100" height="5" rx="1" fill="white" fill-opacity=".15"/>
-          <rect x="240" y="35" width="40" height="5" rx="1" fill="#4c7fc9" fill-opacity=".4"/>
-          <rect x="20" y="49" width="32" height="5" rx="1" fill="#d45a8e" fill-opacity=".5"/>
+          <rect x="240" y="35" width="40" height="5" rx="1" fill="#71A9C7" fill-opacity=".4"/>
+          <rect x="20" y="49" width="32" height="5" rx="1" fill="#D070C0" fill-opacity=".5"/>
           <rect x="60" y="49" width="140" height="5" rx="1" fill="white" fill-opacity=".18"/>
-          <rect x="240" y="49" width="40" height="5" rx="1" fill="#3ecf8e" fill-opacity=".4"/>
-          <rect x="20" y="63" width="32" height="5" rx="1" fill="#d45a8e" fill-opacity=".35"/>
+          <rect x="240" y="49" width="40" height="5" rx="1" fill="#B1DB31" fill-opacity=".4"/>
+          <rect x="20" y="63" width="32" height="5" rx="1" fill="#D070C0" fill-opacity=".35"/>
           <rect x="60" y="63" width="90" height="5" rx="1" fill="white" fill-opacity=".12"/>
-          <rect x="240" y="63" width="40" height="5" rx="1" fill="#f0a030" fill-opacity=".4"/>
-          <rect x="20" y="77" width="32" height="5" rx="1" fill="#d45a8e" fill-opacity=".4"/>
+          <rect x="240" y="63" width="40" height="5" rx="1" fill="#609CBF" fill-opacity=".4"/>
+          <rect x="20" y="77" width="32" height="5" rx="1" fill="#D070C0" fill-opacity=".4"/>
           <rect x="60" y="77" width="115" height="5" rx="1" fill="white" fill-opacity=".14"/>
-          <rect x="240" y="77" width="40" height="5" rx="1" fill="#4c7fc9" fill-opacity=".4"/>
+          <rect x="240" y="77" width="40" height="5" rx="1" fill="#71A9C7" fill-opacity=".4"/>
           <!-- Author chart -->
-          <rect x="16" y="98" width="180" height="9" rx="1" fill="#d45a8e" fill-opacity=".55"/>
+          <rect x="16" y="98" width="180" height="9" rx="1" fill="#D070C0" fill-opacity=".55"/>
           <text x="20" y="106" fill="white" fill-opacity=".5" font-family="monospace" font-size="6">Eric Saraniecki  75%</text>
-          <rect x="16" y="112" width="46" height="7" rx="1" fill="#d45a8e" fill-opacity=".25"/>
+          <rect x="16" y="112" width="46" height="7" rx="1" fill="#D070C0" fill-opacity=".25"/>
           <text x="20" y="119" fill="white" fill-opacity=".3" font-family="monospace" font-size="5.5">M. Kiefer  25%</text>
-          <rect x="16" y="124" width="32" height="7" rx="1" fill="#d45a8e" fill-opacity=".18"/>
-          <rect x="16" y="136" width="24" height="7" rx="1" fill="#d45a8e" fill-opacity=".12"/>
+          <rect x="16" y="124" width="32" height="7" rx="1" fill="#D070C0" fill-opacity=".18"/>
+          <rect x="16" y="136" width="24" height="7" rx="1" fill="#D070C0" fill-opacity=".12"/>
           <!-- Donut placeholder -->
-          <circle cx="268" cy="128" r="22" fill="none" stroke="#3ecf8e" stroke-opacity=".3" stroke-width="6"/>
-          <circle cx="268" cy="128" r="22" fill="none" stroke="#4c7fc9" stroke-opacity=".3" stroke-width="6"
+          <circle cx="268" cy="128" r="22" fill="none" stroke="#B1DB31" stroke-opacity=".3" stroke-width="6"/>
+          <circle cx="268" cy="128" r="22" fill="none" stroke="#71A9C7" stroke-opacity=".3" stroke-width="6"
             stroke-dasharray="35 104" stroke-dashoffset="-28"/>
-          <circle cx="268" cy="128" r="22" fill="none" stroke="#f0a030" stroke-opacity=".3" stroke-width="6"
+          <circle cx="268" cy="128" r="22" fill="none" stroke="#609CBF" stroke-opacity=".3" stroke-width="6"
             stroke-dasharray="18 104" stroke-dashoffset="-63"/>
           <circle cx="268" cy="128" r="14" fill="#141820"/>
           <text x="268" y="132" text-anchor="middle" fill="white" fill-opacity=".4" font-family="monospace" font-size="7">64</text>
