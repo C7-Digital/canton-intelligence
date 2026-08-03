@@ -3,48 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Canton Network — CIP Intelligence · 7Trust</title>
+<title>Canton Network — CIP Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --bg:     #0b0d12;
-  --s1:     #10131a;
-  --s2:     #171b24;
-  --s3:     #1e222e;
-  --b:      rgba(255,255,255,0.06);
-  --b2:     rgba(255,255,255,0.12);
-  --text:   #c8d0e0;
-  --muted:  #4e5a72;
-  --muted2: #7a8aa8;
-  --amber:  #609CBF;
-  --amber2: #558FB3;
-  --green:  #B1DB31;
-  --blue:   #71A9C7;
-  --pink:   #D070C0;
-  --red:    #D52F41;
-  --purple: #71A9C7;
+  --bg:     #F0F2F4;   /* neutral-100 page */
+  --s1:     #ffffff;   /* surface */
+  --s2:     #F7F9FB;   /* surface subtle */
+  --s3:     #E7F2F6;   /* blue-50 tint */
+  --b:      #E7E9EB;   /* neutral-200 border */
+  --b2:     #D7D9DB;   /* neutral-300 border */
+  --text:   #58595B;   /* neutral-700 body */
+  --muted:  #939597;   /* neutral-500 */
+  --muted2: #6B6D6F;   /* neutral-600 */
+  --ink:    #191B1C;   /* neutral-900 strong */
+  --amber:  #406E90;   /* PRIMARY accent = blue-800 */
+  --amber2: #325170;   /* blue-900 (ids/links) */
+  --green:  #5f7d00;   /* dark green text on light */
+  --blue:   #406E90;   /* blue-800 */
+  --pink:   #8B007E;   /* magenta-700 */
+  --red:    #D52F41;   /* red-500 */
+  --purple: #05365C;   /* teal-700 */
+  --yellow: #DFD800;   /* yellow-500 accent underbar */
 }
 html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text);
-  font-family: 'Courier New', Courier, monospace; font-size: 13px; }
+  font-family: 'DM Sans', sans-serif; font-size: 13px; }
 
 /* ─── HEADER ─── */
 #header {
   position: fixed; top: 0; left: 0; right: 0; height: 56px; z-index: 100;
-  background: rgba(11,13,18,.97); border-bottom: 1px solid var(--b2);
+  background: #ffffff; border-bottom: 1px solid var(--b2);
   display: flex; align-items: center; gap: 24px; padding: 0 22px;
 }
 #header h1 {
-  font-family: 'Courier New', Courier, monospace; font-size: 22px; letter-spacing: .06em;
+  font-family: 'Playfair Display', serif; font-size: 22px; letter-spacing: .06em;
   color: var(--text); white-space: nowrap; line-height: 1;
 }
 #header h1 span { color: var(--amber); }
-.h-sub { font-family: 'Courier New', Courier, monospace; font-size: 8px; color: var(--muted);
+#header h1 { border-bottom: 3px solid var(--yellow); padding-bottom: 2px; }
+.h-sub { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--muted);
   text-transform: uppercase; letter-spacing: .12em; margin-top: 2px; }
 .h-divider { width: 1px; height: 30px; background: var(--b2); flex-shrink: 0; }
 .hstats { display: flex; gap: 24px; }
 .hstat { text-align: center; }
-.hstat-n { font-family: 'Courier New', Courier, monospace; font-size: 22px; color: var(--amber); line-height: 1; }
-.hstat-l { font-family: 'Courier New', Courier, monospace; font-size: 7.5px; color: var(--muted);
+.hstat-n { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--amber); line-height: 1; }
+.hstat-l { font-family: 'DM Mono', monospace; font-size: 7.5px; color: var(--muted);
   text-transform: uppercase; letter-spacing: .1em; margin-top: 1px; }
 .spacer { flex: 1; }
 
@@ -55,7 +59,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   display: flex; align-items: flex-end; padding: 0 22px; gap: 2px;
 }
 .tab {
-  padding: 6px 16px; font-family: 'Courier New', Courier, monospace; font-size: 9px;
+  padding: 6px 16px; font-family: 'DM Mono', monospace; font-size: 9px;
   text-transform: uppercase; letter-spacing: .1em; color: var(--muted); cursor: pointer;
   border-bottom: 2px solid transparent; transition: .15s; white-space: nowrap;
 }
@@ -77,67 +81,72 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 #search {
   flex: 1; min-width: 180px; background: var(--s2); border: 1px solid var(--b2);
   border-radius: 3px; padding: 5px 10px; color: var(--text);
-  font-family: 'Courier New', Courier, monospace; font-size: 10px;
+  font-family: 'DM Mono', monospace; font-size: 10px;
   outline: none; transition: border-color .15s;
 }
 #search::placeholder { color: var(--muted); }
 #search:focus { border-color: var(--amber2); }
 .sel {
   background: var(--s2); border: 1px solid var(--b2); border-radius: 3px;
-  padding: 5px 8px; color: var(--muted2); font-family: 'Courier New', Courier, monospace;
+  padding: 5px 8px; color: var(--muted2); font-family: 'DM Mono', monospace;
   font-size: 9px; outline: none; cursor: pointer;
 }
 .sel:focus { border-color: var(--amber2); }
-#browser-count { font-family: 'Courier New', Courier, monospace; font-size: 9px; color: var(--muted); white-space: nowrap; }
+#browser-count { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); white-space: nowrap; }
 #browser-table-wrap { flex: 1; overflow-y: auto; }
 #browser-table-wrap::-webkit-scrollbar { width: 4px; }
 #browser-table-wrap::-webkit-scrollbar-thumb { background: var(--b2); border-radius: 2px; }
 table { width: 100%; border-collapse: collapse; }
 thead th {
   position: sticky; top: 0; padding: 7px 12px; text-align: left;
-  font-family: 'Courier New', Courier, monospace; font-size: 8.5px; text-transform: uppercase;
+  font-family: 'DM Mono', monospace; font-size: 8.5px; text-transform: uppercase;
   letter-spacing: .09em; color: var(--muted); background: var(--s2);
   border-bottom: 1px solid var(--b2); cursor: pointer; white-space: nowrap; user-select: none;
 }
 thead th:hover { color: var(--text); }
 thead th.sort-asc::after { content: ' ↑'; color: var(--amber); }
 thead th.sort-desc::after { content: ' ↓'; color: var(--amber); }
-tbody tr { border-bottom: 1px solid rgba(255,255,255,.03); cursor: pointer; transition: background .08s; }
-tbody tr:hover { background: rgba(240,160,48,.04); }
-tbody tr.expanded { background: rgba(240,160,48,.06); }
+tbody tr { border-bottom: 1px solid rgba(25,27,28,.03); cursor: pointer; transition: background .08s; }
+tbody tr:hover { background: rgba(64,110,144,.04); }
+tbody tr.expanded { background: rgba(64,110,144,.06); }
 tbody td { padding: 7px 12px; vertical-align: middle; }
-.cip-id { font-family: 'Courier New', Courier, monospace; font-size: 10px; color: var(--amber2); white-space: nowrap; }
+.cip-id { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--amber2); white-space: nowrap; }
 .cip-title { font-size: 12px; font-weight: 700; color: var(--text); }
-.cip-author { font-family: 'Courier New', Courier, monospace; font-size: 9px; color: var(--muted2); }
+.cip-author { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted2); }
 .track-pill {
   display: inline-block; padding: 1px 7px; border-radius: 2px; font-size: 8px;
-  font-family: 'Courier New', Courier, monospace; text-transform: uppercase; letter-spacing: .06em;
+  font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: .06em;
   white-space: nowrap;
 }
 .st-pill {
   display: inline-block; padding: 1px 7px; border-radius: 2px; font-size: 8px;
-  font-family: 'Courier New', Courier, monospace; text-transform: uppercase; letter-spacing: .06em;
+  font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: .06em;
 }
-.st-Final    { background:rgba(62,207,142,.12); color:#B1DB31; }
-.st-Approved { background:rgba(76,127,201,.12); color:#6fa0d8; }
-.st-Active   { background:rgba(240,160,48,.12); color:#609CBF; }
-.st-Founding { background:rgba(240,160,48,.12); color:#609CBF; }
-.st-Rejected { background:rgba(224,80,80,.12);  color:#D52F41; }
-.st-Withdrawn{ background:rgba(122,138,168,.1); color:#7a8aa8; }
-.tr-SV       { background:rgba(76,127,201,.1);  color:#6fa0d8; }
-.tr-Tokenomics{ background:rgba(62,207,142,.1); color:#B1DB31; }
-.tr-Governance{ background:rgba(240,160,48,.1); color:#609CBF; }
-.tr-Standards { background:rgba(155,89,182,.1); color:#b07fd4; }
-.tr-Infrastructure{ background:rgba(122,138,168,.1); color:#8899bb; }
-.date-cell { font-family: 'Courier New', Courier, monospace; font-size: 9px; color: var(--muted); white-space: nowrap; }
-.w-cell { font-family: 'Courier New', Courier, monospace; font-size: 10px; color: var(--green); white-space: nowrap; }
+.st-Final    { background:var(--green-50,#F5FBE7); color:#4a5800; }
+.st-Approved { background:#E7F2F6; color:#406E90; }
+.st-Active   { background:#C3E0EA; color:#325170; }
+.st-Founding { background:#C3E0EA; color:#325170; }
+.st-Rejected { background:#fde8ea; color:#D52F41; }
+.st-Withdrawn{ background:#F0F2F4; color:#6B6D6F; }
+.st-Replaced { background:#F0F2F4; color:#6B6D6F; }
+.st-Obsolete { background:#F0F2F4; color:#6B6D6F; }
+.st-Proposed { background:#FBFAE4; color:#6a6400; }
+.st-Draft    { background:#F0F2F4; color:#6B6D6F; }
+.tr-SV       { background:#E7F2F6; color:#406E90; }
+.tr-Tokenomics{ background:#F5FBE7; color:#4a5800; }
+.tr-Governance{ background:#FBFAE4; color:#6a6400; }
+.tr-Standards { background:rgba(139,0,126,.08); color:#8B007E; }
+.tr-Infrastructure{ background:#F0F2F4; color:#6B6D6F; }
+.tr-Process  { background:rgba(5,54,92,.08); color:#05365C; }
+.date-cell { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); white-space: nowrap; }
+.w-cell { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--green); white-space: nowrap; }
 
 /* Expanded row */
 .expand-row { display: none; }
 .expand-row.open { display: table-row; }
-.expand-row td { background: var(--s2); border-bottom: 2px solid rgba(240,160,48,.15); }
+.expand-row td { background: var(--s2); border-bottom: 2px solid rgba(64,110,144,.15); }
 .expand-inner { padding: 14px 18px 16px 52px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.ei-block h4 { font-family: 'Courier New', Courier, monospace; font-size: 8px; text-transform: uppercase;
+.ei-block h4 { font-family: 'DM Mono', monospace; font-size: 8px; text-transform: uppercase;
   letter-spacing: .1em; color: var(--muted); margin-bottom: 6px; }
 .ei-block p { font-size: 11px; color: var(--muted2); line-height: 1.6; }
 .ei-block ul { list-style: none; }
@@ -158,31 +167,31 @@ tbody td { padding: 7px 12px; vertical-align: middle; }
   padding: 13px 15px 10px; border-bottom: 1px solid var(--b);
   display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;
 }
-.ms-entity { font-family: 'Courier New', Courier, monospace; font-size: 17px; letter-spacing: .04em; color: var(--text); line-height: 1; }
-.ms-cip { font-family: 'Courier New', Courier, monospace; font-size: 8px; color: var(--amber2); margin-top: 2px; }
+.ms-entity { font-family: 'Playfair Display', serif; font-size: 17px; letter-spacing: .04em; color: var(--text); line-height: 1; }
+.ms-cip { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--amber2); margin-top: 2px; }
 .ms-weight-block { text-align: right; flex-shrink: 0; }
-.ms-weight-n { font-family: 'Courier New', Courier, monospace; font-size: 22px; color: var(--amber); line-height: 1; }
-.ms-weight-l { font-family: 'Courier New', Courier, monospace; font-size: 7px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+.ms-weight-n { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--amber); line-height: 1; }
+.ms-weight-l { font-family: 'DM Mono', monospace; font-size: 7px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
 .ms-progress { padding: 10px 15px; border-bottom: 1px solid var(--b); }
 .ms-prog-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-.ms-prog-label { font-family: 'Courier New', Courier, monospace; font-size: 8px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); }
-.ms-prog-pct { font-family: 'Courier New', Courier, monospace; font-size: 9px; color: var(--amber); }
-.ms-bar { height: 4px; background: rgba(255,255,255,.06); border-radius: 2px; overflow: hidden; }
+.ms-prog-label { font-family: 'DM Mono', monospace; font-size: 8px; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); }
+.ms-prog-pct { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--amber); }
+.ms-bar { height: 4px; background: rgba(25,27,28,.06); border-radius: 2px; overflow: hidden; }
 .ms-bar-fill { height: 4px; border-radius: 2px; background: var(--amber); transition: width .6s ease; }
 .ms-milestones { padding: 10px 15px; }
 .ms-m { display: flex; gap: 9px; align-items: flex-start; margin-bottom: 7px; }
 .ms-m:last-child { margin-bottom: 0; }
 .ms-m-icon { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
   display: flex; align-items: center; justify-content: center; font-size: 7px; font-weight: 700; }
-.ms-m-done { background: rgba(62,207,142,.2); color: #B1DB31; border: 1px solid rgba(62,207,142,.4); }
-.ms-m-pend { background: rgba(240,160,48,.1); color: var(--amber); border: 1px solid rgba(240,160,48,.3); }
-.ms-m-escrow { background: rgba(76,127,201,.1); color: #6fa0d8; border: 1px solid rgba(76,127,201,.3); }
+.ms-m-done { background: rgba(122,154,0,.2); color: #5f7d00; border: 1px solid rgba(122,154,0,.4); }
+.ms-m-pend { background: rgba(64,110,144,.1); color: var(--amber); border: 1px solid rgba(64,110,144,.3); }
+.ms-m-escrow { background: rgba(64,110,144,.1); color: #406E90; border: 1px solid rgba(64,110,144,.3); }
 .ms-m-text { font-size: 10.5px; color: var(--muted2); line-height: 1.45; flex: 1; }
 .ms-m-text strong { color: var(--text); font-weight: 700; }
 .ms-escrow-split { padding: 8px 15px 12px; display: flex; gap: 14px; }
 .ms-es-item { flex: 1; }
-.ms-es-label { font-family: 'Courier New', Courier, monospace; font-size: 7.5px; text-transform: uppercase; letter-spacing: .09em; margin-bottom: 2px; }
-.ms-es-val { font-family: 'Courier New', Courier, monospace; font-size: 13px; font-weight: 600; }
+.ms-es-label { font-family: 'DM Mono', monospace; font-size: 7.5px; text-transform: uppercase; letter-spacing: .09em; margin-bottom: 2px; }
+.ms-es-val { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 600; }
 
 /* ─── GOVERNANCE VIEW ─── */
 #v-governance { flex-direction: row; overflow: hidden; }
@@ -192,46 +201,46 @@ tbody td { padding: 7px 12px; vertical-align: middle; }
 .gov-col::-webkit-scrollbar-thumb { background: var(--b2); }
 .gov-section { margin-bottom: 26px; }
 .gov-section h3 {
-  font-family: 'Courier New', Courier, monospace; font-size: 14px; letter-spacing: .06em;
+  font-family: 'Playfair Display', serif; font-size: 14px; letter-spacing: .06em;
   color: var(--amber); margin-bottom: 12px; padding-bottom: 7px;
-  border-bottom: 1px solid rgba(240,160,48,.2);
+  border-bottom: 1px solid rgba(64,110,144,.2);
 }
 /* Author bars */
 .auth-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
 .auth-name { font-size: 10.5px; color: var(--text); min-width: 150px; flex-shrink: 0; }
-.auth-bar-wrap { flex: 1; background: rgba(255,255,255,.04); border-radius: 2px; height: 12px; overflow: hidden; }
+.auth-bar-wrap { flex: 1; background: rgba(25,27,28,.04); border-radius: 2px; height: 12px; overflow: hidden; }
 .auth-bar { height: 12px; border-radius: 2px; }
-.auth-count { font-family: 'Courier New', Courier, monospace; font-size: 9px; color: var(--muted); min-width: 24px; text-align: right; }
+.auth-count { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); min-width: 24px; text-align: right; }
 /* Status donut */
 .donut-wrap { display: flex; gap: 20px; align-items: center; }
 .donut-legend { display: flex; flex-direction: column; gap: 6px; }
 .donut-leg-row { display: flex; align-items: center; gap: 7px; }
 .donut-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 .donut-leg-label { font-size: 10px; color: var(--muted2); }
-.donut-leg-n { font-family: 'Courier New', Courier, monospace; font-size: 10px; color: var(--text); margin-left: 4px; }
+.donut-leg-n { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text); margin-left: 4px; }
 /* Timeline of CIP creation */
 .cip-timeline-bar { display: flex; flex-direction: column; gap: 3px; }
 .ctb-row { display: flex; align-items: center; gap: 8px; }
-.ctb-label { font-family: 'Courier New', Courier, monospace; font-size: 8.5px; color: var(--muted); width: 55px; flex-shrink: 0; text-align: right; }
-.ctb-bar-wrap { flex: 1; background: rgba(255,255,255,.04); border-radius: 2px; height: 10px; overflow: hidden; }
+.ctb-label { font-family: 'DM Mono', monospace; font-size: 8.5px; color: var(--muted); width: 55px; flex-shrink: 0; text-align: right; }
+.ctb-bar-wrap { flex: 1; background: rgba(25,27,28,.04); border-radius: 2px; height: 10px; overflow: hidden; }
 .ctb-bar { height: 10px; border-radius: 2px; }
-.ctb-count { font-family: 'Courier New', Courier, monospace; font-size: 8.5px; color: var(--muted); min-width: 20px; }
+.ctb-count { font-family: 'DM Mono', monospace; font-size: 8.5px; color: var(--muted); min-width: 20px; }
 /* Gap analysis */
 .gap-row { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
 .gap-pill {
-  font-family: 'Courier New', Courier, monospace; font-size: 8.5px; padding: 2px 7px;
+  font-family: 'DM Mono', monospace; font-size: 8.5px; padding: 2px 7px;
   border-radius: 3px; border: 1px solid;
 }
-.gap-withdrawn { background: rgba(122,138,168,.08); border-color: rgba(122,138,168,.25); color: #7a8aa8; }
-.gap-missing   { background: rgba(78,90,114,.06);  border-color: rgba(78,90,114,.2);   color: var(--muted); }
-.gap-rejected  { background: rgba(224,80,80,.08);  border-color: rgba(224,80,80,.25);  color: var(--red); }
+.gap-withdrawn { background: rgba(147,149,151,.08); border-color: rgba(147,149,151,.25); color: #6B6D6F; }
+.gap-missing   { background: rgba(179,181,183,.06);  border-color: rgba(179,181,183,.2);   color: var(--muted); }
+.gap-rejected  { background: rgba(213,47,65,.08);  border-color: rgba(213,47,65,.25);  color: var(--red); }
 .gap-note { font-size: 10px; color: var(--muted2); margin-top: 4px; line-height: 1.5; }
 /* Track breakdown */
 .track-row { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; }
 .track-label { font-size: 10.5px; color: var(--muted2); min-width: 100px; }
-.track-bar-wrap { flex: 1; background: rgba(255,255,255,.04); border-radius: 2px; height: 10px; overflow: hidden; }
+.track-bar-wrap { flex: 1; background: rgba(25,27,28,.04); border-radius: 2px; height: 10px; overflow: hidden; }
 .track-bar { height: 10px; border-radius: 2px; }
-.track-count { font-family: 'Courier New', Courier, monospace; font-size: 9px; color: var(--muted); min-width: 22px; text-align: right; }
+.track-count { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); min-width: 22px; text-align: right; }
 
 /* ─── INTELLIGENCE VIEW ─── */
 #v-intelligence { flex-direction: column; overflow: hidden; }
@@ -252,7 +261,7 @@ tbody td { padding: 7px 12px; vertical-align: middle; }
 .intel-card.red::before   { background: var(--red); }
 .intel-card.purple::before{ background: var(--purple); }
 .intel-tag {
-  font-family: 'Courier New', Courier, monospace; font-size: 7.5px; text-transform: uppercase;
+  font-family: 'DM Mono', monospace; font-size: 7.5px; text-transform: uppercase;
   letter-spacing: .12em; margin-bottom: 7px;
 }
 .intel-card.amber .intel-tag { color: var(--amber); }
@@ -261,14 +270,14 @@ tbody td { padding: 7px 12px; vertical-align: middle; }
 .intel-card.pink  .intel-tag { color: var(--pink); }
 .intel-card.red   .intel-tag { color: var(--red); }
 .intel-card.purple .intel-tag { color: var(--purple); }
-.intel-title { font-family: 'Courier New', Courier, monospace; font-size: 15px; letter-spacing: .04em; color: var(--text); margin-bottom: 9px; line-height: 1.2; }
+.intel-title { font-family: 'Playfair Display', serif; font-size: 15px; letter-spacing: .04em; color: var(--text); margin-bottom: 9px; line-height: 1.2; }
 .intel-body { font-size: 10.5px; color: var(--muted2); line-height: 1.65; }
 .intel-body strong { color: var(--text); }
-.intel-body .cip-ref { font-family: 'Courier New', Courier, monospace; font-size: 9px; color: var(--amber2); }
+.intel-body .cip-ref { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--amber2); }
 .intel-stat { display: flex; gap: 12px; margin-top: 11px; flex-wrap: wrap; }
 .intel-stat-item { text-align: center; }
-.intel-stat-n { font-family: 'Courier New', Courier, monospace; font-size: 20px; line-height: 1; }
-.intel-stat-l { font-family: 'Courier New', Courier, monospace; font-size: 7px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-top: 1px; }
+.intel-stat-n { font-family: 'Playfair Display', serif; font-size: 20px; line-height: 1; }
+.intel-stat-l { font-family: 'DM Mono', monospace; font-size: 7px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-top: 1px; }
 .intel-card.amber .intel-stat-n { color: var(--amber); }
 .intel-card.green .intel-stat-n { color: var(--green); }
 .intel-card.blue  .intel-stat-n { color: var(--blue); }
@@ -279,21 +288,23 @@ tbody td { padding: 7px 12px; vertical-align: middle; }
 /* ─── MISC ─── */
 @keyframes fade-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 .anim { animation: fade-in .25s ease forwards; }
+.c7-mark { display:flex; align-items:center; flex-shrink:0; }
+.c7-mark img.c7-logo { display:block; height:30px; width:auto; }
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <div id="header">
-  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-family:'Courier New', Courier, monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#4e5a72;text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:3px;white-space:nowrap;transition:color .15s,border-color .15s;" onmouseover="this.style.color='#609CBF';this.style.borderColor='rgba(200,153,42,0.35)'" onmouseout="this.style.color='#4e5a72';this.style.borderColor='rgba(255,255,255,0.08)'">← Suite</a>
-  <a href="https://github.com/canton-foundation/cips" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;font-family:'Courier New', Courier, monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#4e5a72;text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:3px;white-space:nowrap;transition:color .15s,border-color .15s;" onmouseover="this.style.color='#609CBF';this.style.borderColor='rgba(200,153,42,0.35)'" onmouseout="this.style.color='#4e5a72';this.style.borderColor='rgba(255,255,255,0.08)'"><svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor" style="flex-shrink:0"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>CIP Repository</a>
+  <div class="c7-mark" title="C7 · 7RIDGE"><img class="c7-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAAB4CAYAAADblO/uAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAFZklEQVR42u3czWtcVRjH8d9z7p1J81LTYBsNwRZciLZgfUEouBiFrgpuhLirCC5K/wPFxbRLcWE3iivBdUCh+AcYAoJiV0pFLKXUpukLbe1bkpm55zwuOq1dtJBOZqYzd74fmBJCKOG5873nzEzuNaFUFhYWssXFxbj/0IdHZl587SNZuOHm2aN+trhzc7fHYlx5frcyOX2B6ZWMu8eNtd2N29cv5UyjXK7s3WuSNLFrz8zY9LMHWmu3ZSE88mezHbMPvjbTXqZXutCVj08qH9++g9BLqjq960LRaKRYFIWkxxxnN5PkMmdi5SzdUgxKsUHoZRVbFbNtwaQg06OXdNn9f42BlbFzuZlZMrPANErKAqs0HiB0gNABEDoAQgdA6AAIHQChAyB0AIQOEDoAQgdA6AAIHUDf5XrstcrorZqkpSQpMQv0I/SCMTwNS8P967u7uGFFt4ZpMpN6eF+AfG5+/tMgm0xyFzcg6JcUzEKK4YfV1fOn2i+hhmpltzy3+89OdCH1lOTeu6dAbrJPQpY9Y87JuZ9CCPIUVyQNZeix1bgWQrbuLjMTT56tnPVjrFgI2y1kE+pRh7mkqymlCXdW9D4qJM8lrQ/db27m3mra1d+X35998fVfb8Q72Uw2FTmknanunMrO/7Ycnnuj9nl1bPxoa32tkHX/fbP8oQeh93nzK6Wh/dSjVTRvL313fKP9nGFF71S9HvTzyTT31rsbPd1BMml0+MTJJZlqtawdO48OHm+urmaSzFNvW+SjNXS4gzeX5JqddVb0zk3NzfVlfqzowGjswAAQOgBCB0DoAAgdAKEDIHQAm9ONP5jhMteOZ2Zci47hCD2EwF/XdTD3EIJSjONDuxWsVrJavZ6vXL+ezdfrI3+NxOzpfb64+EEsbeixiF+Y2WVxccOmmVlK7iEEX25/a+hW9pvn/vr3z59OFpKKMxzS8q/ozWY4ce3aPxcZ5ZYMUejmFoLNHzj02UvvHfnFpWAjfDusZMHVKqbuXj4TT33/zZftxc5LF3qWpZ2SrmgIb54wIIEP18w8BYVM0y+8fNjMDo/6AXR35du3yVPjoqSv5N6Q2cDtbrvwGj0rdO/NJUIfIa2NtWjcM05uHj2mLGyb/FvSho4dG8gOeCMNnb7PkDGFe6OQKZMPdkt8jg6MAEIHCB0AoQMgdACEDoDQARA6AEIHQOgAoQMgdACEDoDQARA6AEIHQOgACB0gdACEDoDQARA6AEIHQOgACB0AoQOEzggAQgdA6AAIHQChAyB0AIQOgNABEDpA6AAIHQChAyB0AIQOoOvyrf4H7im0TxicNDoYX/sBDHroYU1Saj8AlDF0q+iVubm5qrsHMyP2zczMzL1SsfEsWz179uxNScbKjoEOPVP6USGTMcsnUWTJ841W82NJ30rKJBWMBb3C62qA0AEQOgBCB0DoAAgdAKEDIHQAhA4QOgBCB0DoAAZNrv8vMXWJa1P65OGZA30JfcLMWNn7q2pmcvcKoyiPWq2eXz2tsKtW3/zl2ueU12p1ufV2d5279Edyv+zJWdH7xEyFu+eSXWl/i5V92LdozY2p5aXjT36p8dK9y5Nr+0+s9TK/fHXlwkEO01MXGcGQnrRdwVOUx9bufQcXjuZjE7fkbjLb1Mk7WBZS0Uxx7dbbqToml0Ivcs85VMCWtmeWYqHKxPTM86++83XHO4KUFJsNWY+28IQOdIF78lj4FnZm3tMbrBI60KW1XfKB7Yl324ERQOgAoQMgdACEDoDQARA6AEIHQOgACB0gdACEDoDQMQgsGDezAKGXXWo1xpgCCL3k1m9c2sONwSBJHosJQi/rwbWwopQYBCSz9f8An1aQpnAtyXEAAAAASUVORK5CYII=" alt="C7"></div>
+  <div class="h-divider"></div>
   <div>
     <h1>Canton <span>CIP</span> Intelligence</h1>
-    <div class="h-sub">Canton Improvement Proposals · 94 of 105 in repository · Feb 2026</div>
+    <div class="h-sub">Canton Improvement Proposals · Governance Database · A 7RIDGE&nbsp;/&nbsp;C7 Intelligence Tool</div>
   </div>
   <div class="h-divider"></div>
   <div class="hstats">
-    <div class="hstat"><div class="hstat-n" id="hs-total">—</div><div class="hstat-l">CIPs Analysed</div></div>
+    <div class="hstat"><div class="hstat-n">110</div><div class="hstat-l">Total CIPs</div></div>
     <div class="hstat"><div class="hstat-n" id="hs-final">0</div><div class="hstat-l">Final</div></div>
     <div class="hstat"><div class="hstat-n" id="hs-approved">0</div><div class="hstat-l">Approved</div></div>
     <div class="hstat"><div class="hstat-n" id="hs-active">0</div><div class="hstat-l">Active</div></div>
@@ -304,8 +315,8 @@ tbody td { padding: 7px 12px; vertical-align: middle; }
 
 <!-- TABS -->
 <div id="tabs">
-  <div class="tab on" data-view="browser">CIP Browser <span class="tab-num" id="tab-n-browser">103</span></div>
-  <div class="tab" data-view="milestone">Milestone Tracker <span class="tab-num">12</span></div>
+  <div class="tab on" data-view="browser">CIP Browser <span class="tab-num" id="tab-n-browser">110</span></div>
+  <div class="tab" data-view="milestone">Milestone Tracker <span class="tab-num">20</span></div>
   <div class="tab" data-view="governance">Governance Analysis</div>
   <div class="tab" data-view="intelligence">Network Intelligence</div>
 </div>
@@ -320,12 +331,13 @@ tbody td { padding: 7px 12px; vertical-align: middle; }
       <select class="sel" id="f-status">
         <option value="">All Status</option>
         <option>Final</option><option>Approved</option><option>Active</option>
-        <option>Founding</option><option>Withdrawn</option><option>Rejected</option>
+        <option>Withdrawn</option><option>Rejected</option>
+        <option>Replaced</option><option>Obsolete</option><option>Proposed</option><option>Draft</option>
       </select>
       <select class="sel" id="f-track">
         <option value="">All Tracks</option>
         <option>SV Admission</option><option>Tokenomics</option><option>Governance</option>
-        <option>Standards</option><option>Infrastructure</option>
+        <option>Standards</option><option>Infrastructure</option><option>Process</option>
       </select>
       <select class="sel" id="f-author">
         <option value="">All Authors</option>
@@ -410,124 +422,148 @@ tbody td { padding: 7px 12px; vertical-align: middle; }
 // DATA
 // ═══════════════════════════════════════════════════════════════
 const CIPS = [
-// ── PROCESS / GOVERNANCE ─────────────────────────────────────────────────────
-{id:'CIP-0000', title:'CIP Process Definition',          author:'Wayne Collier',   date:'2024-08-01', status:'Active',    track:'Governance',     weight:null, desc:'Defines the complete CIP lifecycle — categories (Tokenomics, Standards, Process, Governance, SV Admission), the 2/3 SV supermajority quorum requirement, and all status transitions. The constitutional document of Canton governance. Authored by Wayne Collier.', commitments:['2/3 SV quorum required for approval','Defines CIP categories','Governs all protocol changes']},
-{id:'CIP-0006', title:'SV Weight Distribution Process',  author:'Eric Saraniecki', date:'2024-10-01', status:'Active',    track:'Governance',     weight:null, desc:'Formalises how governance weight is distributed among SVs and the mechanics of how CIPs are ratified — quorum calculation, proxy voting rules, and vote-counting methodology.', commitments:['Quorum = 2/3 of total live weight','Establishes vote-counting rules','Weight proxy voting allowed']},
-{id:'CIP-0021', title:'Featured App & Validator Committee (FAV-C)', author:'Chris Zuehlke', date:'2025-01-15', status:'Active', track:'Governance', weight:null, desc:'Creates FAV-C as a standing committee for validator and featured-app onboarding approvals. Removes need for full SV vote per individual admission. Authored by Chris Zuehlke of C7/7RIDGE — one of the rare non-Saraniecki governance proposals.', commitments:['Standing committee formation','Delegate validator/app approvals','Reduces governance overhead']},
-{id:'CIP-0023', title:'SV Operations Committee (Withdrawn)', author:'Eric Saraniecki', date:'2024-11-01', status:'Withdrawn', track:'Governance', weight:null, desc:'Proposed a standing SV Operations Committee for routine technical decisions. Withdrawn — scope overlapped with FAV-C (CIP-0021) and Tokenomics Committee (CIP-0084). Functions distributed across specialised committees instead.', commitments:['Proposed but withdrawn','Functions absorbed into FAV-C and Tokenomics Committee']},
-{id:'CIP-0025', title:'Validator and Featured App Committees', author:'Eric Saraniecki', date:'2024-12-01', status:'Obsolete', track:'Governance', weight:null, desc:'Called for committee formation per CIP-0006 and CIP-0021. Now Obsolete — superseded by the FAV-C structure established in CIP-0021.', commitments:['Superseded by FAV-C']},
-{id:'CIP-0042', title:'Stable USD Price Per CC Transfer', author:'Wayne Collier / Moritz Kiefer', date:'2025-01-15', status:'Active', track:'Governance', weight:null, desc:'First formal pricing mechanism: a fixed USD-denominated synchronizer fee per Canton Coin transfer. Foundation for later Tokenomics Committee price-setting. Co-authored by Wayne Collier and Moritz Kiefer.', commitments:['Fixed USD/CC transfer fee introduced','Admin-controlled initially','Foundation for Tokenomics Committee']},
-{id:'CIP-0045', title:'SV Operating Requirements',       author:'Eric Saraniecki', date:'2025-03-15', status:'Active',    track:'Governance',     weight:null, desc:'Codifies minimum operational standards for SVs. Weight >2.5 requires operating an independent node within 6 months of approval. GSF node hosting is a temporary on-ramp only.', commitments:['Weight >2.5 → own node within 6 months','Node diversity requirement','Graduated enforcement']},
-{id:'CIP-0049', title:'Cold Backup Incentives for SVs',  author:'Vinh Nguyễn',     date:'2025-03-01', status:'Proposed',  track:'Governance',     weight:null, desc:'Proposes incentivising SVs to maintain cold backup nodes. Authored by Vinh Nguyễn — one of the few community-authored governance proposals. Status: Proposed, not yet voted.', commitments:['Cold backup incentives','Resilience-focused','Community-authored proposal']},
-{id:'CIP-0051', title:'Streamlined On-Chain Governance', author:'Itai Segall',      date:'2025-04-03', status:'Final',     track:'Governance',     weight:null, desc:'Simplified on-chain voting mechanics, reduced vote types for routine actions, introduced auto-passing for unopposed proposals.', commitments:['Reduced vote types','Auto-pass for unopposed proposals','Lower friction for routine governance']},
-{id:'CIP-0079', title:'SV Readiness — CC Listing Gate',  author:'Eric Saraniecki', date:'2025-09-01', status:'Approved',  track:'Governance',     weight:null, desc:'Required all SVs to demonstrate third-party price feed integration before CC public listing. A governance gate preventing listing until the network was operationally ready.', commitments:['All SVs must pass price feed check','Prerequisite for CC listing','Kaiko designated reference provider']},
-{id:'CIP-0082', title:'5% Development Fund Established', author:'Eric Saraniecki', date:'2025-11-01', status:'Approved',  track:'Governance',     weight:null, desc:'5% of all new CC issuance permanently redirected to a Foundation-governed Development Fund. Creates a sustainable protocol-level funding stream for ecosystem development.', commitments:['5% of all new issuance to Dev Fund','Foundation governed','Ongoing permanent allocation']},
-{id:'CIP-0084', title:'Tokenomics Committee — Price Tuning', author:'Eric Saraniecki', date:'2025-10-01', status:'Approved', track:'Governance', weight:null, desc:'Delegates $/MB synchronizer price recommendation authority to a Tokenomics Committee. Eliminates need for a full SV vote for routine pricing adjustments. Committee reports quarterly.', commitments:['Committee empowered for price tuning','Quarterly reporting to SVs']},
-{id:'CIP-0092', title:'Dynamic Market Feed Transition',  author:'Eric Saraniecki', date:'2025-10-15', status:'Approved',  track:'Governance',     weight:null, desc:'Controlled transition from admin-set CC price to live oracle feeds upon public listing. Kaiko as primary feed, Chainlink as secondary. Admin pricing retired upon listing.', commitments:['Oracle-based CC pricing post-listing','Kaiko primary + Chainlink secondary','Admin price retired on listing']},
-{id:'CIP-0100', title:'Development Fund Governance',     author:'Bernhard Elsner',  date:'2026-01-01', status:'Approved',  track:'Governance',     weight:null, desc:'Formal committee process and grant criteria for disbursing the CIP-0082 Development Fund. Authored by Bernhard Elsner — a rare non-Saraniecki governance CIP. Milestone verification and accountability reporting.', commitments:['Accountability Committee formed','Milestone-based disbursement','Quarterly reporting to SV quorum']},
+// ── PROCESS / GOVERNANCE ───────────────────────────────────────────────────────
+{id:'CIP-0000', title:'CIP Process Definition',          author:'Wayne Collier', date:'2024-08-01', status:'Active',    track:'Process',     weight:null, desc:'Defines the complete CIP lifecycle — categories (Tokenomics, Standards, Process, Governance, SV Admission), the 2/3 SV supermajority quorum requirement, and all status transitions (Draft → Approved → Final). The constitutional document of Canton governance.', commitments:['2/3 SV quorum required for approval','Defines 5 CIP categories','Governs all future protocol changes']},
+{id:'CIP-0006', title:'SV Weight Distribution Process',   author:'Eric Saraniecki', date:'2024-10-01', status:'Active',    track:'Process',     weight:null, desc:'Formalises how governance weight is distributed among SVs and the mechanics of how CIPs are ratified — quorum calculation, proxy voting rules, and vote-counting methodology.', commitments:['Quorum = 2/3 of total live weight','Establishes vote-counting rules','Weight proxy voting allowed']},
+{id:'CIP-0021', title:'Featured App & Validator Committee (FAV-C)', author:'Chris Zuehlke', date:'2025-01-15', status:'Active', track:'Governance', weight:null, desc:'Creates FAV-C as a standing committee for validator and featured-app onboarding approvals. Removes need for full SV vote per individual admission. Authored by Chris Zuehlke of C7/7RIDGE — one of the rare non-Saraniecki governance proposals.', commitments:['Standing committee formation','Delegate validator/app approvals from full SV quorum','Committee composition: SV representatives']},
+{id:'CIP-0045', title:'SV Operating Requirements',        author:'Eric Saraniecki', date:'2025-03-15', status:'Active',    track:'Governance',     weight:null, desc:'Codifies minimum operational standards for Super Validators. SVs with governance weight >2.5 must operate an independent node within 6 months of approval. GSF node hosting is a temporary on-ramp, not a permanent arrangement.', commitments:['Weight >2.5 → own node required within 6 months','Enforces node diversity','Graduated enforcement timeline']},
+{id:'CIP-0051', title:'Streamlined On-Chain Governance',  author:'Itai Segall', date:'2025-04-03', status:'Final',     track:'Governance',     weight:null, desc:'Simplified on-chain voting mechanics, reduced the number of distinct vote types for routine governance actions, and introduced auto-passing for unopposed routine proposals.', commitments:['Reduced vote types','Auto-pass for unopposed proposals','Lower friction for routine governance']},
+{id:'CIP-0084', title:'Tokenomics Committee — Price Tuning', author:'Eric Saraniecki', date:'2025-10-01', status:'Approved', track:'Governance', weight:null, desc:'Delegates $/MB synchronizer price recommendation authority to a standing Tokenomics Committee. Eliminates the need for a full SV vote to adjust day-to-day pricing parameters.', commitments:['Tokenomics Committee empowered for price tuning','Full SV vote still needed for structural changes','Committee reports quarterly to SVs']},
+{id:'CIP-0100', title:'Development Fund Governance',      author:'Bernhard Elsner', date:'2026-01-01', status:'Approved',  track:'Governance',     weight:null, desc:'Formal committee process and grant criteria for disbursing the 5% Development Fund established by CIP-0082. Sets milestone verification procedures and accountability reporting.', commitments:['Accountability Committee formed','Milestone-based disbursement','Quarterly reporting to SV quorum']},
 // ── TOKENOMICS ────────────────────────────────────────────────────────────────
-{id:'CIP-0001', title:'Weighted SV Rewards',             author:'Eric Saraniecki', date:'2024-07-10', status:'Final',     track:'Tokenomics',     weight:null, desc:'Replaced tranche-delay reward system. Each SV minting share is now directly proportional to governance weight — making weight the central economic lever of Canton.', commitments:['Rewards proportional to weight','Eliminated tranche delays','Foundation of reward mechanics']},
-{id:'CIP-0002', title:'BME Parameter Tuning v1 (Replaced)', author:'Eric Saraniecki', date:'2024-07-10', status:'Replaced', track:'Tokenomics',   weight:null, desc:'Initial burn/mint/emission parameter calibration at network launch. Replaced by CIP-0008 and CIP-0020 based on observed mainnet data.', commitments:['Baseline BME rates set','Superseded by CIP-0020']},
-{id:'CIP-0003', title:'Rewards to Any Live Validator',   author:'Eric Saraniecki', date:'2024-07-10', status:'Final',     track:'Tokenomics',     weight:null, desc:'Expanded reward eligibility beyond SVs. Any validator running on the network can earn liveness rewards, incentivising broader network participation.', commitments:['Non-SV validators earn rewards','Expanded reward pool participation']},
-{id:'CIP-0007', title:'Weight via Validators & Apps (Replaced)', author:'Eric Saraniecki', date:'2024-09-15', status:'Replaced', track:'Tokenomics', weight:null, desc:'SVs accumulate bonus weight by onboarding validators/apps. Introduced dynamic weight accumulation. Replaced by CIP-0024 with corrected mechanics.', commitments:['Dynamic weight accumulation introduced','Superseded by CIP-0024']},
-{id:'CIP-0008', title:'BME Calibration v2 (Replaced)',   author:'Wayne Collier / Moritz Kiefer', date:'2024-07-10', status:'Replaced', track:'Tokenomics', weight:null, desc:'Second BME calibration. Co-authored by Wayne Collier and Moritz Kiefer. Superseded by CIP-0020.', commitments:['BME recalibration','Superseded by CIP-0020']},
-{id:'CIP-0020', title:'BME Calibration Refinement',      author:'Eric Saraniecki', date:'2024-11-01', status:'Final',     track:'Tokenomics',     weight:null, desc:'Second-generation calibration based on observed on-chain behaviour in the first months of mainnet. Adjusted decay rates to smooth reward volatility.', commitments:['Post-launch BME recalibration','Smoother reward distribution']},
-{id:'CIP-0024', title:'Revised Validator Weight Earning', author:'Eric Saraniecki', date:'2024-12-01', status:'Final',    track:'Tokenomics',     weight:null, desc:'Refined CIP-0007 mechanics; corrected edge cases around validator downtime and clarified the weight-earning calculation formula.', commitments:['Downtime grace period added','Earning formula clarified','Replaces CIP-0007']},
-{id:'CIP-0047', title:'Featured App Activity Markers',   author:'Moritz Kiefer',   date:'2025-02-01', status:'Final',     track:'Tokenomics',     weight:null, desc:'Introduced on-chain markers to identify featured-app transactions. Enabled precise reward accounting. Superseded by CIP-0104 which replaces markers with traffic-based measurement.', commitments:['On-chain transaction tagging','Prevents reward gaming','Superseded by CIP-0104']},
-{id:'CIP-0048', title:'Raise Validator & App Reward Cap', author:'Wayne Collier',   date:'2025-03-01', status:'Final',    track:'Tokenomics',     weight:null, desc:'Increased maximum minting allocation for validators and featured apps, reducing concentration at the SV tier. Authored by Wayne Collier.', commitments:['Higher cap for validator rewards','Higher cap for app rewards']},
-{id:'CIP-0066', title:'Mint from Unclaimed Pool',        author:'Jose Velasco',    date:'2025-06-01', status:'Final',     track:'Tokenomics',     weight:null, desc:'Authorised minting from the pool of previously frozen unclaimed rewards. Authored by Jose Velasco — one of the few non-DA tokenomics authors.', commitments:['Frozen pool activated','One-time mechanism']},
-{id:'CIP-0067', title:'Unclaimed Pool → GSF Treasury',  author:'Eric Saraniecki', date:'2025-07-01', status:'Final',     track:'Tokenomics',     weight:null, desc:'One-time allocation of all remaining historical unclaimed rewards to the GSF treasury. Centralises reserve management under foundation oversight.', commitments:['Full unclaimed pool → GSF','Centralises reserve management']},
-{id:'CIP-0070', title:'Validator Reward Cap Adjustment (Withdrawn)', author:'Chris Zuehlke', date:'2025-07-01', status:'Withdrawn', track:'Tokenomics', weight:null, desc:'Proposed adjusting reward caps for validators. Withdrawn by Chris Zuehlke — second C7/7RIDGE withdrawal after CIP-0023.', commitments:['Proposed but withdrawn']},
-{id:'CIP-0073', title:'Weighted Validator Liveness Rewards', author:'Moritz Kiefer', date:'2025-09-01', status:'Approved', track:'Tokenomics', weight:null, desc:'SVs may designate specific validator party IDs to receive weighted liveness minting. Enables flexible reward routing. Also introduces MintingDelegations used by CIP-0104.', commitments:['SV-designated validator party weighting','Flexible liveness reward routing','MintingDelegations introduced']},
-{id:'CIP-0078', title:'Canton Coin Transfer Fee Removal', author:'Simon Meier',    date:'2025-08-01', status:'Final',     track:'Tokenomics',     weight:null, desc:'Eliminated all CC transfer fees. Authored by Simon Meier. Adoption prioritised over fee revenue — friction removal deemed strategically more important.', commitments:['Zero transfer fees','Friction eliminated','Adoption over revenue']},
-{id:'CIP-0086', title:'ERC-20 Middleware & Distributed Indexer', author:'Eric Saraniecki', date:'2025-10-01', status:'Approved', track:'Tokenomics', weight:null, desc:'EVM-compatible ERC-20 middleware enabling CIP-0056 assets to be accessible from Ethereum-native tooling. Distributed state indexer included.', commitments:['ERC-20 wrapper for Canton tokens','Distributed state indexer','EVM tooling compatibility']},
-{id:'CIP-0096', title:'Liveness Rewards — Dedicated Sub-Pool', author:'Chris Zuehlke / Andrew Bryan', date:'2026-01-10', status:'Approved', track:'Tokenomics', weight:null, desc:'Separated liveness rewards into their own dedicated sub-pool. Co-authored by Chris Zuehlke and Andrew Bryan. Simplifies reward model and enables cleaner milestone tracking.', commitments:['Dedicated liveness sub-pool','Cleaner milestone accounting']},
-{id:'CIP-0098', title:'Per-Tx App Reward Cap — $1.50',   author:'Eric Saraniecki', date:'2026-01-15', status:'Approved',  track:'Tokenomics',     weight:null, desc:'Hard ceiling of $1.50 per transaction on app-pool reward claims. Anti-gaming measure. Superseded in practice by CIP-0104 which replaces per-tx markers with traffic-based measurement.', commitments:['$1.50/tx hard cap','Anti-gaming measure','Superseded by CIP-0104']},
-{id:'CIP-0104', title:'Traffic-Based App Rewards',       author:'Simon Meier',     date:'2026-01-29', status:'Approved',  track:'Tokenomics',     weight:null, desc:'Replaces FeaturedAppActivityMarker system with traffic-based reward measurement using sequencer and mediator data. Removes need for manual markers. Makes confirmation responses effectively free. Most technically complex tokenomics CIP — supersedes CIP-0047 and CIP-0098.', commitments:['Traffic-based app reward measurement','Eliminates FeaturedAppActivityMarker','Confirmation responses made free','Removes DSO party from routine app tx','5-stage incremental rollout']},
-{id:'CIP-0105', title:'SV Locking & Long-Term Commitment Framework', author:'Eric Saraniecki / Community', date:'2026-02-01', status:'Proposed', track:'Tokenomics', weight:null, desc:'Proposes incentive mechanisms for SVs to voluntarily lock governance weight for defined periods in exchange for enhanced rewards. Community-influenced proposal. Status: Proposed, not yet voted.', commitments:['SV weight locking mechanism','Long-term commitment incentives','Community co-authored','Pending SV vote']},
+{id:'CIP-0001', title:'Weighted SV Rewards',              author:'Eric Saraniecki', date:'2024-07-10', status:'Final',     track:'Tokenomics',     weight:null, desc:'Replaced the original tranche-delay reward system. Each SV\'s minting share is now directly proportional to their governance weight — making weight the central economic lever of Canton.', commitments:['Rewards proportional to weight','Eliminated tranche delays','Foundation of all subsequent reward mechanics']},
+{id:'CIP-0002', title:'BME Parameter Tuning',             author:'Eric Saraniecki', date:'2024-07-10', status:'Replaced',     track:'Tokenomics',     weight:null, desc:'Initial burn/mint/emission parameter calibration at network launch. Set baseline decay rates and emission curves for the CC supply model.', commitments:['Baseline BME rates set','Emission curve calibration']},
+{id:'CIP-0003', title:'Rewards to Any Live Validator',    author:'Eric Saraniecki', date:'2024-07-10', status:'Final',     track:'Tokenomics',     weight:null, desc:'Expanded reward eligibility beyond SVs. Any validator running on the network can earn liveness rewards, incentivising broader network participation beyond the SV tier.', commitments:['Non-SV validators earn liveness rewards','Expanded reward pool participation']},
+{id:'CIP-0004', title:'Validator Reward Sharing',         author:'Eric Saraniecki', date:'2024-07-10', status:'Final',     track:'Tokenomics',     weight:null, desc:'Enables SVs to share a portion of their minting rewards with validators they sponsor. Creates economic incentive for SVs to onboard more validators to the network.', commitments:['SV → validator reward pass-through','Incentivises validator ecosystem growth']},
+{id:'CIP-0007', title:'Earn Weight via Validators & Apps', author:'Eric Saraniecki', date:'2024-09-15', status:'Replaced',    track:'Tokenomics',     weight:null, desc:'SVs can accumulate bonus governance weight by onboarding live validators and featured apps. Weight is no longer static at approval — it grows through network-building activity. This changed Canton from a static governance model to a dynamic one.', commitments:['Dynamic weight accumulation','Validator onboarding earns weight','Featured app onboarding earns weight']},
+{id:'CIP-0008', title:'Update and Refinement to CIP-0002', author:'Wayne Collier, Moritz Kiefer', date:'2024-07-10', status:'Replaced', track:'Tokenomics', weight:null, desc:'A refinement to the CIP-0002 BME tokenomics parameters made during the pre-launch period. Superseded by subsequent calibrations (CIP-0020) and marked Replaced upstream.', commitments:['Refines CIP-0002 BME parameters','Pre-launch adjustment','Superseded — status Replaced']},
+{id:'CIP-0020', title:'BME Calibration Refinement',      author:'Eric Saraniecki',   date:'2024-11-01', status:'Final',     track:'Tokenomics',     weight:null, desc:'Second-generation calibration of burn/mint/emission parameters based on observed on-chain behaviour in the first months of mainnet operation. Adjusted decay rates to smooth out volatility in early reward distribution.', commitments:['Post-launch BME recalibration','Smoother reward distribution']},
+{id:'CIP-0024', title:'Revised Validator Weight Earning', author:'Eric Saraniecki', date:'2024-12-01', status:'Final',    track:'Tokenomics',     weight:null, desc:'Refined the CIP-0007 mechanics; corrected edge cases around temporary validator downtime (validators going offline briefly no longer caused weight loss), and clarified the earning calculation formula.', commitments:['Downtime grace period added','Earning formula clarified','Edge case handling improved']},
+{id:'CIP-0042', title:'Stable USD Price Per CC Transfer', author:'Wayne Collier, Moritz Kiefer',   date:'2025-01-15', status:'Active',    track:'Tokenomics',     weight:null, desc:'First formal pricing mechanism: a fixed USD-denominated synchronizer fee per Canton Coin transfer. Created the basis for commercial pricing of Canton network usage, with the fee rate set by admin initially.', commitments:['Fixed USD/CC transfer fee introduced','Admin-controlled initially','Foundation for later Tokenomics Committee']},
+{id:'CIP-0047', title:'Featured App Activity Markers',   author:'Moritz Kiefer', date:'2025-02-01', status:'Final',     track:'Tokenomics',     weight:null, desc:'Introduced on-chain markers to identify transactions originating from featured apps. Enables precise reward accounting — only genuine app usage triggers app-pool rewards rather than any transaction routed through an app party ID.', commitments:['On-chain transaction tagging','Prevents reward gaming','Precise app reward accounting']},
+{id:'CIP-0048', title:'Raise Validator & App Reward Cap', author:'Wayne Collier', date:'2025-03-01', status:'Final',    track:'Tokenomics',     weight:null, desc:'Increased the maximum minting allocation for validators and featured apps, reducing the concentration of rewards at the SV tier. Shifted more issuance toward active network participants.', commitments:['Higher cap for validator rewards','Higher cap for app rewards','Shift issuance toward active participants']},
+{id:'CIP-0066', title:'Mint from Unclaimed Pool',        author:'Jose Velasco', date:'2025-06-01', status:'Final',     track:'Tokenomics',     weight:null, desc:'Authorised minting from the pool of previously frozen unclaimed rewards accumulated before the network went live. Released significant latent supply into the active economy.', commitments:['Frozen pool activated','Supply unlocked for minting','One-time mechanism']},
+{id:'CIP-0067', title:'Unclaimed Pool → GSF Treasury',  author:'Eric Saraniecki', date:'2025-07-01', status:'Final',     track:'Tokenomics',     weight:null, desc:'One-time allocation of all remaining historical unclaimed rewards to the Global Synchronizer Foundation (GSF) treasury. Centralised reserve management under foundation oversight rather than allowing pool to accumulate further.', commitments:['Full unclaimed pool → GSF','Centralises reserve management','No further pool accumulation']},
+{id:'CIP-0073', title:'Weighted Validator Liveness Rewards', author:'Moritz Kiefer', date:'2025-09-01', status:'Approved', track:'Tokenomics', weight:null, desc:'SVs may now designate specific validator party IDs to receive weighted liveness minting, rather than equal distribution. Allows SVs to prioritise reward flow to their highest-value network participants.', commitments:['SV-designated validator party weighting','Flexible liveness reward routing']},
+{id:'CIP-0078', title:'Canton Coin Transfer Fee Removal', author:'Simon Meier',   date:'2025-08-01', status:'Final',     track:'Tokenomics',     weight:null, desc:'Eliminated all CC transfer fees. The network chose adoption over revenue — friction reduction was deemed more strategically important than fee income at this stage of growth. Only the holding/BME fees were retained.', commitments:['Zero transfer fees','Friction eliminated','Adoption prioritised over revenue']},
+{id:'CIP-0082', title:'5% Development Fund Established', author:'Eric Saraniecki', date:'2025-11-01', status:'Approved',  track:'Tokenomics',     weight:null, desc:'5% of all new CC issuance permanently redirected to a Foundation-governed Development Fund. Creates a sustainable, protocol-level funding stream for ecosystem development — analogous to Ethereum\'s dev allocation or Bitcoin mining pool fees.', commitments:['5% of all new issuance to Dev Fund','Foundation governed','Ongoing, not one-time']},
+{id:'CIP-0096', title:'Liveness Sub-Pool Carve-Out',     author:'Chris Zuehlke, Andrew Bryan', date:'2026-01-10', status:'Approved',  track:'Tokenomics',     weight:null, desc:'Separated liveness rewards into their own dedicated sub-pool. Simplifies the reward model, enables cleaner milestone tracking, and prevents liveness awards from competing with SV/app allocations in a single pool.', commitments:['Dedicated liveness sub-pool','Cleaner milestone accounting','Prevents pool cross-contamination']},
+{id:'CIP-0098', title:'Per-Tx App Reward Cap — $1.50',   author:'Eric Saraniecki', date:'2026-01-15', status:'Approved',  track:'Tokenomics',     weight:null, desc:'Hard ceiling of $1.50 per transaction on app-pool reward claims. Prevents gaming of the app reward pool by artificially inflating transaction counts or values. Protects long-term issuance sustainability.', commitments:['$1.50/tx hard cap','Anti-gaming measure','Protects issuance schedule']},
 // ── STANDARDS / INFRASTRUCTURE ────────────────────────────────────────────────
-{id:'CIP-0012', title:'Canton Coin Processing Adjustments', author:'Wayne Collier / Moritz Kiefer', date:'2024-07-15', status:'Final', track:'Standards', weight:null, desc:'Minor adjustments to Canton Coin processing and operational configuration on the Global Synchronizer. Standards Track — co-authored by Collier/Kiefer.', commitments:['CC processing adjustments','Operational config updates']},
-{id:'CIP-0013', title:'SV Re-Onboarding Daml Fix',       author:'Wayne Collier / Moritz Kiefer', date:'2024-07-15', status:'Final', track:'Standards', weight:null, desc:'Corrects an error in the Daml models controlling the re-onboarding process for SVs removed from quorum. Standards Track protocol correctness fix.', commitments:['Daml model bug fix','SV re-onboarding process corrected']},
-{id:'CIP-0056', title:'Canton Network Token Standard',   author:'Simon Meier / Matteo Limberto / Moritz Kiefer', date:'2025-04-01', status:'Final', track:'Standards', weight:null, desc:'Daml interface and OpenAPI spec for regulated tokenisation on Canton — the network equivalent of ERC-20/ERC-3643. Defines privacy-preserving transfer controls, UTXO ownership, and synchroniser assignment. Most multi-authored CIP to date.', commitments:['Daml interface + OpenAPI spec','Privacy-preserving transfer controls','DvP native','Foundation for all tokenised assets']},
-{id:'CIP-0062', title:'Synchronizer Migration — Splice 0.4.0', author:'Curtis Hrischuk', date:'2025-05-01', status:'Final', track:'Infrastructure', weight:null, desc:'Coordinated migration to Canton 3.3 / Splice 0.4.0. Authored by Curtis Hrischuk (DA infrastructure). Required unanimous SV coordination.', commitments:['Canton 3.3 / Splice 0.4.0 upgrade','Unanimous SV coordination']},
-{id:'CIP-0064', title:'Delegateless Automation',         author:'Julien Tinguely',  date:'2025-05-15', status:'Final',     track:'Standards',      weight:null, desc:'Removes the requirement for separate delegate parties in Canton workflows. Authored by Julien Tinguely. Simplifies operational model for institutions.', commitments:['Delegate party removed','Simplified institutional ops','Reduces key management overhead']},
-{id:'CIP-0068', title:'Bootstrap from Non-Zero Round',   author:'Julien Tinguely',  date:'2025-07-01', status:'Final',     track:'Infrastructure', weight:null, desc:'New SV nodes can bootstrap directly into an existing network round rather than replaying the full chain from genesis. Critical for reducing onboarding time for institutional SVs.', commitments:['Fast-sync for new nodes','Eliminates genesis replay','Reduces SV onboarding friction']},
-{id:'CIP-0089', title:'Synchronizer Migration — Splice 0.5.0', author:'Curtis Hrischuk', date:'2025-11-01', status:'Approved', track:'Infrastructure', weight:null, desc:'Second major migration from Splice 0.4.0 to 0.5.0 / Canton 3.4. Authored by Curtis Hrischuk. Performance improvements and protocol refinements from first year of mainnet data.', commitments:['Splice 0.5.0 / Canton 3.4 upgrade','Performance improvements']},
-{id:'CIP-0103', title:'dApp Standard',                   author:'Marc Juchli / Alexey Chyker / Eugene Birski', date:'2026-01-15', status:'Approved', track:'Standards', weight:null, desc:'Application-layer standard for dApps on Canton. Three co-authors — the most collaboratively authored CIP in the repository. Defines integration, privacy model, state management, and validator interaction.', commitments:['dApp integration interface','Privacy model for apps','State management spec','Validator interaction protocol']},
+{id:'CIP-0056', title:'Canton Network Token Standard',   author:'Simon Meier, Matteo Limberto, Moritz Kiefer', date:'2025-04-01', status:'Final',     track:'Standards',      weight:null, desc:'Daml interface and OpenAPI specification for regulated tokenisation on Canton — the network\'s equivalent of ERC-20/ERC-3643. Defines privacy-preserving transfer controls, UTXO-based ownership, and synchroniser assignment. DvP-native by design.', commitments:['Daml interface + OpenAPI spec','Privacy-preserving transfer controls','DvP native','Foundation for all tokenised assets']},
+{id:'CIP-0062', title:'Synchronizer Migration — Splice 0.4.0', author:'Curtis Hrischuk', date:'2025-05-01', status:'Final', track:'Infrastructure', weight:null, desc:'Coordinated migration of all SV nodes from Canton 3.2 to Canton 3.3 / Splice 0.4.0. Required unanimous SV coordination — a governance test as much as a technical one.', commitments:['Canton 3.3 / Splice 0.4.0 upgrade','Unanimous SV coordination']},
+{id:'CIP-0064', title:'Delegateless Automation',         author:'Julien Tinguely',   date:'2025-05-15', status:'Final',     track:'Standards',      weight:null, desc:'Removes the requirement for separate delegate parties in Canton workflows. Simplifies the operational model for institutions — previously required maintaining a separate Daml party for automated actions.', commitments:['Delegate party removed from spec','Simplified institutional ops','Reduces key management overhead']},
+{id:'CIP-0068', title:'Bootstrap from Non-Zero Round',   author:'Julien Tinguely',   date:'2025-07-01', status:'Final',     track:'Infrastructure', weight:null, desc:'Enables new SV nodes to bootstrap directly into an existing network round rather than replaying the full chain from genesis. Critical for reducing onboarding time for new institutional SVs.', commitments:['Fast-sync for new nodes','Eliminates genesis replay','Reduces SV onboarding friction']},
+{id:'CIP-0086', title:'ERC-20 Middleware & Distributed Indexer', author:'Eric Saraniecki', date:'2025-10-01', status:'Approved', track:'Standards', weight:null, desc:'EVM-compatible ERC-20 middleware layer enabling assets issued under CIP-0056 to be accessible from Ethereum-native tooling. Paired with a distributed indexer for Canton state. The first step toward EVM interoperability.', commitments:['ERC-20 wrapper for Canton tokens','Distributed state indexer','EVM tooling compatibility']},
+{id:'CIP-0089', title:'Synchronizer Migration — Splice 0.5.0', author:'Curtis Hrischuk', date:'2025-11-01', status:'Approved', track:'Infrastructure', weight:null, desc:'Second major network migration from Splice 0.4.0 to 0.5.0 / Canton 3.4. Included performance improvements and protocol refinements informed by the first year of mainnet data.', commitments:['Splice 0.5.0 / Canton 3.4 upgrade','Performance improvements','Post-launch protocol refinements']},
+{id:'CIP-0103', title:'dApp Standard',                   author:'Marc Juchli, Alexey Chyker, Eugene Birski', date:'2026-01-15', status:'Approved',  track:'Standards',      weight:null, desc:'Application-layer standard for decentralised applications on Canton — the logical successor to CIP-0056. Defines how dApps integrate with the Canton network, handle privacy, manage state, and interact with validators. Sets the stage for a Canton app ecosystem.', commitments:['dApp integration interface','Privacy model for apps','State management specification','Validator interaction protocol']},
 // ── SV ADMISSION ─────────────────────────────────────────────────────────────
-{id:'CIP-0009', title:'Broadridge — SV Admission',       author:'Eric Saraniecki', date:'2024-07-01', status:'Final',     track:'SV Admission',   weight:10,   desc:'Broadridge Financial Solutions. DLR platform processes $8T+/month in tokenised US Treasury repo. Weight 10.', commitments:['Weight 10 via GSF node','DLR repo platform on Canton','Network governance support']},
-{id:'CIP-0010', title:'LCV — T1 SV Admission',           author:'Eric Saraniecki', date:'2024-07-01', status:'Final',     track:'SV Admission',   weight:10,   desc:'LCV (Lucid Custody & Verification). Met all T1 requirements. Weight 10.', commitments:['Weight 10 T1 admission']},
-{id:'CIP-0011', title:'IEU — Forgo Minting Rights',      author:'Eric Saraniecki', date:'2024-07-01', status:'Final',     track:'SV Admission',   weight:null, desc:'IEU voluntarily forfeited SV minting rights. Governance record of weight entitlement waiver.', commitments:['IEU forfeits minting rights']},
-{id:'CIP-0014', title:'Scan API — Tax Accounting',       author:'Eric Saraniecki', date:'2024-08-01', status:'Final',     track:'Governance',     weight:null, desc:'Enhancements to Scan API for tax accounting. Added data endpoints for wallets and accounting platforms to compute CC tax obligations.', commitments:['Scan API tax data endpoints','Accounting platform support']},
-{id:'CIP-0015', title:'Copper — SV Admission',           author:'Eric Saraniecki', date:'2024-07-01', status:'Final',     track:'SV Admission',   weight:1,    desc:'Copper Technologies. London-based MPC custody and prime brokerage. Weight 1.0 active.', commitments:['Weight 1.0 active via GSF','MPC custody for Canton Coin']},
-{id:'CIP-0016', title:'Dfns — SV Admission',             author:'Eric Saraniecki', date:'2024-07-01', status:'Final',     track:'SV Admission',   weight:1,    desc:'Dfns. Paris-based MPC wallet-as-a-service provider. Weight 1.0 active.', commitments:['Weight 1.0 active via GSF','Wallet-as-a-service integration']},
-{id:'CIP-0017', title:'MPCH — SV Admission',             author:'Eric Saraniecki', date:'2024-07-01', status:'Final',     track:'SV Admission',   weight:1.25, desc:'MPC Holding Inc. MPC custody specialist. Weight 1.25 earned via own node. Also hosts escrow for Hex Trust, Blockdaemon, and Tharimmune.', commitments:['Own SV node','1.25 weight earned','Hosts escrow for 3 other SVs']},
-{id:'CIP-0018', title:'Tradeweb — SV Admission',         author:'Eric Saraniecki', date:'2024-07-01', status:'Final',     track:'SV Admission',   weight:10,   desc:'Tradeweb Markets. $2T+ daily volume in bonds, derivatives, ETFs. Led first on-chain weekend repo (Aug 2025). Weight 10 own node.', commitments:['Own SV node (10.0)','Fixed income trading integration']},
-{id:'CIP-0019', title:'C7 Technology Services — SV Admission', author:'Chris Zuehlke', date:'2024-07-01', status:'Final', track:'SV Admission', weight:10.58, desc:'C7 Technology Services (formerly 7RIDGE). Founded by Chris Zuehlke who self-authored the CIP. Weight 10.575 — slightly above CIP max of 10 via earned weight.', commitments:['Own SV node (10.575)','Institutional capital allocation']},
-{id:'CIP-0032', title:'Lukka — SV Admission',            author:'Eric Saraniecki', date:'2024-12-01', status:'Final',     track:'SV Admission',   weight:1,    desc:'Lukka. Crypto tax and accounting software. Tier 3, Weight 1.', commitments:['Weight 1 T3 admission','Crypto tax/accounting integration']},
-{id:'CIP-0033', title:'Strange Pixels — SV Admission (Rejected)', author:'Eric Saraniecki', date:'2024-12-01', status:'Rejected', track:'SV Admission', weight:null, desc:'Strange Pixels. Digital art platform proposed as Tier 4 (Weight 0.5). The only formally rejected SV admission in Canton history. Quorum voted against — the network signalled its focus on institutional finance.', commitments:['Only formally rejected SV CIP','Signal: institutional-only SV set']},
-{id:'CIP-0034', title:'Proof Group — SV Admission',      author:'Eric Saraniecki', date:'2024-12-01', status:'Final',     track:'SV Admission',   weight:1,    desc:'Proof Group. Blockchain infrastructure and staking. Tier 3, Weight 1.', commitments:['Weight 1 T3 admission']},
-{id:'CIP-0035', title:'Five North — SV Admission',       author:'Eric Saraniecki', date:'2024-12-01', status:'Final',     track:'SV Admission',   weight:3,    desc:'Five North. Digital asset infrastructure. Tier 2, Weight 3.', commitments:['Weight 3 T2 admission']},
-{id:'CIP-0036', title:'Kiln — SV Admission',             author:'Eric Saraniecki', date:'2025-01-01', status:'Final',     track:'SV Admission',   weight:1,    desc:'Kiln. Institutional blockchain staking-as-a-service. Tier 3, Weight 1.', commitments:['Weight 1 T3 admission','Institutional staking services']},
-{id:'CIP-0037', title:'Obsidian — SV Admission',         author:'Eric Saraniecki', date:'2025-01-01', status:'Final',     track:'SV Admission',   weight:1,    desc:'Obsidian. Digital asset infrastructure. Tier 3, Weight 1.', commitments:['Weight 1 T3 admission']},
-{id:'CIP-0038', title:'Hexagate — SV Admission',         author:'Eric Saraniecki', date:'2025-01-01', status:'Final',     track:'SV Admission',   weight:1,    desc:'Hexagate. Real-time blockchain security monitoring and threat detection. Tier 3, Weight 1.', commitments:['Weight 1 T3 admission','Security monitoring for Canton']},
-{id:'CIP-0039', title:'Copper ClearLoop — SV Admission', author:'Eric Saraniecki', date:'2025-01-01', status:'Final',     track:'SV Admission',   weight:1,    desc:'Copper ClearLoop off-exchange settlement network. Shares validator party with Copper (CIP-0015). Weight 1 active.', commitments:['Weight 1.0 active','ClearLoop settlement integration']},
-{id:'CIP-0040', title:'Deribit — SV Admission',          author:'Eric Saraniecki', date:'2025-01-01', status:'Final',     track:'SV Admission',   weight:1,    desc:'Deribit. Leading cryptocurrency derivatives exchange, dominant in BTC/ETH options. Tier 3, Weight 1.', commitments:['Weight 1 T3 admission']},
-{id:'CIP-0041', title:'Circle — SV Admission',           author:'Eric Saraniecki', date:'2025-02-01', status:'Final',     track:'SV Admission',   weight:10,   desc:'Circle Internet Financial. Issuer of USDC. Weight 10.0 fully active. Led first on-chain weekend repo (Aug 2025) alongside Tradeweb, Bank of America, and Citadel Securities.', commitments:['10.0 fully active','Deploy USDC natively on Canton','Stablecoin settlement workflows']},
-{id:'CIP-0043', title:'TRM Labs — SV Admission',         author:'Eric Saraniecki', date:'2025-02-01', status:'Final',     track:'SV Admission',   weight:1,    desc:'TRM Labs. Blockchain intelligence and crypto compliance platform. Weight 1.', commitments:['Weight 1 admission','Blockchain compliance/AML']},
-{id:'CIP-0044', title:'Elliptic — SV Admission',         author:'Eric Saraniecki', date:'2025-02-01', status:'Final',     track:'SV Admission',   weight:0.5,  desc:'Elliptic. Crypto compliance and blockchain analytics. Tier 4, Weight 0.5. Completes a compliance trio alongside Hexagate and TRM.', commitments:['Weight 0.5 T4 admission','Crypto compliance analytics']},
-{id:'CIP-0046', title:'Coin Metrics — SV Admission',     author:'Eric Saraniecki', date:'2025-03-01', status:'Final',     track:'SV Admission',   weight:1,    desc:'Coin Metrics. Institutional crypto market data. Weight 1. Also hosts the validator party ID for Talos (CIP-0085).', commitments:['Weight 1 admission','Institutional market data','Hosts Talos validator party']},
-{id:'CIP-0052', title:'Monstera — SV Admission',         author:'Eric Saraniecki', date:'2025-04-01', status:'Final',     track:'SV Admission',   weight:5,    desc:'Monstera. Digital asset infrastructure and Web3 services. Weight 5.', commitments:['Weight 5 admission']},
-{id:'CIP-0053', title:'AngelHack — SV Admission',        author:'Eric Saraniecki', date:'2025-04-01', status:'Final',     track:'SV Admission',   weight:2.5,  desc:'AngelHack. Global developer community and hackathon organiser. Weight 2.5. Brings developer ecosystem engagement to the SV set.', commitments:['Weight 2.5 admission','Developer community engagement']},
-{id:'CIP-0054', title:'Figment — SV Admission',          author:'Eric Saraniecki / Jacob McCrum', date:'2025-04-01', status:'Final', track:'SV Admission', weight:1, desc:'Figment. One of the largest institutional staking operations globally. Weight 1. Co-authored by Saraniecki and Jacob McCrum.', commitments:['Weight 1 admission','Institutional staking infrastructure']},
-{id:'CIP-0055', title:'Bitwave — SV Admission',          author:'Eric Saraniecki', date:'2025-04-01', status:'Final',     track:'SV Admission',   weight:1,    desc:'Bitwave. Enterprise crypto accounting and tax compliance software. Weight 1.', commitments:['Weight 1 admission','Enterprise crypto accounting']},
-{id:'CIP-0057', title:'Quantstamp — SV Admission',       author:'Eric Saraniecki', date:'2025-05-01', status:'Final',     track:'SV Admission',   weight:1,    desc:'Quantstamp. Smart contract security auditing. Weight 1.', commitments:['Weight 1 admission','Smart contract security auditing']},
-{id:'CIP-0058', title:'IntellectEU — SV Admission',      author:'Christopher Kelly', date:'2025-05-01', status:'Final',  track:'SV Admission',   weight:1,    desc:'IntellectEU. Fintech software for capital markets DLT integration. Weight 1. Self-authored by Christopher Kelly.', commitments:['Weight 1 admission','Capital markets DLT','Self-authored admission']},
-{id:'CIP-0059', title:'Woodside AI — SV Admission',      author:'Eric Saraniecki', date:'2025-05-01', status:'Final',     track:'SV Admission',   weight:10,   desc:'Woodside AI. AI and data infrastructure. Weight 10 T1.', commitments:['Weight 10 T1 admission','AI and data infrastructure']},
-{id:'CIP-0060', title:'Zero Hash — SV Admission',        author:'Eric Saraniecki', date:'2025-06-01', status:'Approved',  track:'SV Admission',   weight:7.5,  desc:'Zero Hash. US-regulated crypto-as-a-service infrastructure. 3.0 active + 4.5 escrow = 7.5. Modified by CIP-0099 outcome-linked milestones.', commitments:['3.0 active + 4.5 escrow','On/off-ramp for Canton Coin','Outcome-linked per CIP-0099']},
-{id:'CIP-0061', title:'Chainlink — SV Admission (Tranche 1)', author:'Thodoris Karakostas', date:'2025-09-01', status:'Final', track:'SV Admission', weight:7.5, desc:'Chainlink Labs. 7.0 active + 0.5 escrow = 7.5. Deploys Data Streams, SmartData, CCIP on Canton. Self-authored by Thodoris Karakostas.', commitments:['7.0 active + 0.5 escrow','Chainlink Data Streams on Canton','CCIP cross-chain protocol']},
-{id:'CIP-0063', title:'Kaiko — SV Admission',            author:'Ambre Soubiran',  date:'2025-10-01', status:'Final',     track:'SV Admission',   weight:6.5,  desc:'Kaiko. Institutional crypto market data. 6.5 fully active. Designated CC reference price feed per CIP-0092. Self-authored by CEO Ambre Soubiran.', commitments:['6.5 fully active','CC reference price feed provider']},
-{id:'CIP-0065', title:'LayerZero, Wormhole & Chainlink Tranche 2', author:'Eric Saraniecki', date:'2025-10-01', status:'Final', track:'SV Admission', weight:3, desc:'Adds LayerZero, Wormhole, and Chainlink (+3 each) as SVs in one CIP. Total Chainlink authorised: 10.5. The strategic multi-chain bridge CIP.', commitments:['LayerZero, Wormhole, Chainlink +3 each','Total Chainlink: 10.5 authorised','Pending deployment milestones']},
-{id:'CIP-0069', title:'Ledger — SV Admission',           author:'Eric Saraniecki', date:'2025-08-01', status:'Final',     track:'SV Admission',   weight:5,    desc:'Ledger. Hardware wallet with 6M+ devices. 2.0 active + 3.0 escrow = 5.0. Escrow pending Ledger Live integration milestones.', commitments:['2.0 active + 3.0 escrow','Support Canton Coin in Ledger Live','6M+ device distribution']},
-{id:'CIP-0071', title:'Ubyx — SV Admission',             author:'Tony McLaughlin', date:'2025-08-01', status:'Final',     track:'SV Admission',   weight:5,    desc:'Ubyx. Stablecoin clearing system. 2.95 active + 2.0 escrow = 4.95. Authored by Tony McLaughlin, former head of Citi RLN.', commitments:['2.95 active + 2.0 escrow','Stablecoin clearing on Canton','RLN-inspired architecture']},
-{id:'CIP-0072', title:'Fireblocks — SV Admission',       author:'Eric Saraniecki', date:'2025-10-01', status:'Approved',  track:'SV Admission',   weight:5,    desc:'Fireblocks. Global institutional MPC custody market leader. 2.08 active + 2.0 escrow = 4.08. CIP max 5.0.', commitments:['2.08 active + 2.0 escrow','Fireblocks Workspace Canton integration']},
-{id:'CIP-0074', title:'BitGo — SV Admission',            author:'Eric Saraniecki', date:'2025-08-27', status:'Approved',  track:'SV Admission',   weight:5,    desc:'BitGo. Largest independent digital asset custodian. Entire weight 5.0 in escrow. No milestones completed — earliest-stage major SV.', commitments:['5.0 fully in escrow','Integrate CIP-0056 token standard','Institutional client onboarding within 180d']},
-{id:'CIP-0075', title:'Zodia Custody — SV Admission',    author:'Eric Saraniecki', date:'2025-09-01', status:'Approved',  track:'SV Admission',   weight:5,    desc:'Zodia Custody. Standard Chartered-backed institutional crypto custodian. Entire weight 5.0 in escrow. Backed by SC Ventures and Northern Trust.', commitments:['5.0 fully in escrow','Qualified custody for Canton Coin','SC/Northern Trust institutional network']},
-{id:'CIP-0076', title:'Hypernative — SV Admission',      author:'Alex Rabke',      date:'2025-10-01', status:'Final',     track:'SV Admission',   weight:1,    desc:'Hypernative. Blockchain security monitoring and threat detection. Weight 1. Self-authored by Alex Rabke. Part of a growing security-focused SV cohort alongside Hexagate and Elliptic.', commitments:['Weight 1 admission','Blockchain threat detection','Security monitoring for Canton']},
-{id:'CIP-0077', title:'Taurus — SV Admission',           author:'Victor Busson',   date:'2025-10-01', status:'Approved',  track:'SV Admission',   weight:5,    desc:'Taurus Group. Swiss FINMA-licensed digital asset infrastructure. 3.0 active + 2.0 escrow = 5.0. Self-authored by Victor Busson.', commitments:['3.0 active + 2.0 escrow','Taurus-PROTECT integration','≥3 institutional clients onboarded']},
-{id:'CIP-0080', title:'Republic — SV Admission',         author:'Luca Burlando',   date:'2025-10-01', status:'Approved',  track:'SV Admission',   weight:6,    desc:'Republic. Investment platform for private market access. Weight 6. Self-authored by Luca Burlando.', commitments:['Weight 6 admission','Investment platform integration']},
-{id:'CIP-0081', title:'YZi Labs — SV Admission',         author:'Eric Saraniecki', date:'2025-11-01', status:'Approved',  track:'SV Admission',   weight:10,   desc:'YZi Labs. Investment and incubation arm of Binance. Weight 10 T1. Brings Binance ecosystem network effect to Canton governance.', commitments:['Weight 10 T1 admission','Binance ecosystem network']},
-{id:'CIP-0083', title:'DTCC — SV Admission',             author:'Eric Saraniecki', date:'2025-12-01', status:'Approved',  track:'SV Admission',   weight:10,   desc:'The Depository Trust & Clearing Corporation. Processes $2.5 quadrillion annually. Entire weight 10.0 in escrow. Strategically the most significant Approved SV.', commitments:['10.0 fully in escrow via DTCC-ghost-1','Digital securities settlement exploration','Tokenised post-trade infrastructure']},
-{id:'CIP-0085', title:'Talos — SV Admission',            author:'Anton Katz',      date:'2025-10-01', status:'Approved',  track:'SV Admission',   weight:6.5,  desc:'Talos. Institutional digital asset trading infrastructure. 5.41 active via CoinMetrics-validator-1 + 1.0 escrow = 6.41 total. CIP max 6.5. Self-authored by Anton Katz.', commitments:['5.41 active + 1.0 escrow','Talos institutional trading integration']},
-{id:'CIP-0087', title:'Hex Trust — SV Admission',        author:'Giorgia Pellizzari / Alessio Quaglini', date:'2025-11-01', status:'Approved', track:'SV Admission', weight:3, desc:'Hex Trust. Asia-based regulated digital asset custodian (HK, EU, UAE). 3.0 in escrow via MPCH node. Self-authored by Pellizzari and Quaglini.', commitments:['3.0 fully in escrow via MPCH node','CIP-0056 token standard integration','Asia institutional adoption']},
-{id:'CIP-0090', title:'USDT0 (Everdawn Labs) — SV Admission', author:'Eric Saraniecki', date:'2025-11-15', status:'Approved', track:'SV Admission', weight:10, desc:'USDT0. Omnichain USDT layer built on LayerZero by Everdawn Labs, backed by Tether. 10.0 in escrow. $500M+ TVL milestone target. Largest outcome-linked escrow.', commitments:['10.0 fully in escrow','Deploy USDT0 on Canton','$500M+ TVL milestone']},
-{id:'CIP-0091', title:'Zenith — SV Admission',           author:'Norbert Vadas / Teemu Paivinen / Heslin Kim / Henri Kamarainen', date:'2025-11-15', status:'Approved', track:'SV Admission', weight:10, desc:'Zenith. Weight 10 T1. Most collaboratively authored SV admission — four named co-authors from the Zenith team.', commitments:['Weight 10 T1 admission','4-author self-authored CIP']},
-{id:'CIP-0093', title:'Bosphorus SV (BSV) — SV Admission', author:'Eric Saraniecki', date:'2025-12-01', status:'Approved', track:'SV Admission', weight:6, desc:'Bosphorus SV. Max Weight 6. Bridge entity positioning between Western and Eastern institutional digital asset markets.', commitments:['Max weight 6 admission','Institutional bridge connectivity']},
-{id:'CIP-0094', title:'Blockdaemon — SV Admission',      author:'Brad Turner / Demo Skalkotos / Jesse Farese', date:'2025-12-01', status:'Approved', track:'SV Admission', weight:5, desc:'Blockdaemon. Enterprise blockchain infrastructure (staking, nodes, APIs). 5.0 in escrow via MPCH node. Outcome-linked milestones. Tri-authored.', commitments:['5.0 fully in escrow via MPCH node','Node infrastructure for Canton','Outcome-linked milestones']},
-{id:'CIP-0095', title:'Mesh (Invisible Technologies) — SV Admission', author:'Jacob McCrum', date:'2025-12-01', status:'Approved', track:'SV Admission', weight:10, desc:'Mesh. Digital asset connectivity platform. Max weight 10 outcome-linked. Self-authored by Jacob McCrum — not Saraniecki.', commitments:['Max weight 10 outcome-linked','Institutional connectivity platform','Self-authored by Jacob McCrum']},
-{id:'CIP-0097', title:'Nasdaq — SV Admission',           author:'Eric Saraniecki', date:'2026-01-01', status:'Approved',  track:'SV Admission',   weight:10,   desc:'Nasdaq Global Select Market. Entire weight 10.0 in escrow. Aligned to Nasdaq\'s digital asset infrastructure and tokenisation strategy.', commitments:['10.0 fully in escrow','Digital asset exchange infra','Regulated tokenisation work']},
-{id:'CIP-0099', title:'Zero Hash — Outcome-Linked Modification', author:'Eric Saraniecki', date:'2025-12-01', status:'Approved', track:'SV Admission', weight:null, desc:'Modifies CIP-0060 to add outcome-linked escrow milestones for Zero Hash. 4.5 weight release tied to volume targets. Template for next-generation SV CIPs.', commitments:['Converts escrow to milestone-linked','4.5 weight tied to volume targets','Sets outcome-linked SV template']},
-{id:'CIP-0102', title:'Tharimmune — CC Treasury Strategy', author:'Mark Wendland',  date:'2026-01-21', status:'Approved',  track:'SV Admission',   weight:4,    desc:'Tharimmune Inc. First Nasdaq-listed company to adopt CC as treasury reserve. $545M private placement. Weight 4 via MPCH node. Authored by Mark Wendland.', commitments:['Weight 4 via MPCH node','$545M CC acquisition','First public-company CC treasury']},
+{id:'CIP-0009', title:'Broadridge — SV Admission',       author:'Eric Saraniecki', date:'2024-07-01', status:'Final',     track:'SV Admission',   weight:10,   desc:'Broadridge Financial Solutions. Global fintech leader — DLR platform processes $8T+/month in tokenised US Treasury repo on Canton. Weight 10 via GSF node as extraBeneficiary.', commitments:['Weight 10 via GSF node','Run DLR repo platform on Canton','Support network governance']},
+{id:'CIP-0015', title:'Copper — SV Admission',           author:'Eric Saraniecki', date:'2024-07-01', status:'Final',     track:'SV Admission',   weight:1,    desc:'Copper Technologies. London-based MPC digital asset custody and prime brokerage. Weight 1.0 active via GSF node.', commitments:['Weight 1.0 active via GSF','Provide MPC custody for Canton Coin']},
+{id:'CIP-0016', title:'Dfns — SV Admission',             author:'Eric Saraniecki', date:'2024-07-01', status:'Final',     track:'SV Admission',   weight:1,    desc:'Dfns. Paris-based MPC wallet-as-a-service provider. Weight 1.0 active via GSF node.', commitments:['Weight 1.0 active via GSF','Integrate Canton wallet-as-a-service']},
+{id:'CIP-0017', title:'MPCH — SV Admission',             author:'Eric Saraniecki', date:'2024-07-01', status:'Final',     track:'SV Admission',   weight:1.25, desc:'MPC Holding Inc. MPC custody specialist, operates its own SV node. Weight 1.25 earned (1.0 base + 0.25 from two user accounts). Also hosts escrow for HexTrust, Blockdaemon, and Tharimmune.', commitments:['Own SV node operator','1.25 weight earned','Hosts escrow for other SVs']},
+{id:'CIP-0018', title:'Tradeweb — SV Admission',         author:'Eric Saraniecki', date:'2024-07-01', status:'Final',     track:'SV Admission',   weight:10,   desc:'Tradeweb Markets. Global electronic marketplace for bonds, derivatives, ETFs — $2T+ daily volume. Operates own SV node. Led first on-chain weekend repo transaction (Aug 2025).', commitments:['Operate own SV node (10.0)','Integrate fixed income trading on Canton']},
+{id:'CIP-0019', title:'C7 Technology Services — SV Admission', author:'Chris Zuehlke', date:'2024-07-01', status:'Final', track:'SV Admission',   weight:10.58,desc:'C7 Technology Services (formerly 7RIDGE). Founded by 7RIDGE. Weight 10.575 slightly exceeds CIP-0019 max of 10 due to earned weight.', commitments:['Own SV node (10.575)','Institutional capital allocation to Canton']},
+{id:'CIP-0039', title:'Copper ClearLoop — SV Admission', author:'Eric Saraniecki', date:'2025-01-01', status:'Final',     track:'SV Admission',   weight:1,    desc:'Copper\'s ClearLoop off-exchange settlement network. Shares the copper-mainnet-validator party ID with Copper (CIP-0015). Both weight 1 active via GSF.', commitments:['Weight 1.0 active','Integrate ClearLoop settlement with Canton']},
+{id:'CIP-0041', title:'Circle — SV Admission',           author:'Eric Saraniecki', date:'2025-02-01', status:'Final',     track:'SV Admission',   weight:10,   desc:'Circle Internet Financial. Issuer of USDC. Weight 10.0 fully active via circle-validator-1. Led the first on-chain weekend repo transaction in August 2025 alongside Tradeweb, Bank of America, and Citadel Securities.', commitments:['10.0 fully active','Deploy USDC natively on Canton','Drive stablecoin settlement workflows']},
+{id:'CIP-0060', title:'Zero Hash — SV Admission',        author:'Eric Saraniecki', date:'2025-06-01', status:'Approved',  track:'SV Admission',   weight:7.5,  desc:'Zero Hash. US-regulated crypto-as-a-service infrastructure. 3.0 active (zerohash-validator-1) + 4.5 escrow = 7.5 total. Modified by CIP-0099 (outcome-linked milestones added post-approval).', commitments:['3.0 active weight earned','4.5 in escrow pending milestones','On/off-ramp infra for Canton Coin','Outcome-linked per CIP-0099']},
+{id:'CIP-0061', title:'Chainlink — SV Admission (Tranche 1)', author:'Thodoris Karakostas', date:'2025-09-01', status:'Final', track:'SV Admission', weight:7.5, desc:'Chainlink Labs. 7.0 active (Chainlink-Mainnet-1) + 0.5 escrow = 7.5. Deploys Data Streams, SmartData, and CCIP on Canton. CIP-0065 adds a further 3.0 tranche.', commitments:['7.0 active + 0.5 escrow','Deploy Chainlink Data Streams on Canton','Deploy CCIP cross-chain protocol','SmartData integration']},
+{id:'CIP-0063', title:'Kaiko — SV Admission',            author:'Ambre Soubiran',  date:'2025-10-01', status:'Final',     track:'SV Admission',   weight:6.5,  desc:'Kaiko. Institutional crypto market data provider. 6.5 fully active (kaiko-mainnet-1). Designated CC reference price feed provider per CIP-0092.', commitments:['6.5 fully active','CC reference price feed provider','Institutional market data delivery']},
+{id:'CIP-0065', title:'Chainlink — SV Admission (Tranche 2)', author:'Eric Saraniecki', date:'2025-10-01', status:'Final', track:'SV Admission', weight:3,    desc:'Additional 3.0 weight tranche for Chainlink (all in escrow on GSF), on top of CIP-0061\'s 7.5. Total Chainlink authorisation: 10.5. Combined with CIP-0061: the largest non-Founding SV position.', commitments:['3.0 additional weight (all escrow)','Total Chainlink: 10.5 authorised','Pending deployment milestones']},
+{id:'CIP-0069', title:'Ledger — SV Admission',           author:'Eric Saraniecki', date:'2025-08-01', status:'Final',     track:'SV Admission',   weight:5,    desc:'Ledger. Hardware wallet company with 6M+ devices. 2.0 active (ledger-ledgerops-2) + 3.0 escrow = 5.0. Status is Final (CIP ratified) but 3.0 remains in escrow pending Ledger Live integration milestones.', commitments:['2.0 active + 3.0 escrow','Support Canton Coin in Ledger Live','6M+ device distribution potential']},
+{id:'CIP-0071', title:'Ubyx — SV Admission',             author:'Tony McLaughlin', date:'2025-08-01', status:'Final',     track:'SV Admission',   weight:5,    desc:'Ubyx. Stablecoin clearing system. 2.95 active (Ubyx-validator-1) + 2.0 escrow = 4.95. Slightly below CIP max of 5.0 (0.05 undeployed per GhostSV comment). Tony McLaughlin is former head of Citi\'s Regulated Liability Network.', commitments:['2.95 active + 2.0 escrow','Build stablecoin clearing on Canton','RLN-inspired architecture']},
+{id:'CIP-0072', title:'Fireblocks — SV Admission',       author:'Eric Saraniecki', date:'2025-10-01', status:'Approved',  track:'SV Admission',   weight:5,    desc:'Fireblocks. Global institutional MPC custody market leader. 2.08 active (fb-linkprd-1) + 2.0 escrow = 4.08. Below CIP max of 5.0 — 0.92 not yet deployed. CIP max represents ceiling, not guarantee.', commitments:['2.08 active + 2.0 escrow','Integrate Canton Token Standard in Fireblocks Workspace','0.92 weight ceiling not yet reached']},
+{id:'CIP-0074', title:'BitGo — SV Admission',            author:'Eric Saraniecki', date:'2025-08-27', status:'Approved',  track:'SV Admission',   weight:5,    desc:'BitGo. Largest independent digital asset custodian and qualified trust company. Entire weight 5.0 in escrow (BitGo-ghost-1). No milestones completed yet — earliest-stage major SV.', commitments:['5.0 fully in escrow','Integrate CIP-0056 token standard','Onboard institutional clients within 180 days']},
+{id:'CIP-0075', title:'Zodia Custody — SV Admission',    author:'Eric Saraniecki', date:'2025-09-01', status:'Approved',  track:'SV Admission',   weight:5,    desc:'Zodia Custody. Standard Chartered-backed institutional crypto custodian. Entire weight 5.0 in escrow (Zodia-ghost-1). Backed by SC Ventures and Northern Trust.', commitments:['5.0 fully in escrow','Provide qualified custody for Canton Coin','Bring SC/Northern Trust institutional network']},
+{id:'CIP-0077', title:'Taurus — SV Admission',           author:'Victor Busson',   date:'2025-10-01', status:'Approved',  track:'SV Admission',   weight:5,    desc:'Taurus Group. Swiss FINMA-licensed digital asset infrastructure. 3.0 active (Taurus-Wallet-1) + 2.0 escrow = 5.0 total. Matches CIP max exactly. Integrating Canton Token Standard into Taurus-PROTECT.', commitments:['3.0 active + 2.0 escrow','Integrate Canton Token Standard into Taurus-PROTECT','Onboard ≥3 institutional clients']},
+{id:'CIP-0079', title:'SV Readiness Check — CC Listing', author:'Eric Saraniecki', date:'2025-09-01', status:'Approved',  track:'Process',   weight:null, desc:'Required all SVs to demonstrate functional third-party price feed integration before Canton Coin public listing was permitted. A governance gate that prevented listing until the network was operationally ready.', commitments:['All SVs must pass price feed readiness check','Prerequisite for CC public listing','Kaiko designated as reference provider']},
+{id:'CIP-0083', title:'DTCC — SV Admission',             author:'Eric Saraniecki', date:'2025-12-01', status:'Approved',  track:'SV Admission',   weight:10,   desc:'The Depository Trust & Clearing Corporation. Processes $2.5 quadrillion annually — the world\'s largest securities settlement organisation. Entire weight 10.0 in escrow via DTCC-ghost-1. Strategically the most significant Approved SV.', commitments:['10.0 fully in escrow via DTCC-ghost-1','Digital securities settlement on Canton','Tokenised post-trade infrastructure exploration']},
+{id:'CIP-0085', title:'Talos — SV Admission',            author:'Anton Katz',      date:'2025-10-01', status:'Approved',  track:'SV Admission',   weight:6.5,  desc:'Talos formal SV admission (CIP-0073 handled weighted liveness mechanics; CIP-0085 is the formal admission CIP). Total authorised: 6.5.', commitments:['6.41 total (5.41 active + 1.0 escrow)','CIP max 6.5','Talos institutional trading integration']},
+{id:'CIP-0087', title:'Hex Trust — SV Admission',        author:'Giorgia Pellizzari, Alessio Quaglini', date:'2025-11-01', status:'Approved', track:'SV Admission', weight:3, desc:'Hex Trust. Asia-based regulated digital asset custodian (HK, EU, UAE licences). Entire weight 3.0 in escrow via MPCH\'s node (HexTrust-ghost-1). Self-authored — rare for a non-Saraniecki SV admission.', commitments:['3.0 fully in escrow via MPCH node','Integrate Canton Token Standard','Drive institutional adoption in Asia']},
+{id:'CIP-0090', title:'USDT0 (Everdawn Labs) — SV Admission', author:'Eric Saraniecki', date:'2025-11-15', status:'Approved', track:'SV Admission', weight:10, desc:'USDT0. Omnichain USDT layer built on LayerZero by Everdawn Labs, backed by Tether. Entire weight 10.0 in escrow (USDT0-ghost-1). $500M+ TVL milestone target. Largest outcome-linked escrow position.', commitments:['10.0 fully in escrow','Deploy USDT0 on Canton','$500M+ TVL milestone','Cross-chain USDT flow into Canton']},
+{id:'CIP-0092', title:'Dynamic Market Feed Transition',   author:'Eric Saraniecki', date:'2025-10-15', status:'Approved',  track:'Tokenomics',     weight:null, desc:'Controlled transition from admin-set fixed CC price to live oracle feeds upon public listing. Kaiko designated as primary feed, Chainlink as secondary. Transition gated by readiness milestones from CIP-0079.', commitments:['Oracle-based CC pricing post-listing','Kaiko primary + Chainlink secondary','Admin-set price retired upon listing']},
+{id:'CIP-0094', title:'Blockdaemon — SV Admission',      author:'Brad Turner, Demo Skalkotos, Jesse Farese', date:'2025-12-01', status:'Approved',  track:'SV Admission',   weight:5,    desc:'Blockdaemon. Enterprise blockchain infrastructure provider (staking, nodes, APIs). Outcome-linked milestones. Weight via MPCH node (Blockdaemon-ghost-1). 5.0 in escrow.', commitments:['5.0 fully in escrow via MPCH node','Node infrastructure provision for Canton','Outcome-linked milestone structure']},
+{id:'CIP-0095', title:'Mesh (Invisible Technologies) — SV Admission', author:'Jacob McCrum', date:'2025-12-01', status:'Approved', track:'SV Admission', weight:3, desc:'Mesh (Invisible Technologies). Digital asset connectivity platform for financial institutions. Outcome-linked milestone structure. 3.0 in escrow.', commitments:['3.0 fully in escrow','Institutional connectivity platform','Outcome-linked milestones']},
+{id:'CIP-0097', title:'Nasdaq — SV Admission',           author:'Eric Saraniecki', date:'2026-01-01', status:'Approved',  track:'SV Admission',   weight:10,   desc:'Nasdaq Global Select Market. Exchange and market infrastructure company. Entire weight 10.0 in escrow. Aligned to Nasdaq\'s digital asset infrastructure and regulated tokenisation work alongside NDS (Nasdaq Digital Assets).', commitments:['10.0 fully in escrow','Digital asset exchange infrastructure','Regulated tokenisation work']},
+{id:'CIP-0099', title:'Zero Hash — Outcome-Linked Modification', author:'Eric Saraniecki', date:'2025-12-01', status:'Approved', track:'SV Admission', weight:null, desc:'Modifies CIP-0060 (Zero Hash admission) to add outcome-linked escrow milestones — 3.0 weight active, 4.5 release tied to specific on/off-ramp volume and integration milestones. Template for new-generation SV CIPs.', commitments:['Converts CIP-0060 escrow to milestone-linked','4.5 weight release tied to volume targets','Sets template for outcome-linked SV CIPs']},
+{id:'CIP-0102', title:'Tharimmune — CC Treasury Strategy', author:'Mark Wendland', date:'2026-01-21', status:'Approved', track:'SV Admission',  weight:4,    desc:'Tharimmune Inc. First Nasdaq-listed company to adopt CC as a treasury reserve asset. $545M private placement to acquire CC. CIP-authorised weight 4.0 via MPCH node. Landmark institutional treasury adoption.', commitments:['4.0 weight via MPCH node','$545M CC acquisition programme','First public-company CC treasury','Validates CC as institutional reserve asset']},
+// ── WITHDRAWN / REJECTED ──────────────────────────────────────────────────────
+{id:'CIP-0023', title:'SV Operations Committee (Withdrawn)', author:'Eric Saraniecki', date:'2024-11-01', status:'Withdrawn', track:'Governance', weight:null, desc:'Proposed a standing SV Operations Committee to handle routine technical decisions without full SV votes. Withdrawn — the scope overlapped with FAV-C (CIP-0021) and the Tokenomics Committee (CIP-0084). The functions were ultimately distributed across specialised committees.', commitments:['Proposed but withdrawn','Functions absorbed into FAV-C and Tokenomics Committee']},
+{id:'CIP-0050', title:'Controlled Validator Growth (Withdrawn)', author:'Wayne Collier', date:'2025-03-01', status:'Withdrawn', track:'Process', weight:null, desc:'Proposed rate-limiting new validator onboarding to prevent rapid weight dilution. Withdrawn after SV debate — the consensus was that growth incentives (CIP-0007) already provided natural self-regulation without an artificial cap.', commitments:['Proposed validator growth cap','Withdrawn — deemed overly restrictive']},
+{id:'CIP-0076', title:'Hypernative — SV Admission', author:'Alex Rabke', date:'2025-10-01', status:'Final', track:'SV Admission', weight:1, desc:'Hypernative. Real-time Web3 security and threat-detection provider. Admitted as a Super Validator at CIP-authorised weight 1.0. (Note: the rejected Strange Pixels admission is CIP-0033, not CIP-0076.)', commitments:['CIP-authorised weight 1.0','On-chain security monitoring for Canton','Status: Final']},
+// ── BACKFILLED FROM UPSTREAM REGISTRY (canton-foundation/cips) ──
+{id:'CIP-0010', title:'Liberty City Ventures (LCV) — SV Admission', author:'Eric Saraniecki', date:'2024-07-01', status:'Final', track:'SV Admission', weight:10, desc:'Liberty City Ventures (LCV) confirmed as a Tier-1 Super Validator (CIP-authorised weight 10.0) after meeting all admission requirements. Status: Final.', commitments:['Track: Governance','Status: Final']},
+{id:'CIP-0011', title:'IEU have decided to forgo SV minting rights', author:'Eric Saraniecki', date:'2024-07-01', status:'Final', track:'Governance', weight:null, desc:'IEU have decided to forgo SV minting rights. Author: Eric Saraniecki. Status: Final. (Backfilled from the canton-foundation/cips registry.)', commitments:['Track: Governance','Status: Final']},
+{id:'CIP-0012', title:'CC Processing & Operational Config Adjustments', author:'Wayne Collier, Moritz Kiefer', date:'2024-07-15', status:'Final', track:'Standards', weight:null, desc:'Minor adjustments to Canton Coin processing, and Operational configuration, on the Global Synchronizer. Author: Wayne Collier, Moritz Kiefer. Status: Final. (Backfilled from the canton-foundation/cips registry.)', commitments:['Track: Standards','Status: Final']},
+{id:'CIP-0013', title:'Daml Re-Onboarding Model Fix', author:'Wayne Collier, Moritz Kiefer', date:'2024-07-15', status:'Final', track:'Standards', weight:null, desc:'Correct an error in the Daml models controlling the re-onboarding process for Super Validators who have been removed from the quorum. Author: Wayne Collier, Moritz Kiefer. Status: Final. (Backfilled from the canton-foundation/cips registry.)', commitments:['Track: Standards','Status: Final']},
+{id:'CIP-0014', title:'Scan API Enhancements for Tax Accounting', author:'Eric Saraniecki', date:'2024-08-01', status:'Final', track:'Governance', weight:null, desc:'Complete additional enhancements to the Scan API to facilitate tax accounting. Author: Eric Saraniecki. Status: Final. (Backfilled from the canton-foundation/cips registry.)', commitments:['Track: Governance','Status: Final']},
+{id:'CIP-0025', title:'Validator & Featured App Committees', author:'Eric Saraniecki', date:'2024-12-01', status:'Obsolete', track:'Governance', weight:null, desc:'CIP-0006 and CIP-0021 called for the formation of Validator and Featured App committees. Author: Eric Saraniecki. Status: Obsolete. (Backfilled from the canton-foundation/cips registry.)', commitments:['Track: Governance','Status: Obsolete']},
+{id:'CIP-0032', title:'Lukka — SV Admission', author:'Eric Saraniecki', date:'2024-12-01', status:'Final', track:'SV Admission', weight:1, desc:'Lukka — proposed/admitted as a Super Validator (CIP-authorised maximum weight 1). Status: Final. Upstream title: "Add Lukka as a Tier3 SV (Weight 1)".', commitments:['CIP-authorised max weight 1','Status: Final']},
+{id:'CIP-0033', title:'Strange Pixels — SV Admission', author:'Eric Saraniecki', date:'2024-12-01', status:'Rejected', track:'SV Admission', weight:0.5, desc:'Strange Pixels — proposed/admitted as a Super Validator (CIP-authorised maximum weight 0.5). Status: Rejected. Upstream title: "Add Strange Pixels as a Tier4 SV (Weight 0.5)".', commitments:['CIP-authorised max weight 0.5','Status: Rejected']},
+{id:'CIP-0034', title:'Proof Group — SV Admission', author:'Eric Saraniecki', date:'2024-12-01', status:'Final', track:'SV Admission', weight:1, desc:'Proof Group — proposed/admitted as a Super Validator (CIP-authorised maximum weight 1). Status: Final. Upstream title: "Add Proof Group as a Tier3 SV (Weight 1)".', commitments:['CIP-authorised max weight 1','Status: Final']},
+{id:'CIP-0035', title:'Five North — SV Admission', author:'Eric Saraniecki', date:'2024-12-01', status:'Final', track:'SV Admission', weight:3, desc:'Five North — proposed/admitted as a Super Validator (CIP-authorised maximum weight 3). Status: Final. Upstream title: "Add Five North as a Tier2 SV (Weight 3)".', commitments:['CIP-authorised max weight 3','Status: Final']},
+{id:'CIP-0036', title:'Kiln — SV Admission', author:'Eric Saraniecki', date:'2025-01-01', status:'Final', track:'SV Admission', weight:1, desc:'Kiln — proposed/admitted as a Super Validator (CIP-authorised maximum weight 1). Status: Final. Upstream title: "Add Kiln as a Tier3 SV (Weight 1)".', commitments:['CIP-authorised max weight 1','Status: Final']},
+{id:'CIP-0037', title:'Obsidian — SV Admission', author:'Eric Saraniecki', date:'2025-01-01', status:'Final', track:'SV Admission', weight:1, desc:'Obsidian — proposed/admitted as a Super Validator (CIP-authorised maximum weight 1). Status: Final. Upstream title: "Add Obsidian as a Tier3 SV (Weight 1)".', commitments:['CIP-authorised max weight 1','Status: Final']},
+{id:'CIP-0038', title:'Hexagate — SV Admission', author:'Eric Saraniecki', date:'2025-01-01', status:'Final', track:'SV Admission', weight:1, desc:'Hexagate — proposed/admitted as a Super Validator (CIP-authorised maximum weight 1). Status: Final. Upstream title: "Add Hexagate as a Tier3 SV (Weight 1)".', commitments:['CIP-authorised max weight 1','Status: Final']},
+{id:'CIP-0040', title:'Deribit — SV Admission', author:'Eric Saraniecki', date:'2025-01-01', status:'Final', track:'SV Admission', weight:1, desc:'Deribit — proposed/admitted as a Super Validator (CIP-authorised maximum weight 1). Status: Final. Upstream title: "Add Deribit as a Tier3 SV (Weight 1)".', commitments:['CIP-authorised max weight 1','Status: Final']},
+{id:'CIP-0043', title:'TRM — SV Admission', author:'Eric Saraniecki', date:'2025-02-01', status:'Final', track:'SV Admission', weight:2.5, desc:'TRM — proposed/admitted as a Super Validator (CIP-authorised maximum weight 2.5). Status: Final. Upstream title: "Add TRM as a SV".', commitments:['CIP-authorised max weight 2.5','Status: Final']},
+{id:'CIP-0044', title:'Elliptic — SV Admission', author:'Eric Saraniecki', date:'2025-02-01', status:'Final', track:'SV Admission', weight:0.5, desc:'Elliptic — proposed/admitted as a Super Validator (CIP-authorised maximum weight 0.5). Status: Final. Upstream title: "Add Elliptic as a Tier4 SV (Weight 0.5)...".', commitments:['CIP-authorised max weight 0.5','Status: Final']},
+{id:'CIP-0046', title:'Coin Metrics — SV Admission', author:'Eric Saraniecki', date:'2025-03-01', status:'Final', track:'SV Admission', weight:1, desc:'Coin Metrics — proposed/admitted as a Super Validator (CIP-authorised maximum weight 1). Status: Final. Upstream title: "Add Coin Metrics as a Weight 1 Super Validator".', commitments:['CIP-authorised max weight 1','Status: Final']},
+{id:'CIP-0049', title:'Cold Backups for Super Validators', author:'Vinh Nguyễn', date:'2025-03-01', status:'Proposed', track:'Governance', weight:null, desc:'Incentivizing Cold Backups for Super Validators to Enhance Network Resilience. Author: Vinh Nguyễn. Status: Proposed. (Backfilled from the canton-foundation/cips registry.)', commitments:['Track: Governance','Status: Proposed']},
+{id:'CIP-0052', title:'Monstera — SV Admission', author:'Eric Saraniecki', date:'2025-04-01', status:'Withdrawn', track:'SV Admission', weight:5, desc:'Monstera FZE (Witan Group) — admitted at weight 5, held fully in escrow, never delivered milestones. Weight REMOVED by executed SV vote on 2026-05-07 under the CIP-0111 weight-reduction process (alongside Woodside AI); the registry now lists the proposal as Withdrawn.', commitments:['CIP-authorised max weight 5','Status: Withdrawn']},
+{id:'CIP-0053', title:'AngelHack — SV Admission', author:'Eric Saraniecki', date:'2025-04-01', status:'Final', track:'SV Admission', weight:2.5, desc:'AngelHack — proposed/admitted as a Super Validator (CIP-authorised maximum weight 2.5). Status: Final. Upstream title: "AngelHack as a Weight 2.5 SV".', commitments:['CIP-authorised max weight 2.5','Status: Final']},
+{id:'CIP-0054', title:'Figment — SV Admission', author:'Eric Saraniecki, Jacob McCrum', date:'2025-04-01', status:'Final', track:'SV Admission', weight:1, desc:'Figment — proposed/admitted as a Super Validator (CIP-authorised maximum weight 1). Status: Final. Upstream title: "Add Figment as a Weight 1 Super Validator".', commitments:['CIP-authorised max weight 1','Status: Final']},
+{id:'CIP-0055', title:'Bitwave — SV Admission', author:'Eric Saraniecki', date:'2025-04-01', status:'Final', track:'SV Admission', weight:1, desc:'Bitwave — proposed/admitted as a Super Validator (CIP-authorised maximum weight 1). Status: Final. Upstream title: "Add Bitwave as a Weight 1 SV".', commitments:['CIP-authorised max weight 1','Status: Final']},
+{id:'CIP-0057', title:'Quantstamp — SV Admission', author:'Eric Saraniecki', date:'2025-05-01', status:'Final', track:'SV Admission', weight:1, desc:'Quantstamp — proposed/admitted as a Super Validator (CIP-authorised maximum weight 1). Status: Final. Upstream title: "Add Quantstamp as a Weight 1 Super Validator".', commitments:['CIP-authorised max weight 1','Status: Final']},
+{id:'CIP-0058', title:'IntellectEU — SV Admission', author:'Christopher Kelly', date:'2025-05-01', status:'Final', track:'SV Admission', weight:1, desc:'IntellectEU — proposed/admitted as a Super Validator (CIP-authorised maximum weight 1). Status: Final. Upstream title: "Add IntellectEU as Weight 1 SV".', commitments:['CIP-authorised max weight 1','Status: Final']},
+{id:'CIP-0059', title:'Woodside AI — SV Admission', author:'Eric Saraniecki', date:'2025-05-01', status:'Withdrawn', track:'SV Admission', weight:10, desc:'Woodside AI — admitted at weight 10, held fully in escrow, never delivered milestones. Weight REMOVED by executed SV vote on 2026-05-07 under the CIP-0111 weight-reduction process (alongside Monstera); the registry now lists the proposal as Withdrawn.', commitments:['CIP-authorised max weight 10','Status: Withdrawn']},
+{id:'CIP-0070', title:'Adjusting Reward Caps for Validators', author:'Chris Zuehlke', date:'2025-07-01', status:'Withdrawn', track:'Tokenomics', weight:null, desc:'Adjusting Reward Caps for Validators. Author: Chris Zuehlke. Status: Withdrawn. (Backfilled from the canton-foundation/cips registry.)', commitments:['Track: Tokenomics','Status: Withdrawn']},
+{id:'CIP-0080', title:'Republic — SV Admission', author:'Luca Burlando', date:'2025-10-01', status:'Approved', track:'SV Admission', weight:6, desc:'Republic — proposed/admitted as a Super Validator (CIP-authorised maximum weight 6). Status: Approved. Upstream title: "Add Republic as an SV of Weight 6".', commitments:['CIP-authorised max weight 6','Status: Approved']},
+{id:'CIP-0081', title:'YZi Labs — SV Admission', author:'Eric Saraniecki', date:'2025-11-01', status:'Approved', track:'SV Admission', weight:10, desc:'YZi Labs — proposed/admitted as a Super Validator (CIP-authorised maximum weight 10). Status: Approved. Upstream title: "Add YZi Labs as Weight 10 SV".', commitments:['CIP-authorised max weight 10','Status: Approved']},
+{id:'CIP-0091', title:'Zenith — SV Admission', author:'Norbert Vadas, Teemu Paivinen, Heslin Kim, Henri Kamarainen', date:'2025-11-15', status:'Approved', track:'SV Admission', weight:10, desc:'Zenith — proposed/admitted as a Super Validator (CIP-authorised maximum weight 10). Status: Approved. Upstream title: "Add Zenith as an SV of Weight 10".', commitments:['CIP-authorised max weight 10','Status: Approved']},
+{id:'CIP-0093', title:'Bosphorus SV (BSV) — SV Admission', author:'Eric Saraniecki', date:'2025-12-01', status:'Approved', track:'SV Admission', weight:6, desc:'Bosphorus SV (BSV) — proposed/admitted as a Super Validator (CIP-authorised maximum weight 6). Status: Approved. Upstream title: "Add Bosphorus SV (BSV) as a Super Validator (Max Weight 6)".', commitments:['CIP-authorised max weight 6','Status: Approved']},
+{id:'CIP-0104', title:'Traffic-Based App Rewards', author:'Simon Meier', date:'2026-01-29', status:'Approved', track:'Tokenomics', weight:null, desc:'Replaces FeaturedAppActivityMarker system with traffic-based reward measurement using sequencer and mediator data. Removes need for manual markers. Makes confirmation responses effectively free. Most technically complex tokenomics CIP — supersedes CIP-0047 and CIP-0098.', commitments:['Track: Tokenomics','Status: Approved']},
+{id:'CIP-0105', title:'Super Validator (SV) Locking & Long-Term Commitment Frame…', author:'Eric Saraniecki w/ Community Proposal', date:'2026-02-06', status:'Approved', track:'Tokenomics', weight:null, desc:'Super Validator (SV) Locking & Long-Term Commitment Framework. Author: Eric Saraniecki w/ Community Proposal. Status: Approved. (Backfilled from the canton-foundation/cips registry.)', commitments:['Track: Tokenomics','Status: Approved']},
+{id:'CIP-0106', title:'QCP Group — SV Admission', author:'Yiannis Varelas / Eric Saraniecki', date:'2026-03-05', status:'Approved', track:'SV Admission', weight:5, desc:'QCP Group, Singapore-based digital asset trading firm, admitted at max weight 5.0 tied to institutional adoption milestones: institutional collateral workflows, tokenised money market fund onboarding for RWA infrastructure, and sustained CC burn. Already 1.0 active (qcp-vault-001) + 4.0 escrow via Five-North. Approved 2026-03-05.', commitments:['1.0 active + 4.0 escrow via Five-North','Institutional collateral workflows','Tokenised MMF onboarding','Perpetual activity sustainment requirements']},
+{id:'CIP-0107', title:'24h Submission Delay for End-User CC Transactions', author:'Simon Meier / Moritz Kiefer', date:'2026-03-10', status:'Approved', track:'Standards', weight:null, desc:'Extends the submission window for Canton Coin end-user transactions from 10 minutes to 24 hours via a new ExternalPartyConfigState contract (48h active window). Applies to token standard operations, traffic purchases, and fund tapping — aligning CC with other assets on the Global Synchronizer. Approved 2026-03-10.', commitments:['24h submission window (was 10 min)','ExternalPartyConfigState contract','Holding-fee expiry compensation']},
+{id:'CIP-0108', title:'Merkle Science — SV Admission (Proposed)', author:'Dr. Justus Delp', date:'2025-12-16', status:'Proposed', track:'SV Admission', weight:1, desc:'Merkle Science\'s AI-powered predictive blockchain analytics proposed as a Weight 1 SV upon milestone completion. Commits to making Canton available to 100+ existing customers (exchanges, stablecoin issuers) within 90 days of approval. Still Proposed — not yet in the live YAML as of Aug 2026.', commitments:['Weight 1 on milestone completion','Canton availability to 100+ customers in 90 days','Real-time sanctions/illicit-activity detection']},
+{id:'CIP-0109', title:'Visa — SV Admission', author:'Eric Saraniecki', date:'2026-03-23', status:'Approved', track:'SV Admission', weight:10, desc:'Visa admitted as a Super Validator with up to weight 10 through a milestone-based programme. Deliverables are confidential and reviewed by the Accountability Committee; rewards are held in escrow (Visa-Escrow-1 via MPCH node) and released by SV governance vote. The most significant payments-network admission to date. Approved 2026-03-23.', commitments:['10.0 in escrow via MPCH node','Confidential Accountability Committee milestones','Escrow release via SV governance vote']},
+{id:'CIP-0110', title:'Apollo — SV Admission', author:'Yiannis Varelas', date:'2026-03-24', status:'Approved', track:'SV Admission', weight:7, desc:'Apollo Global Management (~$938B AUM) admitted at max weight 7 through a performance-based programme covering alternative-asset tokenisation and collateral integration. Confidential milestones reviewed by the Accountability Committee; 7.0 in escrow via Five-North. Approved 2026-03-24.', commitments:['7.0 in escrow via Five-North node','Alt-asset tokenisation milestones','Collateral integration deliverables']},
+{id:'CIP-0111', title:'Process for Reducing Super Validator Weight', author:'Chris Zuehlke / Andrew Bryan / Alex Chen', date:'2026-04-23', status:'Approved', track:'Governance', weight:null, desc:'Establishes the formal process for reducing SV weight: off-chain Tokenomics Committee review, community voting, and on-chain config updates. Defines Ghost-SV handling — burning unminted reward coupons for reduced validators while preserving escrow for compliant ones. Applied by executed SV vote on 2026-05-07: Woodside AI and Monstera Ghost SVs removed; Dfns reduced to 0.6. Approved 2026-04-23.', commitments:['Formal weight-reduction process','Tokenomics Committee review + community vote','Ghost-SV unminted coupon burning','First enforcement: Woodside AI, Monstera, Dfns']},
+{id:'CIP-0112', title:'Canton Network Token Standard V2', author:'Bernhard Elsner / Simon Meier', date:'2026-06-12', status:'Approved', track:'Standards', weight:null, desc:'Extends CIP-0056 with V2 interfaces for privacy-enhanced batch settlement and TradFi workflows: configurable Account structures replacing bare Party, SettlementFactory for flexible executor authorisation, iterated settlement for on-chain trading, and an EventLog interface for standardised transaction parsing. Backwards compatible. Approved 2026-06-12.', commitments:['Privacy-enhanced batch settlement','Account structures + SettlementFactory','EventLog standardised parsing','Delivery-versus-Mint/Burn support']},
+{id:'CIP-0113', title:'Further Asset Management — SV Admission', author:'Yiannis Varelas', date:'2026-04-01', status:'Approved', track:'SV Admission', weight:8, desc:'Further Asset Management admitted at max weight 8.0 as GCC regional coordinator, bringing institutional capital and regulated settlement via four portfolio companies (BridgePort, Pave Bank, Kaio, Fuze). Includes perpetual sustainment requirements and pro-rata attribution safeguards. 8.0 in escrow via Five-North. Approved 2026-04-01.', commitments:['8.0 in escrow via Five-North node','GCC regional coordination','Four portfolio company integrations','Pro-rata attribution anti-double-counting']},
+{id:'CIP-0114', title:'Digital Asset Treasury (DAT) SV Program', author:'Mark Wendland / Community', date:'2026-04-16', status:'Approved', track:'Tokenomics', weight:20, desc:'Time-limited programme fostering Digital Asset Treasury companies that accumulate and hold CC while providing investor exposure. DATs with $100M+ AUM earn validator rewards via quarterly evaluations, with weight allocated to a ghost SV and released over one year if holdings remain stable. Capped at 20 total weight across the programme. Canton Strategic Holdings (ex-Tharimmune) is the first participant at 15.0. Approved 2026-04-16.', commitments:['20 total weight programme cap','$100M+ AUM eligibility bar','Quarterly evaluations, 1-year gradual release','First DAT: Canton Strategic Holdings (15.0)']},
+{id:'CIP-0115', title:'Société Générale — SV Admission', author:'Salim Nemouchi', date:'2026-04-27', status:'Approved', track:'SV Admission', weight:8, desc:'Société Générale — the first prime broker to accept on-chain assets and on-chain cash as eligible collateral — admitted at max weight 8, earned across five deliverables: tokenised collateral acceptance, repo with tokenised treasuries, native EURCV/USDCV stablecoin deployment, and adoption volume thresholds with 9–15 month deadlines. Approved 2026-04-27.', commitments:['8.0 in escrow — five deliverables','Tokenised assets as collateral','Native EURCV / USDCV on Canton','Repo with tokenised treasuries']},
+{id:'CIP-0116', title:'Featured App Staking', author:'Eric Saraniecki', date:'2026-01-21', status:'Proposed', track:'Tokenomics', weight:null, desc:'Proposes CC locking requirements for Featured App designation — market-based rather than pure Foundation governance. Three stages: 25M CC per PartyId immediately (SVs may reuse SV-locked funds), tiered 1–5M CC thresholds post-CIP-0104, and sunset of SV lock reuse 90 days after CIP-0104 activation. Still Proposed as of Aug 2026.', commitments:['25M CC per PartyId initial threshold','Tiered 1–5M CC thresholds post-CIP-0104','SV lock reuse sunset','Loss-of-privilege escalation']},
+{id:'CIP-0117', title:'Logical Synchronizers', author:'Wayne Collier / Moritz Kiefer / Rafael Guglielmetti', date:'2026-06-05', status:'Approved', track:'Standards', weight:null, desc:'Introduces Logical Synchronizers — an abstraction letting validators keep synchronizer connections through protocol upgrades. Logical Synchronizer Upgrades (LSUs) deploy successor nodes alongside existing ones with second-to-minute switchover, replacing multi-hour coordinated halts. First LSU scheduled: Protocol Version 34 → 35. Approved 2026-06-05.', commitments:['LSU upgrades without network halts','Seconds-to-minutes switchover','First LSU: PV 34 → 35','Preserves validator history']},
+{id:'CIP-0118', title:'Franklin Templeton — SV Admission', author:'Sandy Kaul', date:'2026-06-10', status:'Approved', track:'SV Admission', weight:5, desc:'Franklin Templeton — with a tokenised fund already deployed on Canton — admitted at max weight 5. Milestones focus on on-chain treasury management, 24x7 create/redeem backed by on-chain cash delivery, and measurable production adoption volume. 5.0 in escrow via GSF node. Approved 2026-06-10.', commitments:['5.0 in escrow — milestone-based','24x7 create/redeem with on-chain cash','Production treasury adoption volume']},
+{id:'CIP-0119', title:'Free CC Transfer-Preapproval Base Duration', author:'Moritz Kiefer / Simon Meier', date:'2026-06-15', status:'Approved', track:'Tokenomics', weight:null, desc:'Establishes a complimentary 90-day base duration for transfer preapprovals, letting exchanges enable CC transfers to preapproved parties without fees beyond traffic costs. Fees still apply for durations beyond the base period. Solves an exchange-onboarding bootstrapping problem post-listing. Approved 2026-06-15.', commitments:['90-day free preapproval base duration','Exchange onboarding enablement','Backwards compatible']},
 ];
-
 
 // ═══════════════════════════════════════════════════════════════
 // MILESTONE DATA  (outcome-linked SVs only)
 // ═══════════════════════════════════════════════════════════════
 const MILESTONES = [
+  { entity:'Visa', cip:'CIP-0109', weight:10, active:0, escrow:10,
+    milestones:[
+      {done:false, label:'Confidential deliverables — tranche 1', detail:'Reviewed by the Accountability Committee'},
+      {done:false, label:'Confidential deliverables — tranche 2', detail:'Payments-network integration workstream'},
+      {done:false, label:'SV governance vote on escrow release', detail:'Weight released by SV operator vote'},
+      {done:false, label:'Full weight unlock — 10.0 active', detail:'All committee-verified milestones met'},
+    ]},
+  { entity:'Canton Strategic Holdings', cip:'CIP-0102 / 0114', weight:15, active:0.5, escrow:14.5,
+    milestones:[
+      {done:true,  label:'0.5 active weight earned', detail:'First DAT-programme participant (ex-Tharimmune)'},
+      {done:true,  label:'$545M private placement complete', detail:'Capital raise for CC treasury acquisition'},
+      {done:false, label:'Quarterly DAT evaluations', detail:'CIP-0114: holdings stability over 1 year'},
+      {done:false, label:'14.5 escrow released', detail:'Gradual release under DAT programme rules'},
+    ]},
   { entity:'USDT0 (Everdawn)', cip:'CIP-0090', weight:10, active:0, escrow:10,
     milestones:[
       {done:false, label:'Deploy USDT0 on Canton mainnet', detail:'Full deployment of omnichain USDT infrastructure'},
       {done:false, label:'$100M TVL milestone', detail:'First TVL checkpoint'},
       {done:false, label:'$500M+ TVL milestone', detail:'Full weight unlock trigger'},
       {done:false, label:'Demonstrate cross-chain USDT flows', detail:'LayerZero interoperability live'},
-    ]},
-  { entity:'Zero Hash', cip:'CIP-0060 / 0099', weight:7.5, active:3.0, escrow:4.5,
-    milestones:[
-      {done:true,  label:'Node live — 3.0 active weight earned', detail:'zerohash-validator-1 operational'},
-      {done:false, label:'On/off-ramp volume milestone 1', detail:'Monthly CC volume threshold'},
-      {done:false, label:'On/off-ramp volume milestone 2', detail:'Higher volume threshold'},
-      {done:false, label:'4.5 escrow fully unlocked', detail:'All outcome milestones met'},
     ]},
   { entity:'DTCC', cip:'CIP-0083', weight:10, active:0, escrow:10,
     milestones:[
@@ -543,6 +579,55 @@ const MILESTONES = [
       {done:false, label:'Regulated tokenisation pilot', detail:'Tokenised equity or debt instrument on Canton'},
       {done:false, label:'Full weight unlock — 10.0 active', detail:'Milestone committee verification'},
     ]},
+  { entity:'Zenith', cip:'CIP-0091', weight:10, active:1, escrow:9,
+    milestones:[
+      {done:true,  label:'1.0 active weight earned', detail:'Zenith-validator-1 operational'},
+      {done:false, label:'Infrastructure services rollout', detail:'Ecosystem services for institutional SVs'},
+      {done:false, label:'European institutional adoption', detail:'EU client onboarding milestones'},
+      {done:false, label:'9.0 escrow unlocked', detail:'Remaining outcome milestones met'},
+    ]},
+  { entity:'Société Générale', cip:'CIP-0115', weight:8, active:0, escrow:8,
+    milestones:[
+      {done:false, label:'Tokenised assets accepted as collateral', detail:'Prime brokerage collateral workflow live'},
+      {done:false, label:'Repo with tokenised treasuries', detail:'Executed repo transactions on Canton'},
+      {done:false, label:'EURCV / USDCV deployed natively', detail:'SG-Forge stablecoins on Canton'},
+      {done:false, label:'Adoption volume thresholds', detail:'9–15 month deadlines from approval'},
+    ]},
+  { entity:'Further AM', cip:'CIP-0113', weight:8, active:0, escrow:8,
+    milestones:[
+      {done:false, label:'GCC regional coordination live', detail:'Regulated settlement in the Gulf region'},
+      {done:false, label:'BridgePort + Pave Bank integration', detail:'First two portfolio companies on Canton'},
+      {done:false, label:'Kaio + Fuze integration', detail:'Remaining portfolio companies on Canton'},
+      {done:false, label:'8.0 escrow unlocked', detail:'Sustained activity requirements met'},
+    ]},
+  { entity:'Apollo', cip:'CIP-0110', weight:7, active:0, escrow:7,
+    milestones:[
+      {done:false, label:'Alt-asset tokenisation workstream', detail:'Tokenised RWA deliverables ($938B AUM manager)'},
+      {done:false, label:'Collateral integration', detail:'Canton collateral workflows for Apollo funds'},
+      {done:false, label:'Committee verification', detail:'Confidential milestones — Accountability Committee'},
+      {done:false, label:'7.0 escrow unlocked', detail:'Performance-based release'},
+    ]},
+  { entity:'Zero Hash', cip:'CIP-0060 / 0099', weight:7.5, active:3.5, escrow:4.0,
+    milestones:[
+      {done:true,  label:'Node live — 3.0 active weight earned', detail:'zerohash-validator-1 operational'},
+      {done:true,  label:'On/off-ramp volume milestone 1', detail:'+0.5 activated (3.5 total active)'},
+      {done:false, label:'On/off-ramp volume milestone 2', detail:'Higher volume threshold'},
+      {done:false, label:'4.0 escrow fully unlocked', detail:'All outcome milestones met'},
+    ]},
+  { entity:'QCP Group', cip:'CIP-0106', weight:5, active:1, escrow:4,
+    milestones:[
+      {done:true,  label:'1.0 active weight earned', detail:'qcp-vault-001 operational via Five-North'},
+      {done:false, label:'Institutional collateral workflows', detail:'Derivatives collateral on Canton'},
+      {done:false, label:'Tokenised MMF onboarding', detail:'RWA infrastructure milestones'},
+      {done:false, label:'4.0 escrow unlocked', detail:'Sustained CC burn requirements met'},
+    ]},
+  { entity:'Franklin Templeton', cip:'CIP-0118', weight:5, active:0, escrow:5,
+    milestones:[
+      {done:true,  label:'Tokenised fund deployed on Canton', detail:'Pre-existing deployment (pre-CIP)'},
+      {done:false, label:'On-chain treasury management', detail:'Expanded treasury capabilities'},
+      {done:false, label:'24x7 create/redeem live', detail:'Backed by on-chain cash delivery'},
+      {done:false, label:'5.0 escrow unlocked', detail:'Production adoption volume milestones'},
+    ]},
   { entity:'Ledger', cip:'CIP-0069', weight:5, active:2, escrow:3,
     milestones:[
       {done:true,  label:'2.0 active weight earned', detail:'ledger-ledgerops-2 operational'},
@@ -557,19 +642,19 @@ const MILESTONES = [
       {done:false, label:'≥3 institutional clients onboarded', detail:'Live Canton usage through Taurus'},
       {done:false, label:'2.0 escrow unlocked', detail:'Client and integration milestones met'},
     ]},
-  { entity:'Fireblocks', cip:'CIP-0072', weight:5, active:2.08, escrow:1.92,
+  { entity:'Fireblocks', cip:'CIP-0072', weight:5, active:2.58, escrow:2.42,
     milestones:[
-      {done:true,  label:'2.08 active weight earned', detail:'fb-linkprd-1 operational'},
+      {done:true,  label:'2.58 active weight earned', detail:'fb-linkprd-1 — up from 2.08 in Feb 2026'},
       {done:false, label:'Canton Token Standard in Fireblocks Workspace', detail:'CIP-0056 integration'},
       {done:false, label:'Institutional client onboarding', detail:'Fireblocks clients using Canton'},
-      {done:false, label:'0.92 ceiling reached', detail:'Full CIP-0072 authorisation deployed'},
+      {done:false, label:'2.42 remaining deployed', detail:'Full CIP-0072 authorisation (GhostSV residual)'},
     ]},
-  { entity:'BitGo', cip:'CIP-0074', weight:5, active:0, escrow:5,
+  { entity:'BitGo', cip:'CIP-0074', weight:5, active:2.87, escrow:2.13,
     milestones:[
-      {done:false, label:'BitGo node setup', detail:'BitGo-ghost-1 → operational node'},
-      {done:false, label:'CIP-0056 integration', detail:'Token standard in BitGo platform'},
-      {done:false, label:'Institutional client onboarding (180 days)', detail:'At least 3 institutions using Canton via BitGo'},
-      {done:false, label:'5.0 escrow unlocked', detail:'All 180-day milestones met'},
+      {done:true,  label:'BitGo node live — 2.87 active', detail:'Bitgo-mainnetValidator-1 (was 100% escrow in Feb)'},
+      {done:true,  label:'CIP-0056 integration', detail:'Token standard in BitGo platform'},
+      {done:false, label:'Institutional client onboarding', detail:'Remaining 180-day milestones'},
+      {done:false, label:'2.0 escrow + 0.13 residual unlocked', detail:'All milestones met'},
     ]},
   { entity:'Blockdaemon', cip:'CIP-0094', weight:5, active:0, escrow:5,
     milestones:[
@@ -578,12 +663,6 @@ const MILESTONES = [
       {done:false, label:'Enterprise client activation', detail:'Blockdaemon enterprise clients using Canton'},
       {done:false, label:'5.0 escrow unlocked', detail:'Infrastructure + client milestones met'},
     ]},
-  { entity:'Hex Trust', cip:'CIP-0087', weight:3, active:0, escrow:3,
-    milestones:[
-      {done:false, label:'Token standard integration (CIP-0056)', detail:'Canton token custody via Hex Trust'},
-      {done:false, label:'Asia institutional client onboarding', detail:'HK / Singapore clients using Canton'},
-      {done:false, label:'3.0 escrow unlocked', detail:'Integration + client milestones met'},
-    ]},
   { entity:'Zodia Custody', cip:'CIP-0075', weight:5, active:0, escrow:5,
     milestones:[
       {done:false, label:'Canton Coin qualified custody', detail:'Regulated custody framework for CC'},
@@ -591,12 +670,19 @@ const MILESTONES = [
       {done:false, label:'Northern Trust integration', detail:'Northern Trust client onboarding'},
       {done:false, label:'5.0 escrow unlocked', detail:'Custody + client milestones met'},
     ]},
-  { entity:'Tharimmune', cip:'CIP-0102', weight:8, active:0, escrow:8,
+  { entity:'ChainSafe', cip:'CIP-0086', weight:3.95, active:1.95, escrow:2,
     milestones:[
-      {done:false, label:'$545M private placement complete', detail:'Capital raise for CC treasury acquisition'},
-      {done:false, label:'CC acquisition programme', detail:'On-market or OTC CC purchase'},
-      {done:false, label:'Public-company treasury disclosure', detail:'SEC filing / investor reporting on CC holdings'},
-      {done:false, label:'8.0 weight unlock', detail:'Acquisition and disclosure milestones met'},
+      {done:true,  label:'1.95 active weight earned', detail:'chainsafe-sv-0 — ERC-20 middleware delivery'},
+      {done:false, label:'Distributed indexer production', detail:'CIP-0086 indexer at scale'},
+      {done:false, label:'EVM tooling compatibility complete', detail:'CIP-0056 assets from Ethereum tooling'},
+      {done:false, label:'2.0 escrow unlocked', detail:'Implementation milestones met'},
+    ]},
+  { entity:'Hex Trust', cip:'CIP-0087', weight:3, active:1, escrow:2,
+    milestones:[
+      {done:true,  label:'1.0 active weight earned', detail:'HexTrust-SVrewards-1 (was 100% escrow in Feb)'},
+      {done:false, label:'Token standard integration (CIP-0056)', detail:'Canton token custody via Hex Trust'},
+      {done:false, label:'Asia institutional client onboarding', detail:'HK / Singapore clients using Canton'},
+      {done:false, label:'2.0 escrow unlocked', detail:'Integration + client milestones met'},
     ]},
 ];
 
@@ -604,7 +690,6 @@ const MILESTONES = [
 // HEADER STATS
 // ═══════════════════════════════════════════════════════════════
 const statusCount = CIPS.reduce((a,c)=>{ a[c.status]=(a[c.status]||0)+1; return a; }, {});
-document.getElementById('hs-total').textContent    = CIPS.length;
 document.getElementById('hs-final').textContent    = statusCount['Final']    || 0;
 document.getElementById('hs-approved').textContent = statusCount['Approved'] || 0;
 document.getElementById('hs-active').textContent   = (statusCount['Active']||0)+(statusCount['Founding']||0);
@@ -629,7 +714,7 @@ window.sortBy = sortBy;
 function trackColor(t) {
   return {
     'SV Admission':'tr-SV','Tokenomics':'tr-Tokenomics','Governance':'tr-Governance',
-    'Standards':'tr-Standards','Infrastructure':'tr-Infrastructure'
+    'Standards':'tr-Standards','Infrastructure':'tr-Infrastructure','Process':'tr-Process'
   }[t] || '';
 }
 
@@ -659,11 +744,11 @@ function renderBrowser() {
     const isExp = expandedId === c.id;
     return `
     <tr class="${isExp?'expanded':''}" onclick="toggleRow('${c.id}')">
-      <td><a href="https://github.com/canton-foundation/cips/blob/main/${c.id.toLowerCase()}/${c.id.toLowerCase()}.md" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="text-decoration:none"><span class="cip-id" style="cursor:pointer;border-bottom:1px dotted rgba(200,153,42,0.4);transition:border-color .15s;" onmouseover="this.style.borderBottomColor='rgba(200,153,42,0.9)'" onmouseout="this.style.borderBottomColor='rgba(200,153,42,0.4)'">${c.id} ↗</span></a></td>
+      <td><span class="cip-id">${c.id}</span></td>
       <td><span class="cip-title">${c.title.replace(' (Withdrawn)','').replace(' (Rejected)','')}</span></td>
       <td><span class="track-pill ${trackColor(c.track)}">${c.track}</span></td>
       <td><span class="cip-author">${c.author}</span></td>
-      <td><span class="date-cell">${c.date.substring(0,7)}</span></td>
+      <td><span class="date-cell">${c.date?c.date.substring(0,7):'—'}</span></td>
       <td><span class="st-pill st-${c.status}">${c.status}</span></td>
       <td>${wCell}</td>
     </tr>
@@ -671,7 +756,6 @@ function renderBrowser() {
       <div class="expand-inner">
         <div class="ei-block"><h4>Summary</h4><p>${c.desc}</p></div>
         <div class="ei-block"><h4>Commitments</h4><ul>${c.commitments.map(x=>`<li>${x}</li>`).join('')}</ul></div>
-        <div class="ei-block" style="display:flex;align-items:flex-end"><a href="https://github.com/canton-foundation/cips/blob/main/${c.id.toLowerCase()}/${c.id.toLowerCase()}.md" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="font-family:'Courier New', Courier, monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#609CBF;text-decoration:none;padding:4px 10px;border:1px solid rgba(200,153,42,0.35);border-radius:3px;" onmouseover="this.style.background='rgba(200,153,42,0.08)'" onmouseout="this.style.background='transparent'">View on GitHub ↗</a></div>
       </div>
     </td></tr>`;
   }).join('');
@@ -686,6 +770,18 @@ window.toggleRow = function(id) {
   document.getElementById(id).addEventListener('input', renderBrowser)
 );
 
+// Populate the author filter from data so it never drifts out of sync
+(function populateAuthors(){
+  try {
+    const names = new Set();
+    CIPS.forEach(c => String(c.author||'').split(/,|\//).forEach(a => { a=a.trim(); if(a) names.add(a); }));
+    const sel = document.getElementById('f-author');
+    if (sel) {
+      sel.innerHTML = '<option value="">All Authors</option>' +
+        [...names].sort((a,b)=>a.localeCompare(b)).map(n=>`<option>${n}</option>`).join('');
+    }
+  } catch(e) { /* keep static fallback options on error */ }
+})();
 renderBrowser();
 
 // ═══════════════════════════════════════════════════════════════
@@ -755,12 +851,12 @@ function renderGovernance() {
   });
   const authorsSorted = Object.entries(authorMap).sort((a,b)=>b[1]-a[1]);
   const maxAuthor = authorsSorted[0][1];
-  const AUTHOR_COLORS = ['#609CBF','#558FB3','#558FB3','#B1DB31','#71A9C7','#D070C0','#71A9C7','#7a8aa8'];
+  const AUTHOR_COLORS = ['#406E90','#325170','#558FB3','#5f7d00','#8B007E','#05365C','#609CBF','#939597'];
   document.getElementById('author-bars').innerHTML = authorsSorted.map(([name, n], i) => `
     <div class="auth-row">
       <div class="auth-name">${name}</div>
       <div class="auth-bar-wrap">
-        <div class="auth-bar" style="width:${n/maxAuthor*100}%;background:${AUTHOR_COLORS[i]||'#4e5a72'}"></div>
+        <div class="auth-bar" style="width:${n/maxAuthor*100}%;background:${AUTHOR_COLORS[i]||'#939597'}"></div>
       </div>
       <div class="auth-count">${n}</div>
     </div>`).join('');
@@ -770,19 +866,19 @@ function renderGovernance() {
   CIPS.forEach(c => { trackMap[c.track]=(trackMap[c.track]||0)+1; });
   const tracksSorted = Object.entries(trackMap).sort((a,b)=>b[1]-a[1]);
   const maxTrack = tracksSorted[0][1];
-  const TRACK_COLORS = {'SV Admission':'#71A9C7','Tokenomics':'#B1DB31','Governance':'#609CBF','Standards':'#71A9C7','Infrastructure':'#7a8aa8'};
+  const TRACK_COLORS = {'SV Admission':'#406E90','Tokenomics':'#7a9a00','Governance':'#C4BE00','Standards':'#8B007E','Infrastructure':'#939597','Process':'#05365C'};
   document.getElementById('track-bars').innerHTML = tracksSorted.map(([t, n]) => `
     <div class="track-row">
       <div class="track-label">${t}</div>
       <div class="track-bar-wrap">
-        <div class="track-bar" style="width:${n/maxTrack*100}%;background:${TRACK_COLORS[t]||'#4e5a72'}"></div>
+        <div class="track-bar" style="width:${n/maxTrack*100}%;background:${TRACK_COLORS[t]||'#939597'}"></div>
       </div>
       <div class="track-count">${n}</div>
     </div>`).join('');
 
   // Donut
-  const DONUT_COLORS = { Final:'#B1DB31', Approved:'#71A9C7', Active:'#609CBF', Founding:'#609CBF', Withdrawn:'#7a8aa8', Rejected:'#D52F41' };
-  const statusOrder = ['Final','Approved','Active','Withdrawn','Rejected'];
+  const DONUT_COLORS = { Final:'#7a9a00', Approved:'#406E90', Active:'#325170', Founding:'#325170', Proposed:'#C4BE00', Replaced:'#B3B5B7', Obsolete:'#D7D9DB', Withdrawn:'#939597', Rejected:'#D52F41' };
+  const statusOrder = ['Final','Approved','Active','Proposed','Replaced','Obsolete','Withdrawn','Rejected'];
   const total = CIPS.length;
   let startAngle = -Math.PI/2;
   const cx=55, cy=55, r=40, ir=24;
@@ -810,13 +906,14 @@ function renderGovernance() {
   // Quarter bars
   const qMap = {};
   CIPS.forEach(c => {
-    const d = new Date(c.date);
-    const q = `${d.getFullYear()} Q${Math.ceil((d.getMonth()+1)/3)}`;
+    let q;
+    if (!c.date) { q = 'Undated'; }
+    else { const d = new Date(c.date); q = `${d.getFullYear()} Q${Math.ceil((d.getMonth()+1)/3)}`; }
     qMap[q] = (qMap[q]||0)+1;
   });
-  const quarters = Object.keys(qMap).sort();
+  const quarters = Object.keys(qMap).sort((a,b) => a==='Undated'?1 : b==='Undated'?-1 : a.localeCompare(b));
   const maxQ = Math.max(...Object.values(qMap));
-  const Q_COLORS = ['#B1DB31','#71A9C7','#609CBF','#71A9C7','#D070C0','#7a8aa8','#B1DB31','#71A9C7','#609CBF'];
+  const Q_COLORS = ['#406E90','#558FB3','#5f7d00','#8B007E','#05365C','#609CBF','#325170','#71A9C7','#406E90'];
   document.getElementById('quarter-bars').innerHTML = `<div class="cip-timeline-bar">` +
     quarters.map((q, i) => `
     <div class="ctb-row">
@@ -846,7 +943,7 @@ function renderGovernance() {
   // Gaps
   const known = new Set(CIPS.map(c=>parseInt(c.id.replace('CIP-',''))));
   const gaps = [];
-  for(let i=1; i<=103; i++) { if(!known.has(i)) gaps.push(i); }
+  const maxN=Math.max(...known); for(let i=1; i<=maxN; i++) { if(!known.has(i)) gaps.push(i); }
   const gapRanges = [];
   let start=null, prev=null;
   gaps.forEach(n => {
@@ -867,37 +964,41 @@ function renderIntelligence() {
   const escrowed = CIPS.filter(c=>c.track==='SV Admission'&&c.status==='Approved'&&c.weight).reduce((a,c)=>a+c.weight,0);
 
   const cards = [
-    { col:'amber', tag:'Author Concentration', title:'Eric Saraniecki Authors 61% of All CIPs',
-      body:`Of 94 CIPs with a named author, <strong>Saraniecki authored 57</strong> — 61%. He is the sole or co-author of virtually every SV admission and tokenomics CIP. The small set of independent authors — <span class="cip-ref">Moritz Kiefer</span> (infrastructure), <span class="cip-ref">Wayne Collier</span> (pricing), <span class="cip-ref">Itai Segall</span> (growth), <span class="cip-ref">Chris Zuehlke</span> (C7 admission) — represent specific technical or commercial domains. SV applicants self-authoring their own CIPs (Kaiko's Soubiran, Chainlink's Karakostas, Hex Trust's Pellizzari/Quaglini, Talos's Katz) is a recent and growing trend.`,
-      stat:[{n:'61%',l:'Saraniecki authored'},{n:'6',l:'Independent authors'},{n:'4',l:'Self-authored SV CIPs'}] },
+    { col:'red', tag:'On-Chain Vote Intelligence', title:'547 SV Vote Requests — and One Failed Offboarding',
+      body:`Lighthouse on-chain data shows <strong>547 governance vote requests</strong> (493 executed, 40 rejected, 10 expired, 6,425 individual SV votes). The headline: a vote to <strong>offboard Tradeweb-Markets-1</strong> — citing a CometBFT node causing elevated latency and failure rates — expired without quorum on 30 Jun 2026, weeks after Tradeweb's weight was cut 10 → 6 under <span class="cip-ref">CIP-0105</span> locking review (23 Apr) and restored (21 May). Woodside AI and Monstera were removed by executed vote on 7 May under <span class="cip-ref">CIP-0111</span>. Featured-app governance dominates routine volume: 259 grants and 138 revocations, with 119 apps currently featured.`,
+      stat:[{n:'547',l:'Vote requests'},{n:'40 / 10',l:'Rejected / expired'},{n:'119',l:'Featured apps live'}] },
+
+    { col:'amber', tag:'Author Concentration', title:'Eric Saraniecki Authors 56% of All CIPs',
+      body:`Across all 110 CIPs, <strong>Saraniecki is sole or co-author of 61</strong> — 56%. He authors virtually every SV admission and most tokenomics CIPs. Other named authors cluster by domain: <span class="cip-ref">Moritz Kiefer</span> (infrastructure &amp; standards), <span class="cip-ref">Wayne Collier</span> (pricing, process &amp; launch refinements), <span class="cip-ref">Chris Zuehlke</span> (reward caps &amp; committees), <span class="cip-ref">Simon Meier</span> (token standard &amp; fees), <span class="cip-ref">Itai Segall</span> (governance streamlining). SV applicants increasingly self-author their own admission CIPs (Kaiko's Soubiran, Chainlink's Karakostas, Hex Trust's Pellizzari/Quaglini, Talos's Katz, Apollo/QCP/FAM's Varelas, Mesh's McCrum) — a growing trend.`,
+      stat:[{n:'56%',l:'Saraniecki authored'},{n:'44',l:'Other named authors'},{n:'18',l:'Self-authored SV CIPs'}] },
 
     { col:'blue', tag:'Escrow Overhang', title:'$545M+ in Governance Weight Locked in Escrow',
       body:`Of the ${Math.round(svWeight)} total authorised weight across all SV CIPs, approximately <strong>${Math.round(escrowed)} points remain in escrow</strong> pending milestone delivery. DTCC (10), Nasdaq (10), USDT0 (10), BitGo (5), Zodia (5) account for the largest single escrow positions. When these unlock, they will materially shift governance concentration — DTCC and Nasdaq together would represent ~14% of total weight.`,
-      stat:[{n:Math.round(escrowed),l:'Weight in escrow'},{n:'5',l:'Major escrow SVs'},{n:'~14%',l:'DTCC+Nasdaq share at unlock'}] },
+      stat:[{n:Math.round(escrowed),l:'Weight in escrow'},{n:'9',l:'Major escrow SVs (5+)'},{n:'~161',l:'Total weight in escrow'}] },
 
-    { col:'green', tag:'Tokenomics Arc', title:'Four Distinct Economic Phases in 19 Months',
-      body:`Canton's monetary policy evolved through four phases: <strong>Phase 1 (Launch, Jul 2024)</strong> — static weights, admin pricing. <strong>Phase 2 (Dynamic, Sep 2024)</strong> — earned weight via <span class="cip-ref">CIP-0007</span>, dynamic governance. <strong>Phase 3 (Market-ready, Jan–Aug 2025)</strong> — stable pricing <span class="cip-ref">CIP-0042</span>, fee elimination <span class="cip-ref">CIP-0078</span>, unclaimed pool release <span class="cip-ref">CIP-0066/0067</span>, token standard <span class="cip-ref">CIP-0056</span>. <strong>Phase 4 (Post-halving, Jan 2026)</strong> — oracle pricing <span class="cip-ref">CIP-0092</span>, liveness sub-pool <span class="cip-ref">CIP-0096</span>, $1.50/tx cap <span class="cip-ref">CIP-0098</span>, 5% dev fund <span class="cip-ref">CIP-0082</span>.`,
-      stat:[{n:'4',l:'Economic phases'},{n:'19',l:'Months of evolution'},{n:'22',l:'Tokenomics CIPs'}] },
+    { col:'green', tag:'Tokenomics Arc', title:'Five Distinct Economic Phases in 25 Months',
+      body:`Canton's monetary policy evolved through four phases: <strong>Phase 1 (Launch, Jul 2024)</strong> — static weights, admin pricing. <strong>Phase 2 (Dynamic, Sep 2024)</strong> — earned weight via <span class="cip-ref">CIP-0007</span>, dynamic governance. <strong>Phase 3 (Market-ready, Jan–Aug 2025)</strong> — stable pricing <span class="cip-ref">CIP-0042</span>, fee elimination <span class="cip-ref">CIP-0078</span>, unclaimed pool release <span class="cip-ref">CIP-0066/0067</span>, token standard <span class="cip-ref">CIP-0056</span>. <strong>Phase 4 (Post-halving, Jan 2026)</strong> — oracle pricing <span class="cip-ref">CIP-0092</span>, liveness sub-pool <span class="cip-ref">CIP-0096</span>, $1.50/tx cap <span class="cip-ref">CIP-0098</span>, 5% dev fund <span class="cip-ref">CIP-0082</span>. <strong>Phase 5 (Listed & locked, Mar–Aug 2026)</strong> — CC publicly listed with live oracle pricing, SV locking framework <span class="cip-ref">CIP-0105</span>, traffic-based rewards rollout <span class="cip-ref">CIP-0104</span>, weight-reduction enforcement <span class="cip-ref">CIP-0111</span>, free transfer-preapprovals <span class="cip-ref">CIP-0119</span>, DAT programme <span class="cip-ref">CIP-0114</span>.`,
+      stat:[{n:'5',l:'Economic phases'},{n:'25',l:'Months of evolution'},{n:'24',l:'Tokenomics CIPs'}] },
 
-    { col:'pink', tag:'Outcome-Linked Intelligence', title:'12 SVs Have Explicit Milestone Contracts',
-      body:`Starting with Zero Hash (<span class="cip-ref">CIP-0060/0099</span>), Canton shifted from weight-for-participation to weight-for-delivery. <strong>12 SVs now have milestone-linked escrow</strong> with specific triggers: TVL targets (USDT0), institutional client counts (Taurus, Zodia, Hex Trust), platform integrations (Ledger, BitGo, Fireblocks), and SEC-reportable treasury activity (Tharimmune). This converts SV commitments from aspirational to contractual — a fundamental governance maturation.`,
-      stat:[{n:'12',l:'Outcome-linked SVs'},{n:'43',l:'Total milestones tracked'},{n:'5',l:'Milestones completed'}] },
+    { col:'pink', tag:'Outcome-Linked Intelligence', title:'20 SVs Have Explicit Milestone Contracts',
+      body:`Starting with Zero Hash (<span class="cip-ref">CIP-0060/0099</span>), Canton shifted from weight-for-participation to weight-for-delivery. <strong>20 SVs now have milestone-linked escrow</strong> with specific triggers: TVL targets (USDT0), institutional client counts (Taurus, Zodia, Hex Trust), platform integrations (Ledger, BitGo, Fireblocks), SEC-reportable treasury activity (Canton Strategic Holdings), and confidential Accountability-Committee deliverables for the 2026 institutional wave (Visa, Apollo, Société Générale, Franklin Templeton). This converts SV commitments from aspirational to contractual — a fundamental governance maturation.`,
+      stat:[{n:'20',l:'Outcome-linked SVs'},{n:'80',l:'Total milestones tracked'},{n:'14',l:'Milestones completed'}] },
 
     { col:'purple', tag:'Interoperability Strategy', title:'A Deliberate Multi-Chain Bridge Architecture',
       body:`Three CIPs tell the full cross-chain story: <span class="cip-ref">CIP-0065</span> brought Chainlink (CCIP), LayerZero, and Wormhole together as SVs — all three bridge protocols in one CIP. <span class="cip-ref">CIP-0086</span> (ERC-20 Middleware + Distributed Indexer) creates EVM compatibility for CIP-0056 tokens. <span class="cip-ref">CIP-0090</span> brings USDT0 (LayerZero-native) as an SV. The pattern: <strong>protocol-layer SVs before application-layer interop</strong> — get the infrastructure entities in first, then build the connectivity.`,
       stat:[{n:'3',l:'Bridge protocols as SVs'},{n:'CIP-0086',l:'EVM compatibility'},{n:'CIP-0103',l:'dApp Standard next'}] },
 
-    { col:'red', tag:'Governance Signal — Withdrawals', title:'Two Withdrawn CIPs Reveal Governance Debates',
-      body:`<span class="cip-ref">CIP-0023</span> (SV Operations Committee, Nov 2024) proposed a standing committee for routine technical decisions. It was withdrawn because the scope conflicted with FAV-C and the Tokenomics Committee — showing the governance architecture wasn't yet settled at that stage. <span class="cip-ref">CIP-0050</span> (Controlled Validator Growth, Itai Segall, Mar 2025) proposed rate-limiting new validators. <strong>Its withdrawal signals network consensus that earned-weight mechanics (CIP-0007) are sufficient self-regulation</strong> — no artificial caps needed.`,
-      stat:[{n:'2',l:'Withdrawn CIPs'},{n:'1',l:'Rejected SV'},{n:'0',l:'Failed SV from TradFi'}] },
+    { col:'red', tag:'Governance Signal — Withdrawals', title:'Withdrawn CIPs Reveal Governance Debates',
+      body:`<span class="cip-ref">CIP-0023</span> (SV Operations Committee, Nov 2024) proposed a standing committee for routine technical decisions. It was withdrawn because the scope conflicted with FAV-C and the Tokenomics Committee — showing the governance architecture wasn't yet settled at that stage. <span class="cip-ref">CIP-0050</span> (Controlled Validator Growth, Wayne Collier, Mar 2025) proposed rate-limiting new validators. <strong>Its withdrawal signals network consensus that earned-weight mechanics (CIP-0007) are sufficient self-regulation</strong> — no artificial caps needed.`,
+      stat:[{n:'5',l:'Withdrawn CIPs'},{n:'1',l:'Rejected SV'},{n:'0',l:'Failed SV from TradFi'}] },
 
     { col:'amber', tag:'Institutional Onboarding Timeline', title:'TradFi Adoption Followed a Clear Sequencing Logic',
       body:`The SV admission timeline reveals deliberate sequencing: <strong>Jul 2024</strong> — infrastructure providers (Digital Asset, Broadridge, Tradeweb, C7). <strong>Early 2025</strong> — custody (Copper, Dfns, MPCH) and payment rails (Circle). <strong>Mid 2025</strong> — data/oracle (Chainlink, Kaiko), more custody (Ledger, Taurus, Fireblocks). <strong>Late 2025 / 2026</strong> — FMI giants (DTCC, Nasdaq) and treasury adopters (Tharimmune). <strong>The sequencing mirrors TradFi infrastructure logic</strong>: settle the plumbing first, then the custodians, then the markets, then the FMIs.`,
-      stat:[{n:'Jul 2024',l:'First SVs'},{n:'27',l:'Current SV entities'},{n:'DTCC/Nasdaq',l:'Latest strategic additions'}] },
+      stat:[{n:'Jul 2024',l:'First SVs'},{n:'60+',l:'Current SV entities'},{n:'Visa/Apollo/SocGen/FT',l:'2026 strategic additions'}] },
 
     { col:'green', tag:'Numbering Gaps as Intelligence', title:'CIP-0026–0031 Suggest a Batch Consolidation',
-      body:`Six consecutive CIP numbers (26–31) are absent from the repository. Isolated gaps (CIP-0005, CIP-0010–0014) likely reflect reserved or draft numbering. But a run of six consecutive gaps suggests a <strong>batch of proposals that were consolidated, embargoed, or withdrawn before publication</strong>. Given the timing (late 2024), these may have been early-draft SV admissions that were either folded into other CIPs or abandoned before the formal process was established. CIP-0088 and CIP-0101 are single-gap anomalies — likely numbering skips.`,
-      stat:[{n:'12',l:'Total gaps in sequence'},{n:'CIP-0026–31',l:'Largest gap block'},{n:'Unknown',l:'Reason for gaps'}] },
+      body:`Ten numbers are absent from the registry as of Aug 2026: CIP-0005, CIP-0022, the CIP-0026–0031 block, CIP-0088 and CIP-0101. But a run of six consecutive gaps suggests a <strong>batch of proposals that were consolidated, embargoed, or withdrawn before publication</strong>. Given the timing (late 2024), these may have been early-draft SV admissions that were either folded into other CIPs or abandoned before the formal process was established. CIP-0088 and CIP-0101 are single-gap anomalies — likely numbering skips.`,
+      stat:[{n:'10',l:'Total gaps in sequence'},{n:'CIP-0026–31',l:'Largest gap block'},{n:'Unknown',l:'Reason for gaps'}] },
   ];
 
   document.getElementById('intel-wrap').innerHTML = cards.map(c => `

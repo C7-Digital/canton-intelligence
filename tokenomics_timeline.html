@@ -4,38 +4,39 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Canton Network — Tokenomics Evolution · 7Trust</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --bg: #05070d; --s1: #0b0f1a; --s2: #101520;
-  --b: rgba(255,255,255,0.06); --b2: rgba(255,255,255,0.12);
-  --text: #dde1ec; --muted: #4e5a78; --muted2: #7a89a8;
-  --gold: #609CBF;
-  --cr: #B1DB31; --cf: #E07060; --cs: #85B8CF; --cm: #71A9C7; --cg: #D070C0;
+  --bg: #F0F2F4; --s1: #ffffff; --s2: #F7F9FB;
+  --b: #E7E9EB; --b2: #D7D9DB;
+  --text: #58595B; --muted: #939597; --muted2: #6B6D6F; --ink: #191B1C;
+  --gold: #406E90; --yellow: #DFD800;
+  --cr: #5f7d00; --cf: #D52F41; --cs: #558FB3; --cm: #406E90; --cg: #8B007E;
 }
-html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: 'Courier New', Courier, monospace; }
+html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; }
 
 /* ─── TOP BAR ─── */
 #topbar {
   position: fixed; top: 0; left: 0; right: 0; height: 52px;
-  background: rgba(5,7,13,0.97); border-bottom: 1px solid var(--b2);
+  background: #ffffff; border-bottom: 1px solid var(--b2);
   display: flex; align-items: center; padding: 0 20px; gap: 20px; z-index: 100;
 }
-#topbar h1 { font-family: 'Courier New', Courier, monospace; font-size: 14px; color: var(--text); white-space: nowrap; }
-#topbar p  { font-size: 7.5px; color: var(--muted); font-family: 'Courier New', Courier, monospace; letter-spacing: .1em; text-transform: uppercase; margin-top: 1px; white-space: nowrap; }
+#topbar h1 { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--text); white-space: nowrap; display: inline-block; border-bottom: 3px solid var(--yellow); padding-bottom: 2px; }
+#topbar p  { font-size: 7.5px; color: var(--muted); font-family: 'DM Mono', monospace; letter-spacing: .1em; text-transform: uppercase; margin-top: 1px; white-space: nowrap; }
 .hdivider { width: 1px; height: 28px; background: var(--b2); flex-shrink: 0; }
 .hstat { text-align: right; flex-shrink: 0; }
-.hstat-n { font-family: 'Courier New', Courier, monospace; font-size: 15px; color: var(--gold); line-height: 1; }
-.hstat-l { font-size: 7px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; font-family: 'Courier New', Courier, monospace; }
+.hstat-n { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--gold); line-height: 1; }
+.hstat-l { font-size: 7px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; font-family: 'DM Mono', monospace; }
 .spacer { flex: 1; }
 .filters { display: flex; gap: 4px; }
 .fbtn {
-  padding: 3px 9px; border-radius: 3px; font-size: 7.5px; font-family: 'Courier New', Courier, monospace;
+  padding: 3px 9px; border-radius: 3px; font-size: 7.5px; font-family: 'DM Mono', monospace;
   text-transform: uppercase; letter-spacing: .08em; border: 1px solid var(--b2);
   background: transparent; color: var(--muted2); cursor: pointer;
 }
 .fbtn:hover { color: var(--text); border-color: var(--muted2); }
-.fbtn.on { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.1); }
+.fbtn.on { border-color: var(--gold); color: var(--gold); background: rgba(64,110,144,0.1); }
 
 /* ─── MAIN LAYOUT ─── */
 #main {
@@ -51,7 +52,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 }
 .lane-hdr {
   display: flex; align-items: center; gap: 7px;
-  padding: 0 12px; font-size: 8px; font-family: 'Courier New', Courier, monospace;
+  padding: 0 12px; font-size: 8px; font-family: 'DM Mono', monospace;
   text-transform: uppercase; letter-spacing: .09em; color: var(--muted2);
   border-bottom: 1px solid var(--b); flex-shrink: 0;
   border-left: 2px solid;
@@ -75,11 +76,11 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   background: var(--s1); display: flex; flex-direction: column; overflow: hidden;
 }
 #rp-date-row { padding: 13px 15px 10px; border-bottom: 1px solid var(--b); flex-shrink: 0; }
-#rp-date { font-family: 'Courier New', Courier, monospace; font-size: 21px; color: var(--gold); }
-.rpsub { font-size: 7.5px; font-family: 'Courier New', Courier, monospace; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-top: 2px; }
+#rp-date { font-family: 'Playfair Display', serif; font-size: 21px; color: var(--gold); }
+.rpsub { font-size: 7.5px; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-top: 2px; }
 #rp-bars { padding: 9px 15px; border-bottom: 1px solid var(--b); flex-shrink: 0; }
-.bl { font-size: 7.5px; font-family: 'Courier New', Courier, monospace; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); margin-bottom: 4px; display: flex; justify-content: space-between; }
-.btrack { height: 4px; background: rgba(255,255,255,.06); border-radius: 2px; overflow: hidden; margin-bottom: 6px; }
+.bl { font-size: 7.5px; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); margin-bottom: 4px; display: flex; justify-content: space-between; }
+.btrack { height: 4px; background: rgba(25,27,28,.06); border-radius: 2px; overflow: hidden; margin-bottom: 6px; }
 .bfill { height: 4px; border-radius: 2px; transition: width .4s ease; }
 #rp-body { flex: 1; overflow-y: auto; padding: 11px 15px; }
 #rp-body::-webkit-scrollbar { width: 2px; }
@@ -87,15 +88,15 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 
 .sec { margin-bottom: 14px; }
 .sec-title {
-  font-size: 7.5px; font-family: 'Courier New', Courier, monospace; text-transform: uppercase;
+  font-size: 7.5px; font-family: 'DM Mono', monospace; text-transform: uppercase;
   letter-spacing: .12em; color: var(--muted); margin-bottom: 6px; padding-bottom: 4px;
   border-bottom: 1px solid var(--b); display: flex; align-items: center; gap: 5px;
 }
 .sec-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
 .kv { display: flex; justify-content: space-between; gap: 6px; margin-bottom: 5px; }
 .kv-k { font-size: 9.5px; color: var(--muted2); flex: 1; line-height: 1.4; }
-.kv-v { font-size: 9px; font-family: 'Courier New', Courier, monospace; text-align: right; max-width: 148px; line-height: 1.4; color: var(--text); }
-@keyframes vf { 0% { background: rgba(201,168,76,.3); color: var(--gold); } 80% { background: rgba(201,168,76,.05); } 100% { background: transparent; color: var(--text); } }
+.kv-v { font-size: 9px; font-family: 'DM Mono', monospace; text-align: right; max-width: 148px; line-height: 1.4; color: var(--text); }
+@keyframes vf { 0% { background: rgba(64,110,144,.3); color: var(--gold); } 80% { background: rgba(64,110,144,.05); } 100% { background: transparent; color: var(--text); } }
 .kv-v.flash { animation: vf .8s ease forwards; }
 
 /* ─── FLASH BAR ─── */
@@ -104,21 +105,21 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   background: var(--s2); border-top: 1px solid var(--b);
   display: flex; align-items: center; padding: 0 14px; gap: 8px; overflow: hidden;
 }
-.fc { font-size: 7.5px; font-family: 'Courier New', Courier, monospace; letter-spacing: .07em; flex-shrink: 0; }
+.fc { font-size: 7.5px; font-family: 'DM Mono', monospace; letter-spacing: .07em; flex-shrink: 0; }
 .fmid { font-size: 10.5px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
-.fem { font-size: 8px; font-family: 'Courier New', Courier, monospace; color: var(--muted); text-transform: uppercase; letter-spacing: .09em; }
+.fem { font-size: 8px; font-family: 'DM Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: .09em; }
 
 /* ─── TOOLTIP ─── */
 #tip {
   position: fixed; pointer-events: none; z-index: 999;
   background: var(--s2); border: 1px solid var(--b2); border-radius: 5px;
   padding: 10px 13px; max-width: 230px; opacity: 0; transition: opacity .1s;
-  box-shadow: 0 12px 40px rgba(0,0,0,.7);
+  box-shadow: 0 12px 40px rgba(25,27,28,.15);
 }
-.tip-id { font-size: 7.5px; font-family: 'Courier New', Courier, monospace; letter-spacing: .08em; margin-bottom: 3px; }
+.tip-id { font-size: 7.5px; font-family: 'DM Mono', monospace; letter-spacing: .08em; margin-bottom: 3px; }
 .tip-title { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 4px; line-height: 1.3; }
 .tip-desc { font-size: 9.5px; color: var(--muted2); line-height: 1.5; }
-.tip-meta { font-size: 7px; font-family: 'Courier New', Courier, monospace; text-transform: uppercase; letter-spacing: .1em; margin-top: 5px; color: var(--muted); }
+.tip-meta { font-size: 7px; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: .1em; margin-top: 5px; color: var(--muted); }
 
 /* ─── HELP BUTTON ─── */
 #help-btn {
@@ -132,21 +133,21 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 /* ─── INTRO OVERLAY ─── */
 #overlay {
   position: fixed; inset: 0; z-index: 500;
-  background: rgba(5,7,13,.82); backdrop-filter: blur(6px);
+  background: rgba(25,27,28,.35); backdrop-filter: blur(6px);
   display: flex; align-items: center; justify-content: center;
 }
 #overlay.hidden { display: none; }
 #overlay-card {
   background: var(--s1); border: 1px solid var(--b2); border-radius: 10px;
   padding: 28px 32px; max-width: 640px; width: 90%;
-  box-shadow: 0 24px 80px rgba(0,0,0,.7);
+  box-shadow: 0 24px 80px rgba(25,27,28,.18);
 }
 #overlay-card h2 {
-  font-family: 'Courier New', Courier, monospace; font-size: 20px; color: var(--text);
+  font-family: 'Playfair Display', serif; font-size: 20px; color: var(--text);
   margin-bottom: 4px;
 }
 #overlay-card .ov-sub {
-  font-size: 9px; font-family: 'Courier New', Courier, monospace; text-transform: uppercase;
+  font-size: 9px; font-family: 'DM Mono', monospace; text-transform: uppercase;
   letter-spacing: .1em; color: var(--muted); margin-bottom: 22px;
 }
 .ov-grid {
@@ -154,7 +155,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 }
 .ov-item {
   display: flex; gap: 13px; align-items: flex-start;
-  background: rgba(255,255,255,.03); border: 1px solid var(--b); border-radius: 6px;
+  background: rgba(25,27,28,.03); border: 1px solid var(--b); border-radius: 6px;
   padding: 11px 13px;
 }
 .ov-icon { flex-shrink: 0; width: 40px; display: flex; justify-content: center; align-items: center; }
@@ -163,17 +164,17 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .ov-desc { font-size: 9.5px; color: var(--muted2); line-height: 1.5; }
 .ov-full {
   display: flex; gap: 13px; align-items: flex-start;
-  background: rgba(255,255,255,.03); border: 1px solid var(--b); border-radius: 6px;
+  background: rgba(25,27,28,.03); border: 1px solid var(--b); border-radius: 6px;
   padding: 11px 13px; margin-bottom: 14px;
 }
 .ov-dismiss {
   display: block; width: 100%; padding: 10px;
-  background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.4);
-  border-radius: 5px; color: var(--gold); font-family: 'Courier New', Courier, monospace;
+  background: rgba(64,110,144,.12); border: 1px solid rgba(64,110,144,.4);
+  border-radius: 5px; color: var(--gold); font-family: 'DM Mono', monospace;
   font-size: 10px; text-transform: uppercase; letter-spacing: .1em;
   cursor: pointer; transition: .15s;
 }
-.ov-dismiss:hover { background: rgba(201,168,76,.2); }
+.ov-dismiss:hover { background: rgba(64,110,144,.2); }
 
 /* ─── CANVAS LEGEND (bottom-left of timeline) ─── */
 #canvas-legend {
@@ -182,8 +183,8 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 }
 .cl-row {
   display: flex; align-items: center; gap: 7px;
-  font-size: 8.5px; font-family: 'Courier New', Courier, monospace; color: var(--muted);
-  background: rgba(11,15,26,.78); border: 1px solid var(--b); border-radius: 4px;
+  font-size: 8.5px; font-family: 'DM Mono', monospace; color: var(--muted);
+  background: rgba(255,255,255,.85); border: 1px solid var(--b); border-radius: 4px;
   padding: 4px 8px; backdrop-filter: blur(4px);
 }
 </style>
@@ -192,10 +193,12 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 
 <!-- TOP BAR -->
 <div id="topbar">
-  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-family:'Courier New', Courier, monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#4e5a72;text-decoration:none;padding:5px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:3px;white-space:nowrap;transition:color .15s,border-color .15s;" onmouseover="this.style.color='#609CBF';this.style.borderColor='rgba(200,153,42,0.35)'" onmouseout="this.style.color='#4e5a72';this.style.borderColor='rgba(255,255,255,0.08)'">← Suite</a>
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono', monospace;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#6B6D6F;text-decoration:none;padding:5px 10px;border:1px solid rgba(25,27,28,0.08);border-radius:3px;white-space:nowrap;transition:color .15s,border-color .15s;" onmouseover="this.style.color='#406E90';this.style.borderColor='rgba(64,110,144,0.35)'" onmouseout="this.style.color='#6B6D6F';this.style.borderColor='rgba(25,27,28,0.08)'">← Suite</a>
+  <div class="c7-mark" title="C7 · 7RIDGE" style="display:flex;align-items:center;flex-shrink:0"><img class="c7-logo" style="display:block;height:30px;width:auto" src="data:image/png;base64,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DQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAAMoQNAAAAAAAgQ9gAAAAAAAAyhA0AAAAAACBD2AAAAAAAADKEDQAAAAAAIEPYAAAAAAAA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" alt="C7"></div>
+  <div class="hdivider"></div>
   <div>
     <h1>Canton Network — Tokenomics Evolution</h1>
-    <p>36 CIPs · 5 rule dimensions · Jul 2024 → Feb 2026</p>
+    <p>51 governance events · 5 rule dimensions · Jul 2024 → Aug 2026 · A 7RIDGE&nbsp;/&nbsp;C7 Intelligence Tool</p>
   </div>
   <div class="hdivider"></div>
   <div class="hstat"><div class="hstat-n" id="hs-circ">0B</div><div class="hstat-l">CC Circulation</div></div>
@@ -223,20 +226,20 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
     <svg id="tl-svg"></svg>
     <div id="canvas-legend">
       <div class="cl-row">
-        <svg width="18" height="18"><circle cx="9" cy="9" r="7" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/><circle cx="9" cy="9" r="2.5" fill="rgba(255,255,255,.6)"/></svg>
-        <span><b style="color:rgba(255,255,255,.7)">Large bright node</b> = major rule change</span>
+        <svg width="18" height="18"><circle cx="9" cy="9" r="7" fill="none" stroke="rgba(25,27,28,.3)" stroke-width="1.5"/><circle cx="9" cy="9" r="2.5" fill="rgba(25,27,28,.6)"/></svg>
+        <span><b style="color:rgba(25,27,28,.7)">Large bright node</b> = major rule change</span>
       </div>
       <div class="cl-row">
-        <svg width="18" height="18"><circle cx="9" cy="9" r="4.5" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1"/></svg>
-        <span><b style="color:rgba(255,255,255,.5)">Small node</b> = incremental update</span>
+        <svg width="18" height="18"><circle cx="9" cy="9" r="4.5" fill="none" stroke="rgba(25,27,28,.2)" stroke-width="1"/></svg>
+        <span><b style="color:rgba(25,27,28,.5)">Small node</b> = incremental update</span>
       </div>
       <div class="cl-row">
-        <svg width="18" height="18"><line x1="9" y1="0" x2="9" y2="18" stroke="#609CBF" stroke-width="1.5"/><polygon points="4,2 14,2 9,8" fill="#609CBF"/></svg>
-        <span><b style="color:var(--gold)">Gold line</b> = scrubber — drag to travel through time</span>
+        <svg width="18" height="18"><line x1="9" y1="0" x2="9" y2="18" stroke="#406E90" stroke-width="1.5"/><polygon points="4,2 14,2 9,8" fill="#406E90"/></svg>
+        <span><b style="color:var(--gold)">Blue line</b> = scrubber — drag to travel through time</span>
       </div>
       <div class="cl-row">
-        <svg width="18" height="18"><line x1="9" y1="0" x2="9" y2="18" stroke="#609CBF" stroke-width="1.5" stroke-dasharray="3,3" stroke-opacity=".6"/></svg>
-        <span><b style="color:#609CBF99">Dashed pillar</b> = major network event</span>
+        <svg width="18" height="18"><line x1="9" y1="0" x2="9" y2="18" stroke="#406E90" stroke-width="1.5" stroke-dasharray="3,3" stroke-opacity=".6"/></svg>
+        <span><b style="color:#406E9099">Dashed pillar</b> = major network event</span>
       </div>
     </div>
   </div>
@@ -251,7 +254,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <div class="bl"><span>CC in circulation</span><span id="circ-lbl">0B / 100B</span></div>
       <div class="btrack"><div class="bfill" id="circ-bar" style="width:0%;background:var(--cs)"></div></div>
       <div class="bl"><span>Burned</span><span id="burn-lbl">0M</span></div>
-      <div class="btrack"><div class="bfill" id="burn-bar" style="width:0%;background:rgba(212,90,142,.45)"></div></div>
+      <div class="btrack"><div class="bfill" id="burn-bar" style="width:0%;background:rgba(139,0,126,.45)"></div></div>
     </div>
     <div id="rp-body">Loading…</div>
   </div>
@@ -264,18 +267,18 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 <div id="overlay">
   <div id="overlay-card">
     <h2>How to read this chart</h2>
-    <div class="ov-sub">Canton Network · Tokenomics rule changes · Jul 2024 → Feb 2026</div>
+    <div class="ov-sub">Canton Network · Tokenomics rule changes · Jul 2024 → Aug 2026</div>
 
     <div class="ov-grid">
       <div class="ov-item">
         <div class="ov-icon">
           <svg width="40" height="40">
-            <line x1="20" y1="0" x2="20" y2="40" stroke="#609CBF" stroke-width="1.5"/>
-            <polygon points="14,4 26,4 20,11" fill="#609CBF"/>
+            <line x1="20" y1="0" x2="20" y2="40" stroke="#406E90" stroke-width="1.5"/>
+            <polygon points="14,4 26,4 20,11" fill="#406E90"/>
           </svg>
         </div>
         <div class="ov-text">
-          <div class="ov-label">Gold scrubber line</div>
+          <div class="ov-label">Blue scrubber line</div>
           <div class="ov-desc">Drag it left or right — or use ← → arrow keys — to move through time. The right panel updates to show all rules in effect at that exact moment.</div>
         </div>
       </div>
@@ -283,21 +286,21 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <div class="ov-item">
         <div class="ov-icon">
           <svg width="40" height="40">
-            <line x1="20" y1="2" x2="20" y2="38" stroke="#85B8CF" stroke-width="1.5" stroke-dasharray="4,3" stroke-opacity=".7"/>
+            <line x1="20" y1="2" x2="20" y2="38" stroke="#558FB3" stroke-width="1.5" stroke-dasharray="4,3" stroke-opacity=".7"/>
           </svg>
         </div>
         <div class="ov-text">
           <div class="ov-label">Dashed event pillars</div>
-          <div class="ov-desc">Mark major network moments — Network Launch (gold) and First Halving (purple). The halving cut SV reward share from 48% → 20%.</div>
+          <div class="ov-desc">Mark major network moments — Network Launch (blue) and First Halving (light blue). The halving cut SV reward share from 48% → 20%.</div>
         </div>
       </div>
 
       <div class="ov-item">
         <div class="ov-icon">
           <svg width="40" height="40">
-            <circle cx="20" cy="20" r="13" fill="none" stroke="#B1DB31" stroke-width="1.5" stroke-opacity=".5"/>
-            <circle cx="20" cy="20" r="8" fill="#B1DB31" fill-opacity=".25" stroke="#B1DB31" stroke-width="1.8" stroke-opacity=".9"/>
-            <circle cx="20" cy="20" r="2.5" fill="#B1DB31" fill-opacity=".85"/>
+            <circle cx="20" cy="20" r="13" fill="none" stroke="#5f7d00" stroke-width="1.5" stroke-opacity=".5"/>
+            <circle cx="20" cy="20" r="8" fill="#5f7d00" fill-opacity=".25" stroke="#5f7d00" stroke-width="1.8" stroke-opacity=".9"/>
+            <circle cx="20" cy="20" r="2.5" fill="#5f7d00" fill-opacity=".85"/>
           </svg>
         </div>
         <div class="ov-text">
@@ -309,8 +312,8 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       <div class="ov-item">
         <div class="ov-icon">
           <svg width="40" height="40">
-            <circle cx="20" cy="20" r="8" fill="none" stroke="#71A9C7" stroke-width="1.2" stroke-opacity=".5"/>
-            <circle cx="20" cy="20" r="4.5" fill="#71A9C7" fill-opacity=".18" stroke="#71A9C7" stroke-width="1.2" stroke-opacity=".65"/>
+            <circle cx="20" cy="20" r="8" fill="none" stroke="#609CBF" stroke-width="1.2" stroke-opacity=".5"/>
+            <circle cx="20" cy="20" r="4.5" fill="#609CBF" fill-opacity=".18" stroke="#609CBF" stroke-width="1.2" stroke-opacity=".65"/>
           </svg>
         </div>
         <div class="ov-text">
@@ -323,20 +326,20 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
     <div class="ov-full">
       <div class="ov-icon" style="padding-top:2px">
         <svg width="40" height="28">
-          <rect x="0" y="8" width="8" height="12" fill="#B1DB31" fill-opacity=".3" rx="1"/>
-          <rect x="11" y="5" width="8" height="18" fill="#E07060" fill-opacity=".3" rx="1"/>
-          <rect x="22" y="11" width="8" height="8" fill="#85B8CF" fill-opacity=".3" rx="1"/>
-          <rect x="33" y="3" width="8" height="22" fill="#71A9C7" fill-opacity=".3" rx="1"/>
+          <rect x="0" y="8" width="8" height="12" fill="#5f7d00" fill-opacity=".3" rx="1"/>
+          <rect x="11" y="5" width="8" height="18" fill="#D52F41" fill-opacity=".3" rx="1"/>
+          <rect x="22" y="11" width="8" height="8" fill="#558FB3" fill-opacity=".3" rx="1"/>
+          <rect x="33" y="3" width="8" height="22" fill="#609CBF" fill-opacity=".3" rx="1"/>
         </svg>
       </div>
       <div class="ov-text">
         <div class="ov-label">Five swim lanes, one dimension each</div>
         <div class="ov-desc">
-          <span style="color:#B1DB31">■</span> Reward Structure &nbsp;·&nbsp;
-          <span style="color:#E07060">■</span> Fee & Pricing &nbsp;·&nbsp;
-          <span style="color:#85B8CF">■</span> Supply Management &nbsp;·&nbsp;
-          <span style="color:#71A9C7">■</span> Market Integration &nbsp;·&nbsp;
-          <span style="color:#D070C0">■</span> Fund Governance<br>
+          <span style="color:#5f7d00">■</span> Reward Structure &nbsp;·&nbsp;
+          <span style="color:#D52F41">■</span> Fee & Pricing &nbsp;·&nbsp;
+          <span style="color:#558FB3">■</span> Supply Management &nbsp;·&nbsp;
+          <span style="color:#609CBF">■</span> Market Integration &nbsp;·&nbsp;
+          <span style="color:#8B007E">■</span> Fund Governance<br>
           <span style="margin-top:4px;display:block">Use the filter buttons (top-right) to highlight only Final, Approved, or Active CIPs.</span>
         </div>
       </div>
@@ -357,11 +360,11 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 <script>
 // ─── CONFIG ───────────────────────────────────────────────────
 const LANES = [
-  { id:'reward', label:'Reward Structure',   col:'#B1DB31' },
-  { id:'fee',    label:'Fee & Pricing',       col:'#E07060' },
-  { id:'supply', label:'Supply Management',  col:'#85B8CF' },
-  { id:'market', label:'Market Integration', col:'#71A9C7' },
-  { id:'gov',    label:'Fund Governance',     col:'#D070C0' },
+  { id:'reward', label:'Reward Structure',   col:'#5f7d00' },
+  { id:'fee',    label:'Fee & Pricing',       col:'#D52F41' },
+  { id:'supply', label:'Supply Management',  col:'#558FB3' },
+  { id:'market', label:'Market Integration', col:'#609CBF' },
+  { id:'gov',    label:'Fund Governance',     col:'#8B007E' },
 ];
 
 const CIPS = [
@@ -389,8 +392,8 @@ const CIPS = [
   // FEE,
   { lane:'reward', date:'2026-01-29', id:'CIP-0104', title:'Traffic-based app rewards',
     desc:'Replaces FeaturedAppActivityMarker system with traffic-based measurement via sequencer/mediator data. Confirmation responses made free. Supersedes CIP-0047 and CIP-0098. Authored by Simon Meier.', status:'Approved', major:true },
-  { lane:'reward', date:'2026-02-01', id:'CIP-0105', title:'SV locking & long-term commitment',
-    desc:'SVs may voluntarily lock governance weight for defined periods in exchange for enhanced rewards. Community-influenced proposal. Status: Proposed.', status:'Proposed', major:false },
+  { lane:'reward', date:'2026-03-02', id:'CIP-0105', title:'SV locking framework approved',
+    desc:'SVs lock lifetime-earned rewards to maintain network influence; weight scales with % of earnings locked, declining over 3 years. Now live: Circle, C7, and IntellectEU run 70/30 staking splits; Dfns reduced to 0.6 under under-locked enforcement.', status:'Final', major:true },
   { lane:'fee', date:'2025-01-15', id:'CIP-0042', title:'Stable USD price per CC transfer',
     desc:'First formal pricing mechanism: a fixed USD-denominated synchronizer fee per Canton Coin transfer. Authored by Wayne Collier / Moritz Kiefer.', status:'Active', major:true },
   { lane:'fee', date:'2025-08-01', id:'CIP-0078', title:'Canton Coin transfer fee removal',
@@ -442,11 +445,43 @@ const CIPS = [
     desc:'Standing committee empowered to adjust pricing parameters without full SV votes.', status:'Approved', major:false },
   { lane:'gov', date:'2026-01-01', id:'CIP-0100-ac', title:'Accountability Committee',
     desc:'Oversight body for the 5% Development Fund, milestone verification, and parameter governance.', status:'Approved', major:false },
+  { lane:'reward', date:'2026-04-16', id:'CIP-0114', title:'Digital Asset Treasury (DAT) SV program',
+    desc:'Time-limited programme for CC treasury companies ($100M+ AUM): quarterly evaluations, ghost-SV weight released over 1 year, capped at 20 total weight. First DAT: Canton Strategic Holdings (ex-Tharimmune) at 15.0.', status:'Approved', major:true },
+  { lane:'reward', date:'2026-01-21', id:'CIP-0116', title:'Featured App Staking (proposed)',
+    desc:'Would require CC locking for Featured App status: 25M CC per PartyId initially, tiered 1-5M thresholds post-CIP-0104. Market-based featured-app designation. Still Proposed.', status:'Proposed', major:false },
+  { lane:'gov', date:'2026-04-23', id:'CIP-0111', title:'SV weight reduction process',
+    desc:'Formal process to reduce SV weight: Tokenomics Committee review, community vote, on-chain update. Ghost-SV unminted coupons burned on reduction. Applied 2026: Woodside AI and Monstera removed from YAML; Dfns cut to 0.6.', status:'Final', major:true },
+  { lane:'market', date:'2026-06-12', id:'CIP-0112', title:'Token Standard V2',
+    desc:'Extends CIP-0056: privacy-enhanced batch settlement, Account structures, SettlementFactory, iterated settlement for on-chain trading, EventLog parsing. Backwards compatible.', status:'Approved', major:true },
+  { lane:'market', date:'2026-03-10', id:'CIP-0107', title:'24h submission delay for CC txs',
+    desc:'Extends end-user CC transaction submission window from 10 minutes to 24 hours via ExternalPartyConfigState. Aligns CC with other Global Synchronizer assets.', status:'Approved', major:false },
+  { lane:'fee', date:'2026-06-15', id:'CIP-0119', title:'Free 90-day transfer-preapprovals',
+    desc:'Complimentary 90-day base duration for transfer preapprovals so exchanges can enable CC transfers without extra fees. Solves post-listing exchange onboarding.', status:'Approved', major:false },
+  { lane:'gov', date:'2026-06-05', id:'CIP-0117', title:'Logical Synchronizers',
+    desc:'Protocol upgrades without multi-hour network halts: successor synchronizers deploy alongside existing ones, validators switch over in seconds. First LSU: PV 34 to 35.', status:'Approved', major:true },
+  { lane:'reward', date:'2026-04-23', id:'SV-VOTE', title:'Tradeweb weight cut 10 → 6',
+    desc:'Executed SV vote: Tokenomics recommended reducing Tradeweb under CIP-0105 SV Locking review (under-locked). On-chain evidence that locking enforcement has teeth.', status:'Final', major:false },
+  { lane:'reward', date:'2026-05-21', id:'SV-VOTE', title:'Tradeweb weight restored to 10',
+    desc:'Executed SV vote: full reward weight restored after Tradeweb attained the CIP-0105 Tier 1 locking threshold. The cut-and-restore cycle took four weeks.', status:'Final', major:false },
+  { lane:'gov', date:'2026-05-07', id:'SV-VOTE', title:'Woodside AI & Monstera removed',
+    desc:'Executed SV vote: Woodside AI (CIP-0059, weight 10) and Monstera FZE (CIP-0052, weight 5) Ghost SVs removed from the network config — the first application of the CIP-0111 weight-reduction process to non-delivering SVs.', status:'Final', major:true },
+  { lane:'gov', date:'2026-06-30', id:'SV-VOTE', title:'Tradeweb offboard vote fails',
+    desc:'An SV vote to offboard Tradeweb-Markets-1 — citing a CometBFT node unable to keep up with load, causing elevated latency and failure rates — EXPIRED without reaching quorum. First attempted offboarding of a founding TradFi SV.', status:'Expired', major:true },
+  { lane:'gov', date:'2025-10-10', id:'SV-VOTE', title:'DA-1 offboarded & reonboarded',
+    desc:'Operational executed vote: Digital-Asset-1 node offboarded so it could be reonboarded under new management. Routine, but shows offboarding mechanics working.', status:'Final', major:false },
+  { lane:'market', date:'2026-03-23', id:'CIP-0109', title:'Visa joins as SV — institutional wave',
+    desc:'Visa admitted at weight 10 (escrow, confidential Accountability Committee milestones) — the spearhead of the 2026 institutional wave: QCP (Mar 5), Apollo $938B AUM (Mar 24), Further AM (Apr 1), Societe Generale (Apr 27), Franklin Templeton (Jun 10). 43 points of new milestone-based weight in four months.', status:'Approved', major:true },
+  { lane:'market', date:'2026-06-10', id:'CIP-0118', title:'Franklin Templeton joins as SV',
+    desc:'Global asset manager with a tokenised fund already live on Canton admitted at max weight 5 — milestones: 24x7 create/redeem backed by on-chain cash delivery and production treasury adoption volume. Caps the Mar-Jun institutional admission wave.', status:'Approved', major:false },
+  { lane:'gov', date:'2026-07-06', id:'SV-VOTE', title:'Splice 0.6.9 upgrade postponed by vote',
+    desc:'The proposal to adopt Daml models from Splice 0.6.9 (incl. CIP-0119) was voted down 4-9 — but reject reasons read "per the request to postpone by a week": a coordinated postponement executed through the ballot box, not opposition.', status:'Rejected', major:false },
 ];
 
 const EVENTS = [
-  { date:'2024-07-01', label:'Network Launch', col:'#609CBF' },
-  { date:'2026-01-27', label:'First Halving · round 78,840', col:'#85B8CF' },
+  { date:'2024-07-01', label:'Network Launch', col:'#406E90' },
+  { date:'2026-01-27', label:'First Halving · round 78,840', col:'#558FB3' },
+  { date:'2026-03-02', label:'SV Locking Era · CIP-0105 live', col:'#05365C' },
+  { date:'2026-07-30', label:'Atomic Swaps Launch · CC listed', col:'#5f7d00' },
 ];
 
 const SNAPS = [
@@ -487,22 +522,34 @@ const SNAPS = [
     market:{ price:'Admin → oracle transition', oracle:'Kaiko (CIP-0063) + Chainlink', listing:'Pre-listing checks (CIP-0092)', std:'CIP-0056 + CIP-0090' },
     gov:{ cttee:'FAV-C + Tokenomics + Accountability', req:'CIP-0045 enforced', cip:'Mature', acct:'CIP-0100 pending' } },
   { at: new Date('2026-01-27'),
-    reward:{ sv:'20% (post-halving)', val:'8%', app:'72%', mech:'Weighted + liveness sub-pool (CIP-0096)', cap:'$1.50/tx (CIP-0098)', liveness:'SV-designated parties' },
+    reward:{ sv:'20% (post-halving)', val:'18%', app:'62%', mech:'Weighted + liveness sub-pool (CIP-0096)', cap:'$1.50/tx (CIP-0098)', liveness:'SV-designated parties' },
     fee:{ transfer:'ZERO', holding:'None', price:'Live oracle (CIP-0092)' },
     supply:{ circ:'~32.9B CC', cn:32.9, burned:'~517M', bn:.517, devFund:'CIP-0100 governed', unclaimed:'Cleared' },
     market:{ price:'Market oracle (Kaiko + Chainlink)', oracle:'Kaiko + Chainlink', listing:'Active / pre-listing', std:'CIP-0056, 0090, 0103' },
     gov:{ cttee:'FAV-C + Tokenomics + Accountability', req:'Enforced + node req', cip:'dApp Std (CIP-0103)', acct:'Active (CIP-0100)' } },
   { at: new Date('2026-02-28'),
-    reward:{ sv:'20% (post-halving)', val:'8%', app:'72%', mech:'Traffic-based (CIP-0104)', cap:'Traffic-weighted — CIP-0098 superseded', liveness:'SV-designated parties' },
+    reward:{ sv:'20% (post-halving)', val:'18%', app:'62%', mech:'Traffic-based (CIP-0104)', cap:'Traffic-weighted — CIP-0098 superseded', liveness:'SV-designated parties' },
     fee:{ transfer:'ZERO', holding:'None', price:'Live oracle (CIP-0092)' },
-    supply:{ circ:'~33.5B CC', cn:33.5, burned:'~530M', bn:.530, devFund:'CIP-0100 governed', unclaimed:'Cleared' },
+    supply:{ circ:'~33.5B CC', cn:33.5, burned:'~2.9B (Canton Fdn)', bn:2.9, devFund:'CIP-0100 governed', unclaimed:'Cleared' },
     market:{ price:'Market oracle (Kaiko + Chainlink)', oracle:'Kaiko + Chainlink', listing:'Active', std:'CIP-0056, 0090, 0103' },
     gov:{ cttee:'FAV-C + Tokenomics + Accountability', req:'Enforced + node req', cip:'dApp Std (CIP-0103)', acct:'Active (CIP-0100)' } },
+  { at: new Date('2026-03-02'),
+    reward:{ sv:'20% (post-halving)', val:'18%', app:'62%', mech:'Traffic-based (CIP-0104) + SV locking (CIP-0105)', cap:'Traffic-weighted', liveness:'SV-designated parties' },
+    fee:{ transfer:'ZERO', holding:'None', price:'Live oracle (CIP-0092)' },
+    supply:{ circ:'~34B CC', cn:34, burned:'~3.0B', bn:3.0, devFund:'CIP-0100 governed', unclaimed:'Cleared' },
+    market:{ price:'Market oracle (Kaiko + Chainlink)', oracle:'Kaiko + Chainlink', listing:'Listed', std:'CIP-0056, 0090, 0103' },
+    gov:{ cttee:'FAV-C + Tokenomics + Accountability', req:'Enforced + locking tiers', cip:'CIP-0105 locking live', acct:'Active (CIP-0100)' } },
+  { at: new Date('2026-08-01'),
+    reward:{ sv:'20% (locked-weighted)', val:'18%', app:'62%', mech:'Traffic-based (CIP-0104) + locking splits live', cap:'Traffic-weighted', liveness:'SV-designated parties' },
+    fee:{ transfer:'ZERO', holding:'None', price:'Live oracle — CC ≈ $0.116' },
+    supply:{ circ:'~37.7B CC (10B/yr issuance)', cn:37.7, burned:'~5-6B est. ($400M+)', bn:5.5, devFund:'CIP-0100 governed', unclaimed:'Next curve step: Jul 2029 (5B/yr, SV 10%)' },
+    market:{ price:'Public listing — CC ≈ $0.116', oracle:'Kaiko + Chainlink', listing:'Listed + atomic swaps (Jul 30)', std:'CIP-0056 V2 (CIP-0112)' },
+    gov:{ cttee:'FAV-C + Tokenomics + Accountability', req:'CIP-0111 reduction enforced', cip:'44 tracked · Visa/Apollo/SocGen/FT era', acct:'Active — confidential milestone review' } }
 ];
 
 // ─── TIMELINE MATH ────────────────────────────────────────────
 const T0  = new Date('2024-07-01');
-const T1  = new Date('2026-03-01');
+const T1  = new Date('2026-09-01');
 const PPD = 3.4; // px per day
 const AXIS_H = 32;
 
@@ -554,8 +601,8 @@ function buildSVG() {
       <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
     <linearGradient id="scrubGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#609CBF" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#609CBF" stop-opacity="0.1"/>
+      <stop offset="0%" stop-color="#406E90" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#406E90" stop-opacity="0.1"/>
     </linearGradient>
   </defs>`);
 
@@ -574,7 +621,7 @@ function buildSVG() {
     const str = isJ ? '' : '4,5';
     const op  = isJ ? '.1' : '.03';
     const sw  = isJ ? '1' : '.5';
-    parts.push(`<line x1="${x}" y1="0" x2="${x}" y2="${H - AXIS_H}" stroke="rgba(255,255,255,${op})" stroke-width="${sw}" stroke-dasharray="${str}"/>`);
+    parts.push(`<line x1="${x}" y1="0" x2="${x}" y2="${H - AXIS_H}" stroke="rgba(25,27,28,${op})" stroke-width="${sw}" stroke-dasharray="${str}"/>`);
     d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
   }
 
@@ -591,7 +638,7 @@ function buildSVG() {
       <rect x="${x - 10}" y="0" width="20" height="${H - AXIS_H}" fill="${ev.col}" fill-opacity=".04"/>
       <line x1="${x}" y1="0" x2="${x}" y2="${H - AXIS_H}" stroke="${ev.col}" stroke-width="1.5" stroke-opacity=".5" stroke-dasharray="4,3"/>
       <text transform="translate(${parseFloat(x) + 5},${H - AXIS_H - 8}) rotate(-90)"
-        fill="${ev.col}" fill-opacity=".6" font-size="7" font-family="IBM Plex Mono, monospace"
+        fill="${ev.col}" fill-opacity=".6" font-size="7" font-family="DM Mono, monospace"
         text-anchor="start" dominant-baseline="auto" letter-spacing=".09em">
         ${ev.label.toUpperCase()}
       </text>`);
@@ -607,12 +654,12 @@ function buildSVG() {
       const lbl = isJ
         ? `${d.toLocaleString('default',{month:'short'})} ${d.getFullYear()}`
         : d.toLocaleString('default',{month:'short'});
-      const fill = isJ ? 'rgba(255,255,255,.42)' : 'rgba(255,255,255,.2)';
+      const fill = isJ ? 'rgba(25,27,28,.42)' : 'rgba(25,27,28,.2)';
       parts.push(`<text x="${x}" y="${H - AXIS_H + 18}" fill="${fill}" font-size="7.5"
-        font-family="IBM Plex Mono, monospace" text-anchor="middle" dominant-baseline="central">${lbl}</text>`);
+        font-family="DM Mono, monospace" text-anchor="middle" dominant-baseline="central">${lbl}</text>`);
     }
     if (isJ) {
-      parts.push(`<line x1="${x}" y1="${H - AXIS_H}" x2="${x}" y2="${H - AXIS_H + 7}" stroke="rgba(255,255,255,.2)" stroke-width="1"/>`);
+      parts.push(`<line x1="${x}" y1="${H - AXIS_H}" x2="${x}" y2="${H - AXIS_H + 7}" stroke="rgba(25,27,28,.2)" stroke-width="1"/>`);
     }
     d = new Date(d.getFullYear(), d.getMonth() + 1, 1);
   }
@@ -641,8 +688,8 @@ function buildSVG() {
   parts.push(`<g id="scrub-g">
     <line id="scrub-line" x1="0" y1="0" x2="0" y2="${H - AXIS_H}"
       stroke="url(#scrubGrad)" stroke-width="1.5"/>
-    <polygon points="-6,0 6,0 0,8" fill="#609CBF"/>
-    <polygon points="-6,0 6,0 0,-8" fill="#609CBF" fill-opacity=".4"
+    <polygon points="-6,0 6,0 0,8" fill="#406E90"/>
+    <polygon points="-6,0 6,0 0,-8" fill="#406E90" fill-opacity=".4"
       transform="translate(0,${H - AXIS_H})"/>
   </g>`);
 
@@ -743,7 +790,7 @@ function updateSnap(date) {
   document.getElementById('circ-bar').style.width = Math.min(100, cn) + '%';
   document.getElementById('burn-bar').style.width = Math.min(100, bn * 120) + '%';
   document.getElementById('circ-lbl').textContent = `${cn.toFixed(1)}B / 100B`;
-  document.getElementById('burn-lbl').textContent = `${(bn * 1000).toFixed(0)}M CC`;
+  document.getElementById('burn-lbl').textContent = bn >= 1 ? `${bn.toFixed(1)}B CC` : `${(bn * 1000).toFixed(0)}M CC`;
 
   // Detect changed fields
   const changed = new Set();
@@ -767,7 +814,7 @@ function updateSnap(date) {
 
   document.getElementById('rp-body').innerHTML = `
     <div class="sec">
-      <div class="sec-title"><div class="sec-dot" style="background:#B1DB31"></div>Reward Structure</div>
+      <div class="sec-title"><div class="sec-dot" style="background:#5f7d00"></div>Reward Structure</div>
       ${KVlabel('SV share',        'reward.sv',       s.reward.sv)}
       ${KVlabel('Validator share', 'reward.val',      s.reward.val)}
       ${KVlabel('App share',       'reward.app',      s.reward.app)}
@@ -776,25 +823,25 @@ function updateSnap(date) {
       ${KVlabel('Liveness model',  'reward.liveness', s.reward.liveness)}
     </div>
     <div class="sec">
-      <div class="sec-title"><div class="sec-dot" style="background:#E07060"></div>Fee & Pricing</div>
+      <div class="sec-title"><div class="sec-dot" style="background:#D52F41"></div>Fee & Pricing</div>
       ${KVlabel('Transfer fee',    'fee.transfer', s.fee.transfer)}
       ${KVlabel('Holding fee',     'fee.holding',  s.fee.holding)}
       ${KVlabel('Price mechanism', 'fee.price',    s.fee.price)}
     </div>
     <div class="sec">
-      <div class="sec-title"><div class="sec-dot" style="background:#85B8CF"></div>Supply Management</div>
+      <div class="sec-title"><div class="sec-dot" style="background:#558FB3"></div>Supply Management</div>
       ${KVlabel('Dev fund',       'supply.devFund',  s.supply.devFund)}
       ${KVlabel('Unclaimed pool', 'supply.unclaimed', s.supply.unclaimed)}
     </div>
     <div class="sec">
-      <div class="sec-title"><div class="sec-dot" style="background:#71A9C7"></div>Market Integration</div>
+      <div class="sec-title"><div class="sec-dot" style="background:#609CBF"></div>Market Integration</div>
       ${KVlabel('CC price source', 'market.price',   s.market.price)}
       ${KVlabel('Oracle provider', 'market.oracle',  s.market.oracle)}
       ${KVlabel('Listing status',  'market.listing', s.market.listing)}
       ${KVlabel('Token standard',  'market.std',     s.market.std)}
     </div>
     <div class="sec">
-      <div class="sec-title"><div class="sec-dot" style="background:#D070C0"></div>Fund Governance</div>
+      <div class="sec-title"><div class="sec-dot" style="background:#8B007E"></div>Fund Governance</div>
       ${KVlabel('Committees',    'gov.cttee', s.gov.cttee)}
       ${KVlabel('SV req.',       'gov.req',   s.gov.req)}
       ${KVlabel('CIP process',   'gov.cip',   s.gov.cip)}
