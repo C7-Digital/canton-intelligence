@@ -9,7 +9,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#F0F2F4;--s1:#ffffff;--s2:#F7F9FB;--s3:#E7F2F6;
-  --b:#E7E9EB;--b2:#D7D9DB;--text:#58595B;--muted:#939597;--muted2:#6B6D6F;--ink:#191B1C;
+  --b:#E7E9EB;--b2:#D7D9DB;--text:#3B3C3E;--muted:#6C6E70;--muted2:#4C4E50;--ink:#191B1C;
   --blue:#406E90;--blue2:#325170;--green:#5f7d00;--red:#D52F41;--purple:#05365C;--pink:#8B007E;--yellow:#DFD800;
 }
 html,body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px}
@@ -168,10 +168,10 @@ document.getElementById('ov-grid').innerHTML=`
       <div><div class="big" style="color:var(--muted)">${st.expired||0}</div><div class="lbl">Expired</div></div>
       <div><div class="big" style="color:#6a6400">${st.in_progress||0}</div><div class="lbl">In Progress</div></div>
     </div>
-    <div style="font-size:11px;color:var(--muted2);line-height:1.6">${DATA.contested_n} requests (${Math.round(DATA.contested_n/DATA.votelog.length*100)}%) drew at least one reject vote. Acceptance is the norm — but rejections cluster around weight updates and network-model upgrades.</div>
+    <div style="font-size:11px;color:var(--muted2);line-height:1.6">${DATA.contested_n} requests (${Math.round(DATA.contested_n/DATA.votelog.length*100)}%) drew at least one reject vote. Acceptance is the norm, but rejections cluster around weight updates and network-model upgrades.</div>
   </div>
   <div class="card"><h3>Actions by Kind</h3>${bars(DATA.kinds,i=>PAL[i%PAL.length])}</div>
-  <div class="card" style="grid-column:1/-1"><h3>Vote Volume by Month</h3>${bars(DATA.monthly,'#406E90')}<div style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--muted);margin-top:8px">On-chain vote history begins Jul 2025 (Lighthouse retention window) — earlier governance actions are not shown.</div></div>
+  <div class="card" style="grid-column:1/-1"><h3>Vote Volume by Month</h3>${bars(DATA.monthly,'#406E90')}<div style="font-family:'DM Mono',monospace;font-size:8.5px;color:var(--muted);margin-top:8px">On-chain vote history begins Jul 2025 (Lighthouse retention window); earlier governance actions are not shown.</div></div>
   <div class="card"><h3>Featured App Churn</h3>
     <div style="display:flex;gap:18px;margin-bottom:10px">
       <div><div class="big" style="color:var(--green)">239</div><div class="lbl">Grants Executed</div></div>
@@ -230,18 +230,18 @@ renderVotes();
 
 // ── KEY VOTES ──
 const KEY=[
- {cls:'red',title:'The Tradeweb Offboarding Attempt — Failed',meta:'2026-06-30 · SRARC_OffboardSv · EXPIRED (no quorum) · requested by Digital-Asset-2',
+ {cls:'red',title:'The Tradeweb Offboarding Attempt: Failed',meta:'2026-06-30 · SRARC_OffboardSv · EXPIRED (no quorum) · requested by Digital-Asset-2',
   body:`Digital Asset requested offboarding Tradeweb-Markets-1: <strong>"Tradeweb's CometBFT node is not able to keep up with load and causes a significantly increased latency and failure rate on the network."</strong> Only 8 of 13 SVs voted before expiry — 5 to offboard, 3 against. Five-North rejected "since TW team is all hands on deck resolving the issue". The first attempted offboarding of a founding TradFi SV, and a live demonstration that the offboarding bar is high.`,
   ballot:[['Liberty-City-Ventures-1',1],['MPC-Holding-Inc',1],['Orb-1-LP-1',1],['Proof-Group-1',1],['SV-Nodeops-Limited',1],['Digital-Asset-1',0],['Digital-Asset-2',0],['Five-North-1',0],['Cumberland-1',-1],['Cumberland-2',-1],['Tradeweb-Markets-1',-1],['C7-Technology-Services-Limited',-1],['Global-Synchronizer-Foundation',-1]]},
- {cls:'blue',title:'The Tradeweb Locking Saga — Cut & Restore',meta:'2026-04-23 cut 10 → 6 · 2026-05-21 restored → 10 · both EXECUTED 13-0',
-  body:`Under CIP-0105 locking review, Tokenomics recommended cutting Tradeweb's weight from 10 to 6 for being under-locked — executed unanimously. Four weeks later Tradeweb attained the Tier 1 locking threshold and full weight was restored, again 13-0. Proof that locking enforcement is real, and recoverable.`,ballot:[]},
- {cls:'red',title:'Splice 0.6.9 Model Upgrade — Postponed by Vote',meta:'2026-07-06 · CRARC_SetConfig · REJECTED 4-9 · requested by Digital-Asset-2',
-  body:`The proposal to adopt Daml models from Splice 0.6.9 (including CIP-0119 free preapprovals) was voted down 4-9 — but the reject reasons read <strong>"Rejecting, per the request to postpone by a week"</strong>. A coordinated postponement executed through the ballot box rather than genuine opposition. Accepts: C7, GSF, Proof Group, SV-Nodeops. Rejects: both DA nodes, both Cumberland nodes, Five-North, Liberty City, MPCH, Orb-1, Tradeweb.`,
+ {cls:'blue',title:'The Tradeweb Locking Saga: Cut & Restore',meta:'2026-04-23 cut 10 → 6 · 2026-05-21 restored → 10 · both EXECUTED 13-0',
+  body:`Under CIP-0105 locking review, Tokenomics recommended cutting Tradeweb's weight from 10 to 6 for being under-locked, then executed unanimously. Four weeks later Tradeweb attained the Tier 1 locking threshold and full weight was restored, again 13-0. Proof that locking enforcement is real, and recoverable.`,ballot:[]},
+ {cls:'red',title:'Splice 0.6.9 Model Upgrade: Postponed by Vote',meta:'2026-07-06 · CRARC_SetConfig · REJECTED 4-9 · requested by Digital-Asset-2',
+  body:`The proposal to adopt Daml models from Splice 0.6.9 (including CIP-0119 free preapprovals) was voted down 4-9, but the reject reasons read <strong>"Rejecting, per the request to postpone by a week"</strong>. A coordinated postponement executed through the ballot box rather than genuine opposition. Accepts: C7, GSF, Proof Group, SV-Nodeops. Rejects: both DA nodes, both Cumberland nodes, Five-North, Liberty City, MPCH, Orb-1, Tradeweb.`,
   ballot:[['C7-Technology-Services-Limited',1],['Global-Synchronizer-Foundation',1],['Proof-Group-1',1],['SV-Nodeops-Limited',1],['Digital-Asset-1',0],['Digital-Asset-2',0],['Cumberland-1',0],['Cumberland-2',0],['Five-North-1',0],['Liberty-City-Ventures-1',0],['MPC-Holding-Inc',0],['Orb-1-LP-1',0],['Tradeweb-Markets-1',0]]},
  {cls:'green',title:'Woodside AI & Monstera Removed',meta:'2026-05-07 · SRARC_UpdateSvRewardWeight · EXECUTED 13-0',
   body:`The first application of the CIP-0111 weight-reduction process to non-delivering SVs: Woodside AI (CIP-0059, weight 10) and Monstera FZE (CIP-0052, weight 5) Ghost SVs removed from the network configuration — unanimously. 15 points of escrowed weight cancelled.`,ballot:[]},
  {cls:'green',title:'DA-1 Offboard / Reonboard',meta:'2025-10-10 · SRARC_OffboardSv · EXECUTED 13-0',
-  body:`Routine but notable: Digital-Asset-1 was offboarded by unanimous vote "so we can reonboard it under new management" — the only executed SV offboarding to date, and an operational one.`,ballot:[]},
+  body:`Routine but notable: Digital-Asset-1 was offboarded by unanimous vote "so we can reonboard it under new management", the only executed SV offboarding to date, and an operational one.`,ballot:[]},
 ];
 document.getElementById('v-keyvotes').innerHTML=KEY.map(k=>`
   <div class="kv-card ${k.cls}">
@@ -260,12 +260,12 @@ document.getElementById('val-grid').innerHTML=`
       <div><div class="big">${fmt(V.total)}</div><div class="lbl">Licensed Validators</div></div>
       <div><div class="big" style="color:var(--green)">${fmt(V.active30d)}</div><div class="lbl">Active ≤30 Days</div></div>
     </div>
-    <div style="font-size:11px;color:var(--muted2);line-height:1.6">${fmt(V.total-V.active30d)} licensed validators have not advanced a round in the last ~30 days — the long tail of early joiners.</div>
+    <div style="font-size:11px;color:var(--muted2);line-height:1.6">${fmt(V.total-V.active30d)} licensed validators have not advanced a round in the last ~30 days, the long tail of early joiners.</div>
   </div>
   <div class="card" style="grid-column:span 2"><h3>Validator Growth by Quarter (licenses created)</h3>${bars(V.quarters,'#406E90')}</div>
-  <div class="card" style="grid-column:1/-1"><h3>Sponsor Concentration — which SV onboarded them</h3>${bars(V.sponsors,i=>PAL[i%PAL.length])}
+  <div class="card" style="grid-column:1/-1"><h3>Sponsor Concentration: which SV onboarded them</h3>${bars(V.sponsors,i=>PAL[i%PAL.length])}
   <div style="font-size:11px;color:var(--muted2);line-height:1.6;margin-top:8px">Validator licenses are sponsored by SV nodes. Sponsor share is a soft form of network influence not visible in governance weight.</div></div>
-  <div class="card" style="grid-column:1/-1"><h3>NaaS Host Landscape — who operates the nodes</h3>
+  <div class="card" style="grid-column:1/-1"><h3>NaaS Host Landscape: who operates the nodes</h3>
     ${DATA.naas.hosts.map((r,i)=>`<div class="brow"><div class="blab" style="width:150px">${r.h}</div><div class="btrk"><div class="bfill" style="width:${r.n/DATA.naas.hosts[0].n*100}%;background:${PAL[i%PAL.length]}"></div></div><div class="bnum">${r.n}</div></div>`).join('')}
     <div style="font-size:11px;color:var(--muted2);line-height:1.6;margin-top:8px">Operational host attributed from each validator's on-chain contact record (${DATA.naas.attributed.toLocaleString()} of ${fmt(DATA.validators.total)} validators carry a contact; ${DATA.naas.no_contact.toLocaleString()} have none; ${DATA.naas.self.toLocaleString()} attribute to their own/other domains — self-operated). Distinct from sponsorship: the sponsor licenses the validator, the NaaS host runs it — IntellectEU Catalyst, MPCH, Proof Group, Figment and Five North together operate the large majority of attributable third-party nodes.</div></div>`;
 

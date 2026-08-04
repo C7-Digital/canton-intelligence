@@ -10,7 +10,7 @@
 :root {
   --bg: #F0F2F4; --s1: #ffffff; --s2: #F7F9FB;
   --b: #E7E9EB; --b2: #D7D9DB;
-  --text: #58595B; --muted: #939597; --muted2: #6B6D6F; --ink: #191B1C;
+  --text: #3B3C3E; --muted: #6C6E70; --muted2: #4C4E50; --ink: #191B1C;
   --gold: #406E90; --yellow: #DFD800;
   --cr: #5f7d00; --cf: #D52F41; --cs: #558FB3; --cm: #406E90; --cg: #8B007E;
 }
@@ -235,7 +235,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
       </div>
       <div class="cl-row">
         <svg width="18" height="18"><line x1="9" y1="0" x2="9" y2="18" stroke="#406E90" stroke-width="1.5"/><polygon points="4,2 14,2 9,8" fill="#406E90"/></svg>
-        <span><b style="color:var(--gold)">Blue line</b> = scrubber — drag to travel through time</span>
+        <span><b style="color:var(--gold)">Blue line</b> = scrubber, drag to travel through time</span>
       </div>
       <div class="cl-row">
         <svg width="18" height="18"><line x1="9" y1="0" x2="9" y2="18" stroke="#406E90" stroke-width="1.5" stroke-dasharray="3,3" stroke-opacity=".6"/></svg>
@@ -279,7 +279,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
         </div>
         <div class="ov-text">
           <div class="ov-label">Blue scrubber line</div>
-          <div class="ov-desc">Drag it left or right — or use ← → arrow keys — to move through time. The right panel updates to show all rules in effect at that exact moment.</div>
+          <div class="ov-desc">Drag it left or right, or use ← → arrow keys, to move through time. The right panel updates to show all rules in effect at that exact moment.</div>
         </div>
       </div>
 
@@ -291,7 +291,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
         </div>
         <div class="ov-text">
           <div class="ov-label">Dashed event pillars</div>
-          <div class="ov-desc">Mark major network moments — Network Launch (blue) and First Halving (light blue). The halving cut SV reward share from 48% → 20%.</div>
+          <div class="ov-desc">Mark major network moments: Network Launch (blue) and First Halving (light blue). The halving cut SV reward share from 48% → 20%.</div>
         </div>
       </div>
 
@@ -305,7 +305,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
         </div>
         <div class="ov-text">
           <div class="ov-label">Large bright node</div>
-          <div class="ov-desc">A major rule change — structural shift to how rewards, fees, or governance work. Hover for details, click to jump the scrubber there.</div>
+          <div class="ov-desc">A major rule change: a structural shift in how rewards, fees, or governance work. Hover for details, click to jump the scrubber there.</div>
         </div>
       </div>
 
@@ -318,7 +318,7 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
         </div>
         <div class="ov-text">
           <div class="ov-label">Small node</div>
-          <div class="ov-desc">An incremental update — refinements, parameter tweaks, or committee decisions. Same lanes, same colours.</div>
+          <div class="ov-desc">An incremental update: refinements, parameter tweaks, or committee decisions. Same lanes, same colours.</div>
         </div>
       </div>
     </div>
@@ -370,7 +370,7 @@ const LANES = [
 const CIPS = [
   // REWARD
   { lane:'reward', date:'2024-07-10', id:'CIP-0001', title:'Weighted SV rewards',
-    desc:"Replaced tranche-delay system. Each SV's minting share is proportional to governance weight — making weight the central economic lever.", status:'Final', major:true },
+    desc:"Replaced tranche-delay system. Each SV's minting share is proportional to governance weight, making weight the central economic lever.", status:'Final', major:true },
   { lane:'reward', date:'2024-07-10', id:'CIP-0003', title:'Rewards to any live validator',
     desc:'Expanded reward eligibility beyond SVs. Any validator on the network can mint liveness rewards.', status:'Final', major:false },
   { lane:'reward', date:'2024-09-15', id:'CIP-0007', title:'Earn weight via validators & apps',
@@ -397,7 +397,7 @@ const CIPS = [
   { lane:'fee', date:'2025-01-15', id:'CIP-0042', title:'Stable USD price per CC transfer',
     desc:'First formal pricing mechanism: a fixed USD-denominated synchronizer fee per Canton Coin transfer. Authored by Wayne Collier / Moritz Kiefer.', status:'Active', major:true },
   { lane:'fee', date:'2025-08-01', id:'CIP-0078', title:'Canton Coin transfer fee removal',
-    desc:'Eliminated all transfer fees — adoption over revenue. Only holding fees retained. Dramatically reduced settlement friction. Authored by Simon Meier.', status:'Final', major:true },
+    desc:'Eliminated all transfer fees, favouring adoption over revenue. Only holding fees retained. Dramatically reduced settlement friction. Authored by Simon Meier.', status:'Final', major:true },
   { lane:'fee', date:'2025-10-01', id:'CIP-0084', title:'Tokenomics Committee price tuning',
     desc:'Delegated $/MB synchronizer price recommendations to a standing Tokenomics Committee.', status:'Approved', major:false },
   // SUPPLY
@@ -417,7 +417,7 @@ const CIPS = [
     desc:'Formal committee process and grant criteria for disbursing the 5% development fund. Authored by Bernhard Elsner.', status:'Approved', major:false },
   // MARKET
   { lane:'market', date:'2025-04-01', id:'CIP-0056', title:'Canton Network Token Standard',
-    desc:'Daml interface and OpenAPI spec for regulated tokenisation — the ERC-20 of Canton. Enables DvP and privacy-preserving transfer controls. Authored by Simon Meier / Matteo Limberto / Moritz Kiefer.', status:'Final', major:true },
+    desc:'Daml interface and OpenAPI spec for regulated tokenisation, the ERC-20 of Canton. Enables DvP and privacy-preserving transfer controls. Authored by Simon Meier / Matteo Limberto / Moritz Kiefer.', status:'Final', major:true },
   { lane:'market', date:'2025-09-01', id:'CIP-0079', title:'SV readiness check for CC listing',
     desc:'Required all SVs to demonstrate functional third-party price feed integration before public listing.', status:'Approved', major:true },
   { lane:'market', date:'2025-10-01', id:'CIP-0063', title:'Kaiko reference price provider',
@@ -464,17 +464,17 @@ const CIPS = [
   { lane:'reward', date:'2026-05-21', id:'SV-VOTE', title:'Tradeweb weight restored to 10',
     desc:'Executed SV vote: full reward weight restored after Tradeweb attained the CIP-0105 Tier 1 locking threshold. The cut-and-restore cycle took four weeks.', status:'Final', major:false },
   { lane:'gov', date:'2026-05-07', id:'SV-VOTE', title:'Woodside AI & Monstera removed',
-    desc:'Executed SV vote: Woodside AI (CIP-0059, weight 10) and Monstera FZE (CIP-0052, weight 5) Ghost SVs removed from the network config — the first application of the CIP-0111 weight-reduction process to non-delivering SVs.', status:'Final', major:true },
+    desc:'Executed SV vote: Woodside AI (CIP-0059, weight 10) and Monstera FZE (CIP-0052, weight 5) Ghost SVs removed from the network config, the first application of the CIP-0111 weight-reduction process to non-delivering SVs.', status:'Final', major:true },
   { lane:'gov', date:'2026-06-30', id:'SV-VOTE', title:'Tradeweb offboard vote fails',
-    desc:'An SV vote to offboard Tradeweb-Markets-1 — citing a CometBFT node unable to keep up with load, causing elevated latency and failure rates — EXPIRED without reaching quorum. First attempted offboarding of a founding TradFi SV.', status:'Expired', major:true },
+    desc:'An SV vote to offboard Tradeweb-Markets-1, citing a CometBFT node unable to keep up with load, causing elevated latency and failure rates; EXPIRED without reaching quorum. First attempted offboarding of a founding TradFi SV.', status:'Expired', major:true },
   { lane:'gov', date:'2025-10-10', id:'SV-VOTE', title:'DA-1 offboarded & reonboarded',
     desc:'Operational executed vote: Digital-Asset-1 node offboarded so it could be reonboarded under new management. Routine, but shows offboarding mechanics working.', status:'Final', major:false },
   { lane:'market', date:'2026-03-23', id:'CIP-0109', title:'Visa joins as SV — institutional wave',
-    desc:'Visa admitted at weight 10 (escrow, confidential Accountability Committee milestones) — the spearhead of the 2026 institutional wave: QCP (Mar 5), Apollo $938B AUM (Mar 24), Further AM (Apr 1), Societe Generale (Apr 27), Franklin Templeton (Jun 10). 43 points of new milestone-based weight in four months.', status:'Approved', major:true },
+    desc:'Visa admitted at weight 10 (escrow, confidential Accountability Committee milestones), the first of the 2026 institutional wave: QCP (Mar 5), Apollo $938B AUM (Mar 24), Further AM (Apr 1), Societe Generale (Apr 27), Franklin Templeton (Jun 10). 43 points of new milestone-based weight in four months.', status:'Approved', major:true },
   { lane:'market', date:'2026-06-10', id:'CIP-0118', title:'Franklin Templeton joins as SV',
-    desc:'Global asset manager with a tokenised fund already live on Canton admitted at max weight 5 — milestones: 24x7 create/redeem backed by on-chain cash delivery and production treasury adoption volume. Caps the Mar-Jun institutional admission wave.', status:'Approved', major:false },
+    desc:'Global asset manager with a tokenised fund already live on Canton admitted at max weight 5, milestones: 24x7 create/redeem backed by on-chain cash delivery and production treasury adoption volume. Caps the Mar-Jun institutional admission wave.', status:'Approved', major:false },
   { lane:'gov', date:'2026-07-06', id:'SV-VOTE', title:'Splice 0.6.9 upgrade postponed by vote',
-    desc:'The proposal to adopt Daml models from Splice 0.6.9 (incl. CIP-0119) was voted down 4-9 — but reject reasons read "per the request to postpone by a week": a coordinated postponement executed through the ballot box, not opposition.', status:'Rejected', major:false },
+    desc:'The proposal to adopt Daml models from Splice 0.6.9 (incl. CIP-0119) was voted down 4-9, but reject reasons read "per the request to postpone by a week": a coordinated postponement executed through the ballot box, not opposition.', status:'Rejected', major:false },
 ];
 
 const EVENTS = [

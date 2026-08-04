@@ -14,8 +14,8 @@
     --surface2: #F7F9FB;
     --border: #E7E9EB;
     --b2: #D7D9DB;
-    --text: #58595B;
-    --muted: #939597;
+    --text: #3B3C3E;
+    --muted: #6C6E70;
     --ink: #191B1C;
     --accent: #406E90;
     --accent2: #325170;
@@ -220,17 +220,6 @@
   }
   .company-card a[href] { color: #406E90; }
   .company-card a[href]:hover { text-decoration: underline; }
-  .co-url { margin-top: 4px; }
-  .co-url a, .company-card .co-url a[href] {
-    display: inline;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    font-weight: 400;
-    color: #406E90;
-    text-decoration: none;
-    border-bottom: 1px dotted rgba(64,110,144,.55);
-  }
-  .co-url a:hover { border-bottom-style: solid; text-decoration: none; }
   #tooltip {
     position: fixed;
     background: var(--surface2);
@@ -461,12 +450,9 @@ function showCategory(cat) {
       : `<a title="${esc(c.name)}">${esc(c.name)}</a>`;
     const countryEl = c.country && c.country !== 'nan'
       ? `<div class="co-country">${esc(c.country)}</div>` : '';
-    const domain = hasUrl ? c.url.replace(/^https?:\/\//,'').replace(/^www\./,'').replace(/\/.*$/,'') : '';
-    const urlEl = hasUrl
-      ? `<div class="co-url"><a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(domain)} \u2197</a></div>` : '';
     const descEl = c.desc && c.desc.trim()
       ? `<div class="co-desc">${esc(c.desc)}</div>` : '';
-    return `<div class="company-card" data-name="${esc(c.name.toLowerCase())}">${nameEl}${countryEl}${urlEl}${descEl}</div>`;
+    return `<div class="company-card" data-name="${esc(c.name.toLowerCase())}">${nameEl}${countryEl}${descEl}</div>`;
   }).join('');
 
   cv.innerHTML = `
